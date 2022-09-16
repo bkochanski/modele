@@ -1,6 +1,6 @@
-book_filename: "MY_BOOK_NAME"
+book_filename: "modele"
 chapter_name: "Rozdział "
-# repo: https://github.com/bkochanski/MY_BOOK_NAME
+repo: https://github.com/bkochanski/modele
 output_dir: docs
 clean: [packages.bib, bookdown.bbl]
 new_session: yes

@@ -1,5 +1,5 @@
 --- 
-title: "MY_BOOK_TITLE"
+title: "Modele rynku kapitałowego"
 author: "Błażej Kochański"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -7,9 +7,9 @@ documentclass: book
 bibliography: [book.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: bkochanski/MY_BOOK_NAME
-url: 'http\://seankross.com/bookdown-start/'
-description: "SZABLON_KSIĄŻKI_NA_BOOKDOWN"
+github-repo: bkochanski/modele
+url: 'http\://bookdown.org/blazej_kochanski/modele/'
+description: "Skrypt przedmiotu Modele rynku kapitałowego 2022"
 ---
 
 # Preface {-}
