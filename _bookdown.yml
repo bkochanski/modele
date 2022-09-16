@@ -1,0 +1,6 @@
+book_filename: "MY_BOOK_NAME"
+chapter_name: "Rozdział "
+# repo: https://github.com/bkochanski/MY_BOOK_NAME
+output_dir: docs
+clean: [packages.bib, bookdown.bbl]
+new_session: yes
