@@ -1,0 +1,26 @@
+# Stopy zwrotu {#stopyzwrotu}
+
+## Stopy zwrotu - definicje
+
+## Hipotezy dotyczące dni handlu...
+
+## Margin trading (Handel z wykorzystaniem depozytu zabezpieczającego)
+
+<https://bossa.pl/edukacja/kontrakty-opcje/kontrakty-terminowe/depozyty>
+
+<!--The initial margin is the ratio of initial cash on the margin account
+to the purchase value of the securities. For example, in the US, the Federal Reserve imposes a minimum of 50% (can be set higher by brokers). 
+-->
+
+Wstępny depozyt zabezpieczający to stosunek początkowej gotówki na rachunku depozytowym do wartości zakupu papierów wartościowych. Na przykład Rezerwa Federalna wymaga 50% (https://www.investopedia.com/terms/i/initialmargin.asp) - brokerzy oczywiście mogą nałożyć wyższe wymogi.    
+
+<!--The maintenance margin is the minimum required ratio of cash on the margin account and current market value of securities. Margin serves as a buffer protecting the broker against losses. Once below the maintenance level, the investor receives a margin call asking her to deposit
+additional cash or liquidate some securities. If not, the broker is authorized to restore
+satisfaction of margin requirements by the latter method. The leverage implied by
+margining (also known as gearing, or debt-financing of trades) increases volatility
+and risk, i.e. both the upside and the downside return potential increases.
+-->
+
+Właściwy depozyt zabezpieczający (tzw. depozyt utrzymania) to minimalny wymagany stosunek środków pieniężnych na rachunku zabezpieczającym do bieżącej wartości rynkowej papierów wartościowych. Depozyt służy jako bufor chroniący brokera przed stratami. Gdy spadnie poniżej poziomu utrzymania, inwestor otrzymuje wezwanie do uzupełnienia depozytu zabezpieczającego z prośbą o zdeponowanie dodatkowej gotówki lub likwidację niektórych papierów wartościowych. Jeśli nie, broker jest upoważniony do przywrócenia spełnienia wymogów depozytu zabezpieczającego tą drugą metodą. Dźwignia implikowana przez depozyt zabezpieczający ( dźwignia finansowa lub finansowanie dłużne transakcji) zwiększa zmienność i ryzyko, tj. wzrasta zarówno potencjał zwrotu w górę, jak i w dół.
+
+(Linton, )

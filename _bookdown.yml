@@ -4,3 +4,13 @@ repo: https://github.com/bkochanski/modele
 output_dir: docs
 clean: [packages.bib, bookdown.bbl]
 new_session: yes
+language:
+  label:
+    fig: 'Rysunek '
+    tab: 'Tabela '
+    eq: 'Równanie '
+    def: 'Definicja '
+    exm: 'Przykład '
+    exr: 'Zadanie '
+    solution: 'Rozwiązanie. '
+

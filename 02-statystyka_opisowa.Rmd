@@ -1,0 +1,14 @@
+# Statystyka opisowa {#statystyka_opisowa}
+
+## Średnie
+
+## CAAGR
+
+## Wariancja i odchylenie standardowe
+
+## Skośność
+
+## Kurtoza
+
+
+

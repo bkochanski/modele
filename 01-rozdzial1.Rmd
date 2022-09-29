@@ -1,4 +1,0 @@
-# Wstęp {#wstep}
-
-To jest pierwszy rozdział.
-

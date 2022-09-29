@@ -12,7 +12,10 @@ url: 'http\://bookdown.org/blazej_kochanski/modele/'
 description: "Skrypt przedmiotu Modele rynku kapitałowego 2022"
 ---
 
-# Preface {-}
+# Wprowadzenie {-}
 
-Szablon powstał na podstawie [tego materiału].
-<https://seankross.com/2016/11/17/How-to-Start-a-Bookdown-Book.html>
+Zaczątek skryptu dla przedmiotu Modele rynku kapitałowego. Skrypt będzie w najbliższym czasie podlegał ciągłym zmianom...
+
+Model - uproszczenie rzeczywistości, często w formie matematycznej.  
+
+Rynek kapitałowy (<https://pl.wikipedia.org/wiki/Rynek_kapita%C5%82owy>) - kupno i sprzedaż obligacji, głównie poprzez giełdy. 
