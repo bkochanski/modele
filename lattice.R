@@ -1,8 +1,3 @@
-# Modele wędrówki cen {#zmianycen}
-
-## Model siatki dwumianowej
-
-``` {r bintree, echo=FALSE, fig.cap='Model siatki dwumianowej'}
 library(ggplot2)
 ar<-data.frame(x0=c(0,0,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3)+0.05,
                    y0=c(0,0,1,1,-1,-1,2,2,0,0,-2,-2,3,3,1,1,-1,-1,-3,-3),
@@ -30,47 +25,4 @@ ggplot(aes(x=x0, y=y0+.4), data=po) +
   geom_text(aes(label=label0), parse=TRUE) +
   geom_text(aes(x=xp, y=yp+.3, label=labelp), data=ar, col='grey')
 
-```
-
-Jeżeli:
-
-- $\nu$ to oczekiwana roczna stopa wzrostu:
-
-\begin{equation}
-\nu = E[ln(S_T/S_0)]
-(\#eq:lattice-E)
-\end{equation}, 
-
-gdzie $S_T$ to cena akcji po roku, a $S_0$ to bieżąca cena;
-
-- $\sigma$ to roczne odchylenie standardowe stopy wzrostu (jako miara jej niepewności):
-
-\begin{equation}
-\sigma = \sqrt{Var[ln(S_T/S_0)]}
-(\#eq:lattice-sigma)
-\end{equation}
-
-- okres $\Delta t$ jest znikomo mały w porównaniu z 1 rokiem, 
-
-to parametry modelu siatki dwumianowej można wyznaczyć w następujący sposób:
-
-\begin{equation}
-p = \frac{1}{2} + \frac{1}{2} \cdot \frac{\nu}{\sigma}\sqrt{\Delta t}
-(\#eq:lattice-p)
-\end{equation}
-
-\begin{equation}
-u = e^{\sigma\sqrt{\Delta t}}
-(\#eq:lattice-u)
-\end{equation}
-
-\begin{equation}
-u = e^{-\sigma\sqrt{\Delta t}}
-(\#eq:lattice-d)
-\end{equation}
-
-[Model siatki dwumianowej w arkuszu kalkulacyjnym](<https://www.youtube.com/watch?v=nGLaMDRTWuY>). 
-
-## Model addytywny
-
-
+             

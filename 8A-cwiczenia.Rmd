@@ -2,44 +2,8 @@
 
 # Ćwiczenia {#cwiczenia}
 
-## Stopy zwrotu
-<!-- Ruppert 2.6.3
-Suppose the price of a stock at times 1, 2, and 3 are P1 = 95, P2 = 103, and P3 = 98. Find r3(2).
--->
-
-:::{.exercise #rup263}
-Załóżmy, że kurs pewnej akcji w momencie 1, 2 i 3 wynosił $P_1$=95, $P_2$=103 i $P_3$ = 98. 
-Znajdź $r_3(2)$.
-:::
 
 
-<!-- Ruppert 2.6.4
-The prices and dividends of a stock are given in the table below.
-(a) What is R2?
-(b) What is R4(3)?
-(c) What is r3?
-t Pt Dt
-1 52 0.2
-2 54 0.2
-3 53 0.2
-4 59 0.25
--->
-
-:::{.exercise #rup264}
-Ceny akcji i dywidendy pewnej spółki zostały podane w poniższej tabeli.
-
-(a) Ile wynosi $R_2$?
-
-(b) Ile wynosi $R_4(3)$?
-
-(c) Ile wynosi $r_3$?
-
-```{r echo=FALSE}  
-df<-data.frame(t=1:4, Pt=c(52, 54, 53, 59), Dt=c(.2, .2, .2, .25))
-colnames(df)<-c("$t$", "$P_t$", "$D_t$")
-knitr::kable(df)
-```
-:::
 
 
 <!-- Ruppert 2.6.1
