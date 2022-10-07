@@ -56,9 +56,11 @@ Powiązanie pomiędzy obiema stopami zwrotu jest oczywiste:
 (\#eq:rate-of-return-stocks)
 \end{equation}
 
+W języku codziennym, jak i w profesjonalnym języku finansistów, to, czy mówimy o stopie zwrotu brutto czy netto często wynika z kontekstu. Na przykład "_inwestycja przyniosła zwrot trzykrotny_" oznacza, że $\mathcal{R}$ = 3 ($R$ = 2), zaś "_mieliśmy 20-procentowy zwrot z inwestycji_" oznacza $R$ = 0,2 ($\mathcal{R}$ = 1,2).
+
 ### Logarytmiczna stopa zwrotu
 
-Logarymiczna stopa zwrotu (_log return_), inaczej zwana stopą zwrotu przy kapitalizacji ciągłej, oznaczana w tym skrypcie przez $r$ może być zdefiniowana następująco:
+Logarytmiczna stopa zwrotu (_log return_), inaczej zwana stopą zwrotu przy kapitalizacji ciągłej, oznaczana w tym skrypcie przez $r$ może być zdefiniowana następująco:
 
 \begin{equation}
 r_t = \ln(\mathcal{R_t}) = \ln(1+R_t)
@@ -68,7 +70,7 @@ r_t = \ln(\mathcal{R_t}) = \ln(1+R_t)
 W przypadku braku dywidend:
 
 \begin{equation}
-r_t = \ln\left(\frac{P_t}{P_{t-1}}\right)=p_t-p_{t-1}
+r_t = \ln\left(\frac{P_t}{P_{t-1}}\right)=\ln P_t-\ln P_{t-1}
 (\#eq:log-return-stocks2)
 \end{equation}
 
@@ -84,9 +86,26 @@ r_t(k) = \ln\left(\mathcal{R_t(k)}\right) = \ln(\mathcal{R_t}\cdot\mathcal{R_{t-
 (\#eq:multi-log-sum)
 \end{equation}
 
-## Hipotezy dotyczące dni handlu...
+### Indeksy
 
-## Margin trading (Handel z wykorzystaniem depozytu zabezpieczającego)
+Indeksy są zdefiniowane dla zestawu papierów (akcji) $j = 1, ..., n$ na podstawie pewnego sposobu ważenia $\{w_{jt}\}$, który w ogólności zmienia się w czasie. 
+
+\begin{equation}
+I_t = \sum_{j=1}^{n}w_{jt}P{jt}
+(\#eq:index1)
+\end{equation}
+
+Na przykład, jeżeli $w_{jt} = 1/n$, to indeks jest "indeksem o wagach równych". Mamy również indeksy ważone ceną i kapitalizacją (<https://en.wikipedia.org/wiki/Stock_market_index>). 
+
+## Hipotezy dotyczące dni handlu
+
+__Hipoteza czasu handlu__. Wyceny aktywów zmieniają się tylko podczas handlu na giełdzie, więc zwroty są generowane tylko wtedy, gdy odbywa się handel.
+
+__Hipoteza czasu kalendarzowego__. Wyceny aktywów zmieniają się w sposób ciągły, a zwroty są generowane w czasie kalendarzowym. 
+
+Co się dzieje w weekendy według tych dwóch hipotez?
+
+## _Margin trading_ (Handel z wykorzystaniem depozytu zabezpieczającego)
 
 <https://bossa.pl/edukacja/kontrakty-opcje/kontrakty-terminowe/depozyty>
 
@@ -94,7 +113,7 @@ r_t(k) = \ln\left(\mathcal{R_t(k)}\right) = \ln(\mathcal{R_t}\cdot\mathcal{R_{t-
 to the purchase value of the securities. For example, in the US, the Federal Reserve imposes a minimum of 50% (can be set higher by brokers). 
 -->
 
-Wstępny depozyt zabezpieczający to stosunek początkowej gotówki na rachunku depozytowym do wartości zakupu papierów wartościowych. Na przykład Rezerwa Federalna wymaga 50% (https://www.investopedia.com/terms/i/initialmargin.asp) - brokerzy oczywiście mogą nałożyć wyższe wymogi.    
+__Wstępny depozyt zabezpieczający__ to stosunek początkowej gotówki na rachunku depozytowym do wartości zakupu papierów wartościowych. Na przykład Rezerwa Federalna wymaga 50% (https://www.investopedia.com/terms/i/initialmargin.asp) - brokerzy oczywiście mogą nałożyć wyższe wymogi.    
 
 <!--The maintenance margin is the minimum required ratio of cash on the margin account and current market value of securities. Margin serves as a buffer protecting the broker against losses. Once below the maintenance level, the investor receives a margin call asking her to deposit
 additional cash or liquidate some securities. If not, the broker is authorized to restore
@@ -103,9 +122,20 @@ margining (also known as gearing, or debt-financing of trades) increases volatil
 and risk, i.e. both the upside and the downside return potential increases.
 -->
 
-Właściwy depozyt zabezpieczający (tzw. depozyt utrzymania) to minimalny wymagany stosunek środków pieniężnych na rachunku zabezpieczającym do bieżącej wartości rynkowej papierów wartościowych. Depozyt służy jako bufor chroniący brokera przed stratami. Gdy spadnie poniżej poziomu utrzymania, inwestor otrzymuje wezwanie do uzupełnienia depozytu zabezpieczającego z prośbą o zdeponowanie dodatkowej gotówki lub likwidację niektórych papierów wartościowych. Jeśli nie, broker jest upoważniony do przywrócenia spełnienia wymogów depozytu zabezpieczającego tą drugą metodą. Dźwignia implikowana przez depozyt zabezpieczający ( dźwignia finansowa lub finansowanie dłużne transakcji) zwiększa zmienność i ryzyko, tj. wzrasta zarówno potencjał zwrotu w górę, jak i w dół.
+__Właściwy depozyt zabezpieczający__ (tzw. wymagany depozyt utrzymania) to minimalny wymagany stosunek środków pieniężnych na rachunku zabezpieczającym do bieżącej wartości rynkowej papierów wartościowych. Depozyt służy jako bufor chroniący brokera przed stratami. Gdy spadnie poniżej poziomu utrzymania, inwestor otrzymuje wezwanie do uzupełnienia depozytu zabezpieczającego z prośbą o zdeponowanie dodatkowej gotówki lub likwidację niektórych papierów wartościowych. Jeśli nie, broker jest upoważniony do przywrócenia spełnienia wymogów depozytu zabezpieczającego tą drugą metodą. Dźwignia implikowana przez depozyt zabezpieczający ( dźwignia finansowa lub finansowanie dłużne transakcji) zwiększa zmienność i ryzyko, tj. wzrasta zarówno potencjał zwrotu w górę, jak i w dół.
 
-(Linton, )
+## Krótka sprzedaż
+
+<!--
+Using long strategies, one wishes to buy low and sell high, thus profiting from a price increase. With short-selling, one borrows a security (implies debt in security units) hoping to sell high and later buy back low, thus profiting from a price fall. This can be viewed as borrowing money with the rate of interest being the return on the security in question, where the short-sellers wish the return to be as low as possible. Securities are borrowed from a broker. Short-sellers can cover the short position at any time by purchasing the security back (they pay fees as well as any dividends to the lender).
+Proceeds from short sales kept on the margin account plus additional margin (cash or securities) must be posted.
+-->
+
+Przy zwykłym inwestowaniu (pozycjach długich), inwestor chciałby kupować tanio i sprzedawać drogo - czyli zarabiać na wzrostach cen. W przypadku krótkiej sprzedaży, inwestor pożycza papier wartościowy (zaciąga dług wyrażony ilością pożyczonych papierów) mając nadzieję, że sprzeda drogo, a potem odkupi tanio, tym samym zarabiając na spadku cen. Można na to spojrzeć, jak na zaciąganie długu oprocentowanego stopą będącą stopą zwrotu danego papieru wartościowego - inwestor zaciągający krótką pozycję chciałby, żeby ta stopa zwrotu była jak najniższa, najlepiej ujemna. 
+
+Papiery wartościowe pożycza się od brokera. Zajmujący krótką pozycję mogą ją zamknąć w każdym momencie odkupując papier wartościowy (oraz pokrywając opłaty i dywidendy). 
+
+W przypadku krótkiej sprzedaży również obowiązuje utrzymywanie odpowiednich depozytów. 
 
 ## Zadania
 
@@ -117,6 +147,14 @@ W biblijnej [przypowieści o talentach](<https://pl.wikipedia.org/wiki/Przypowie
 Pokaż na wykresie, że logarytmiczna stopa zwrotu jest zbliżona do prostej stopy zwrotu netto dla wartości tej drugiej pomiędzy -0,2 i 0,2.
 :::
 
+:::{.exercise #netvslog2}
+Cena w momencie $t_0$ wynosi $P_0=100$. Ile wynosi cena $P_2$, jeżeli (przy braku dywidend):
+
+a) $R_1$ = 0,1 (10%), $R_2$ = -0,1 (-10%)
+
+b) $r_1$ = 0,1, $r_2$ = -0,1
+
+:::
 <!-- Ruppert 2.6.3
 Suppose the price of a stock at times 1, 2, and 3 are P1 = 95, P2 = 103, and P3 = 98. Find r3(2).
 -->
@@ -170,4 +208,47 @@ e) $\mathcal{R_1}=0,9$
 
 f) $\mathcal{R_1}=0,99$
 :::
+
+<!--
+Suppose initial margin requirement 50%, maintenance margin 25%. Investor buys 100 shares at the price of $100, i.e. pays $10,000 in total, borrowing $4,000. Own capital/equity is $6,000 and the initial margin is 60%. If the share price fell to $70, the investor’s equity would become $3,000 and the percentage margin $3,000/$7,000 = 43%. Investor’s equity would become negative if the price P fell below $40 (implies a loss for the broker). Margin call if the price fell $53.33:
+100P - 4,000
+100P = 0.25.
+If the borrowing rate is 5% and the price goes up by 20%, the investor’s return is
+12,000 - 4,200 - 6,000
+6,000 = 30% > 20%.
+-->
+
+:::{.exercise #margin1}
+Załóżmy, że wymagany wstępny depozyt zabezpieczający wynosi 50\%, wymagany depozyt utrzymania wynosi 25\%. Inwestor kupuje 100 akcji, każda po 100 USD, czyli płaci 10 tys. USD, przy czym 4 tys. USD pożycza od brokera. Wynika z tego, że wkład własny (kapitał własny) inwestycji to 6 tysięcy złotych. 
+
+a) Ile wynosi rzeczywisty wstępny depozyt zabezpieczający? Czy jest on powyżej wymaganego poziomu?
+
+b) Gdyby cena akcji spadła do 70 USD, ile wyniósł by kapitał własny inwestycji? Ile wyniósłby rzeczywisty procentowy depozyt utrzymania w takiej sytuacji? Czy byłby on powyżej wymaganego poziomu?
+
+c) Przy jakiej cenie nastąpiłby "margin call" (wezwanie do uzupełnienia depozytu)?
+
+d) Przy jakiej cenie kapitał własny inwestycji byłby ujemny (broker poniósłby stratę, w przypadku nie podjęcia działań zabezpieczających)?
+
+e) Oprocentowanie pożyczki wynosi 5\%, cena w momencie sprzedaży jest wyższa od początkowej o 20\%. Ile wynosi stopa zwrotu z inwestycji?
+
+f) Jeżeli cena w momencie sprzedaży jest niższa od początkowej o 20\%. Ile wynosi stopa zwrotu z inwestycji?
+:::
+
+<!--Linton 1.3.2
+Investor borrows 100 shares from a broker who locates the securities, i.e. borrows from other
+clients or outside institutional investors. She sells the shares short at the current price $100 so
+that $10,000 is credited to her account. To satisfy the initial margin requirement of 50%, she
+must additionally deposit cash or securities (e.g. T-bills) worth at least $5,000 (5,000/10,000 =
+50%) so that in total $15,000 are on the account. If the price P declines to $75, she covers the
+position and takes a profit of $2,500. If the maintenance margin is 30% there would be a margin
+call if the share price rises above $115.38:-->
+
+:::{.exercise #short1}
+Inwestorka pożycza 100 akcji od brokera, a następnie sprzedaje krótko akcje po cenie 100 USD za akcję, co oznacza, że na jej rachunek trafia 10000 USD. Dodatkowo, żeby spełnić wymóg wstępnego depozytu zabezpieczającego w wysokości 50\%, inwestorka dodatkowo musi złożyć w depozycie gotówkę lub papiery wartościowe (np. bony skarbowe) o wartości przynajmniej 5000 USD, co oznacza, że na rachunku ma 15 tys. USD. 
+
+Jaki będzie zysk inwestorki, z pominięciem opłat, jeżeli w momencie zamknięcia pozycji cena jednej akcji będzie wynosić 75 USD?
+
+Przy jakiej cenie akcji nastąpi wezwanie do uzupełnienia depozytu zabezpieczającego (_margin call_), jeżeli wymagany depozyt utrzymania to 30\%?
+:::
+
 

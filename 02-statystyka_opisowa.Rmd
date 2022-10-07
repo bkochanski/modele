@@ -1,14 +1,65 @@
 # Statystyka opisowa {#statystyka_opisowa}
 
-## Średnie
+## Rozkład jednej cechy
 
-## CAAGR
+### Średnie
 
-## Wariancja i odchylenie standardowe
+### CAAGR
 
-## Skośność
+### Wariancja i odchylenie standardowe
 
-## Kurtoza
+### Skośność
 
+### Kurtoza
+
+## Współzależność wielu cech
+
+### Kowariancja
+
+### Korelacja
+
+
+## Ćwiczenia
+
+<!--Linton 4 
+Recently, Warren Buffett has predicted that the Dow Jones index will exceed one million in a hundred years time. Given that the current level of the index is 22400, what annual rate of return is he assuming?
+
+https://www.cnbc.com/2017/09/21/dow-1-million-warren-buffett-says-it-can-happen.html
+
+-->
+
+:::{.exercise #linton4}
+W 2017 roku Warren Buffett przewidział, że indeks Dow Jones przekroczy milion w ciągu stu lat. Biorąc pod uwagę, że w momencie wygłaszania tej prognozy wartość indeksu DJIA wynosiła 22375, jaką zakładał roczną stopę zwrotu?
+:::
+
+:::{.exercise #sbbi}
+SBBI to raport przygotowywany przez CFA Institute, który pokazuje stopy zwrotu rynku amerykańskiego dla dużych spółek (__Large-Cap Stocks__), mniejszych spółek (__Small-Cap Stocks__), obligacji korporacyjnych (__Long-term Corp Bonds__), długoterminowych obligacji rządowych (__Long-term Gov't Bonds__), średnioterminowych obligacji rządowych (__Inter-term Gov't Bonds__), krótkoterminowych bonów skarbowych (__U.S. Treasury Bills__) oraz wskaźnik (__Inflation__). 
+
+Roczne stopy zwrotu dla lat 1926-2015 są dostępne pod poniższym linkiem: <https://docs.google.com/spreadsheets/d/1rfE78O1POHpQl15AQU2gtp15cV7h9JLNeAkRN66TNqE/edit?usp=sharing>
+
+Dla każdej z tych grup aktywów wyznacz dla okresu 1926-2015: 
+
+a) średnią prostą stopę zwrotu netto
+
+b) średnią geometryczną prostą stopę zwrotu netto (CAAGR)
+
+c) odchylenie standardowe prostych stóp zwrotu netto
+
+d) skośność i kurtozę prostych stóp zwrotu netto
+
+e) średnią logarytmiczną stopę zwrotu
+
+f) odchylenie standardowe logartymicznych stóp zwrotu
+
+g) skośność i kurtozę logarytmicznych stóp zwrotu
+:::
+
+:::{.exercise #ticker-of-choice1}
+Dla wybranej spółki ściągnij dane z bazy yahoo i wyznacz statystyki określone w poprzednim zadaniu dla dziennych stóp zwrotu i miesięcznych stóp zwrotu. Użyj cen adjusted close.   
+:::
+
+:::{.exercise #ticker-of-choice2}
+Dla wybranej spółki sprawdź, czy dzienne stopy zwrotu obejmujące weekend są wyższe niż dzienne stopy zwrotu w inne dni tygodnia.   
+:::
 
 

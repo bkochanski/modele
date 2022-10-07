@@ -1,3 +1,32 @@
 # Zmienne losowe
 
+<!--Luenberger 1. 
+Two dice are rolled and the two resulting values are multiplied together to form the quantity $z$. What are the expected value and the variance of the random variable $z$? (Hint: Use the independence of the two separate dice)-->
 
+:::{.exercise #diceproduct}
+Rzucamy dwiema kośćmi do gry i mnożymy otrzymane wyniki: w ten sposób powstaje zmienna $z$. Jaka jest wartość oczekiwana i wariancja zmiennej losowej $z$? (Wskazówka: rzuty koścmi należy traktować jako zdarzenia niezależne.)
+:::
+
+
+<!-- Ruppert 2.6.1
+The daily log returns on a stock are independent and normally distributed with mean 0.001 and standard deviation 0.015. Suppose you buy $1000 worth of this stock.
+(a) What is the probability that after one trading day your investment  is worth less than $990? (Note: The R function pnorm will compute a normal CDF, so, for example, pnorm(0.3,mean=0.1,sd=0.2) is the normal CDF with mean 0.1 and standard deviation 0.2 evaluated at
+0.3.)
+(b) What is the probability that after five trading days your investment is worth less than $990?
+-->
+
+:::{.exercise #rup261}
+Dzienne zwroty z akcji ZZZ są niezależne i mają rozkład normalny ze średnią 0,001 i odchyleniem standardowym 0,015. Załóżmy, że kupujemy te akcje za 1000 USD.
+(a) Jakie jest prawdopodobieństwo, że po jednym dniu handlowym inwestycja będzie warta mniej niż 990 USD? 
+(b) Jakie jest prawdopodobieństwo, że po pięciu dniach handlowych inwestycja będzie warta mniej niż 990 USD?
+:::
+
+<!-- Ruppert 2.6.2
+The yearly log returns on a stock are normally distributed with mean 0.1
+and standard deviation 0.2. The stock is selling at $100 today. What is
+the probability that one year from now it is selling at $110 or more?
+-->
+
+:::{.exercise #rup262}
+Roczne logarytmiczne zwroty akcji spółki PRS mają rozkład normalny ze średnią równą 0,1 i odchyleniem standardowym równym 0,2. Dzisiejszy kurs akcji spółki PRS to 100 USD. Jakie jest prawdopodobieństwo, że za rok kurs będzie wynosił 110 USD lub więcej?
+:::
