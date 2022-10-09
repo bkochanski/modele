@@ -4,6 +4,7 @@
 Two dice are rolled and the two resulting values are multiplied together to form the quantity $z$. What are the expected value and the variance of the random variable $z$? (Hint: Use the independence of the two separate dice)-->
 
 :::{.exercise #diceproduct}
+[@Luenberger_2003]
 Rzucamy dwiema kośćmi do gry i mnożymy otrzymane wyniki: w ten sposób powstaje zmienna $z$. Jaka jest wartość oczekiwana i wariancja zmiennej losowej $z$? (Wskazówka: rzuty koścmi należy traktować jako zdarzenia niezależne.)
 :::
 
@@ -16,6 +17,7 @@ The daily log returns on a stock are independent and normally distributed with m
 -->
 
 :::{.exercise #rup261}
+[@Ruppert_Matteson_2015]
 Dzienne zwroty z akcji ZZZ są niezależne i mają rozkład normalny ze średnią 0,001 i odchyleniem standardowym 0,015. Załóżmy, że kupujemy te akcje za 1000 USD.
 (a) Jakie jest prawdopodobieństwo, że po jednym dniu handlowym inwestycja będzie warta mniej niż 990 USD? 
 (b) Jakie jest prawdopodobieństwo, że po pięciu dniach handlowych inwestycja będzie warta mniej niż 990 USD?
@@ -28,5 +30,6 @@ the probability that one year from now it is selling at $110 or more?
 -->
 
 :::{.exercise #rup262}
+[@Ruppert_Matteson_2015]
 Roczne logarytmiczne zwroty akcji spółki PRS mają rozkład normalny ze średnią równą 0,1 i odchyleniem standardowym równym 0,2. Dzisiejszy kurs akcji spółki PRS to 100 USD. Jakie jest prawdopodobieństwo, że za rok kurs będzie wynosił 110 USD lub więcej?
 :::

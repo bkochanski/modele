@@ -29,7 +29,8 @@ https://www.cnbc.com/2017/09/21/dow-1-million-warren-buffett-says-it-can-happen.
 -->
 
 :::{.exercise #linton4}
-W 2017 roku Warren Buffett przewidział, że indeks Dow Jones przekroczy milion w ciągu stu lat. Biorąc pod uwagę, że w momencie wygłaszania tej prognozy wartość indeksu DJIA wynosiła 22375, jaką zakładał roczną stopę zwrotu?
+[@Linton_2019]
+W 2017 roku Warren Buffett [przewidział, że indeks Dow Jones przekroczy milion w ciągu stu lat](<https://www.cnbc.com/2017/09/21/dow-1-million-warren-buffett-says-it-can-happen.html>). Biorąc pod uwagę, że w momencie wygłaszania tej prognozy wartość indeksu DJIA wynosiła 22375, jaką zakładał roczną stopę zwrotu?
 :::
 
 :::{.exercise #sbbi}
