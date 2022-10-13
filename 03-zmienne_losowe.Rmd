@@ -1,5 +1,94 @@
 # Zmienne losowe
 
+Zmienna losowa to matematyczna formalizacja wielkości, której wartość zależy od przypadku. 
+
+Często wyróżnia się zmienne [losowe dyskretne (skokowe)](<https://pl.wikipedia.org/wiki/Dyskretny_rozk%C5%82ad_prawdopodobie%C5%84stwa>) i [ciągłe](<https://pl.wikipedia.org/wiki/Ci%C4%85g%C5%82y_rozk%C5%82ad_prawdopodobie%C5%84stwa>). __Zmienne ciągłe__ mogą przyjmować _dowolną_ wartość w określonym _przedziale_ (na przykład od zera do nieskończoności), zaś __zmienne skokowe__ mogą przyjmować wartości oddalone od siebie na osi liczbowej (na przykład tylko nieujemne liczby całkowite) i _nic pomiędzy_.
+
+## Rozkład prawdopodobieństwa
+
+Rozkład prawdopodobieństwa to miara umożliwiająca określenie prawdopodobieństw poszczególnych wartości tej zmiennej. Rozkłady prawdopodobieństwa można przedstawić w formie tabeli albo w formie funkcji. Forma tabelaryczna przydaje się, jeżeli zmienna losowa jest dyskretna i ma niewiele możliwych wartości. 
+
+Przykład rozkładu prawdopodobieństwa zmiennej X, oznaczającej np. liczbę orłów w dwóch rzutach symetryczną monetą: 
+
+```{r echo=FALSE} 
+options(OutDec=",")
+df<-data.frame(x=0:2, px=c(.25, .5, .25))
+colnames(df)<-c("$x$", "$p(x)$")
+knitr::kable(df, align = "cc")
+```
+
+## Wartość oczekiwana
+
+Wartość oczekiwana (ang. _expected value_) to średnia zmiennej losowej o danym rozkładzie prawdopodobieństwa. Zamiast terminu "wartość oczekiwana" używa się także pojęcia "nadzieja matematyczna".
+
+Dla zmiennej losowej dyskretnej o skończonej liczbie wartości $m$ (indeksowanych od $x_1$ do $x_m$) wartość oczekiwaną można wyznaczyć następującym wzorem:
+
+\begin{equation}
+\mu=E(X)=\sum_{i=1}^m x_i p(x_i)
+(\#eq:dyskrm-E-intext)
+\end{equation}
+
+Analogicznie, jeżeli liczba wartości przyjmowanych przez dyskretną zmienną losową jest nieskończona, wzór ma taką postać:
+
+\begin{equation}
+\mu=E(X)=\sum_{i=1}^\infty x_i p(x_i)
+(\#eq:dyskri-E-intext)
+\end{equation}
+
+W uproszczeniu zapisujemy to w ten sposób:
+
+\begin{equation}
+\mu=E(X)=\sum x p(x)
+(\#eq:dyskr-E-intext)
+\end{equation}
+
+Dla zmiennej losowej ciągłej wzór przyjmuje następującą postać:
+
+\begin{equation}
+\mu=E(X)=\int_{-\infty}^{\infty} x f(x) dx 
+(\#eq:ciaglg-E-intext)
+\end{equation}
+
+W uproszczonym zapisie będziemy pomijać granice całkowania:
+
+\begin{equation}
+\mu=E(X)=\int x f(x) dx 
+(\#eq:ciagl-E-intext)
+\end{equation}
+
+## Wariancja i odchylenie standardowe
+
+Wariancję zmiennej losowej oznaczamy przez $V(X)$ albo $\sigma^2_X$ (lub po prostu $\sigma^2$) i wyznaczamy za pomocą wzoru:
+
+\begin{equation}
+\sigma^2=V(X)=E[(X-\mu)^2]
+(\#eq:V-intext)
+\end{equation}
+
+Dla zmiennych dyskretnych:
+
+\begin{equation}
+\sigma^2=E[(X-\mu)^2]=\sum (x-\mu)^2 p(x) = \sum x^2 p(x)-\mu^2
+(\#eq:dyskr-V-intext)
+\end{equation}
+
+Dla zmiennych ciągłych:
+
+\begin{equation}
+\sigma^2=E[(X-\mu)^2]=\int (x-\mu)^2 f(x) dx = \int x^2 f(x) dx-\mu^2
+(\#eq:ciagl-V-intext)
+\end{equation}
+
+Odchylenie standardowe zmiennej losowej to pierwiastek z wariancji:
+
+\begin{equation}
+\sigma=\sqrt{\sigma^2}
+(\#eq:S-intext)
+\end{equation}
+
+
+## Ćwiczenia
+
 <!--Luenberger 1. 
 Two dice are rolled and the two resulting values are multiplied together to form the quantity $z$. What are the expected value and the variance of the random variable $z$? (Hint: Use the independence of the two separate dice)-->
 
