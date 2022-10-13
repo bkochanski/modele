@@ -92,7 +92,7 @@ r_t = \ln\left(\frac{P_t}{P_{t-1}}\right)=\ln P_t-\ln P_{t-1}
 (\#eq:log-return-stocks2)
 \end{equation}
 
-Dla niskich stóp zwrotu wartości logarytmicznej i prostej stopy zwrotu netto są zbliżone. 
+Jeżeli stopy zwrotu są względnie niskie, na przykład w przedziale $(-0,2; 0,2)$, to wartości stopy logarytmicznej i prostej stopy zwrotu netto są zbliżone. 
 
 Zaletą stóp logarytmicznych jest prosta zależność pomiędzy jednookresowymi i wielookresowymi stopami zwrotu:
 

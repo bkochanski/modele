@@ -2,17 +2,166 @@
 
 ## Rozkład jednej cechy
 
+W modelowaniu rynku kapitałowego narzędzia statystyki opisowej są potrzebne, żeby opisać kształtowanie się stóp zwrotu w przeszłości. Z kolei, na podstawie danych z przeszłości można wnioskować o rozkładzie prawdopodobnych stóp zwrotu w przyszłości. Poniżej opisano sposób opisu rozkładu jednej stopy zwrotu, w kolejnej sekcji pokazano miary współzmiennności stóp zwrotu.  
+
 ### Średnie
 
-### CAAGR
+Średnia arytmetyczna to najprostsze i podstawowe narzędzie opisu rozkładu stóp zwrotu. 
+
+Średnia prosta stopa zwrotu netto za okresy od $1$ do $n$ wynosi: 
+
+\begin{equation}  
+\bar{R} = \frac{\sum_{i=1}^n R_i}{n}
+(\#eq:sredniaR-intext)
+\end{equation}
+
+Analogicznie, średnia stopa zwrotu brutto:
+
+\begin{equation}  
+\bar{\mathcal{R}} = \frac{\sum_{i=1}^n \mathcal{R}_i}{n} = 1 + \bar{R}
+(\#eq:sredniaRp-intext)
+\end{equation}
+
+Średnia stopa logarytmiczna:
+
+\begin{equation}  
+\bar{r} = \frac{\sum_{i=1}^n r_i}{n}
+(\#eq:sredniar-intext)
+\end{equation}
+
+W arkuszach kalkulacyjnych korzystamy z funkcji ŚREDNIA (AVERAGE) - [arkusze Google](<https://support.google.com/docs/answer/3093615?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/%C5%9Brednia-funkcja-047bac88-d466-426c-a32b-8f33eb960cf6>)
+
+
+### Średnia geometryczna, CAGR
+
+Generalna definicja [średniej geometrycznej](<https://pl.wikipedia.org/wiki/%C5%9Arednia_geometryczna>) dla $m$ dodatnich liczb $x_1 - x_n$:
+
+\begin{equation}  
+G = \sqrt[n]{\prod_{i=1}^n x_i} = \sqrt[n]{x_1\cdot x_2\cdot \cdot \cdot x_n} = (x_1\cdot x_2\cdot \cdot \cdot x_n)^{1/n}
+(\#eq:sredniagx-intext)
+\end{equation}
+
+Stopy netto mogą być ujemne, więc generalna definicja nie ma zastosowania. W matematyce finansowej i w praktyce średnią geometryczną stopą zwrotu (netto) nazywa się niekiedy geometryczną średnią ze stóp zwrotu brutto w następujących po sobie okresach pomniejszoną o 1 [@DeFuscoEtAl_2007]:
+
+\begin{equation}  
+R_G = \left(\prod_{i=1}^t \mathcal{R}_i\right)^{\frac{1}{t}} - 1 = \left[\prod_{i=1}^t (1+R_i)\right]^{\frac{1}{t}} - 1
+(\#eq:sredniagR-intext)
+\end{equation}
+
+W przypadku braku dywidend:
+
+\begin{equation}  
+R_G = \left(\frac{P_t}{P_0} \right)^{\frac{1}{t}} - 1
+(\#eq:sredniagP-intext)
+\end{equation}
+
+Jak widać, gdy nie ma dywidend i pojedynczy okres stopy zwrotu wynosi jeden rok, to średnią geometryczną stopę zwrotu netto można utożsamiać ze skumulowanym rocznym wskaźnikiem wzrostu ([CAGR](<https://pl.wikipedia.org/wiki/Skumulowany_roczny_wska%C5%BAnik_wzrostu>)).
+
+Dla logarytmicznych stóp zwrotu nie liczymy średniej geometrycznej. Warto jednak zauważyć, że:
+
+\begin{equation}  
+R_G = e^{\bar{r}}-1
+(\#eq:sredniaglog-intext)
+\end{equation}
+
+W arkuszach kalkulacyjnych nie ma gotowej formuły na CAGR, mogą się jednak przydać funkcje ŚREDNIA.GEOMETRYCZNA (GEOMEAN) -- [arkusze Google](<https://support.google.com/docs/answer/3094001?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/%C5%9Brednia-geometryczna-funkcja-db1ac48d-25a5-40a0-ab83-0b38980e40d5>) oraz ILOCZYN (PRODUCT) -- [arkusze Google](<https://support.google.com/docs/answer/3093502?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/product-function-e46128aa-0cd8-4a45-915c-6a6f90c06ec8>).
+
 
 ### Wariancja i odchylenie standardowe
 
-### Skośność
+Wzór na wariancję pojawia się w dwóch wersjach: dla populacji i dla próby. 
+
+Wzór na wariancję dla populacji o liczebności $N$, na przykładzie prostych stóp zwrotu netto:
+
+\begin{equation}  
+\sigma^2_R = \frac{\sum_{i=1}^N \left(R_i-\bar{R}\right)^2}{N}
+(\#eq:varR-intext)
+\end{equation}
+
+Na wariancję dla próby o liczebności $n$:
+
+\begin{equation}  
+s^2_R = \frac{\sum_{i=1}^n \left(R_i-\bar{R}\right)^2}{n-1}
+(\#eq:varRs-intext)
+\end{equation}
+
+Ponieważ będziemy często traktować wyznaczone dane historyczne jako próbę pozwalającą wnioskować o przyszłości, __w obliczeniach praktycznych będziemy stosować wzór \@ref(eq:varRs-intext)__. 
+
+W arkuszach kalkulacyjnych korzystamy z funkcji WARIANCJA (VAR) -- [arkusze Google](<https://support.google.com/docs/answer/3094063?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/wariancja-funkcja-1f2b7ab2-954d-4e17-ba2c-9e58b15a7da2>), która jest równoznaczna z funkcją WARIANCJA.PRÓBKI (VAR.S) -- [arkusze Google](<https://support.google.com/docs/answer/9387478?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/wariancja-pr%C3%B3bki-funkcja-913633de-136b-449d-813e-65a00b2b990b>). 
+
+Aby obliczyć wariancję w populacji można wykorzystać funkcję WARIANCJA.POPUL/WARIANCJA.POP (VARP/VAR.P) -- [arkusze Google](<https://support.google.com/docs/answer/3094113?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/wariancja-pop-funkcja-73d1285c-108c-4843-ba5d-a51f90656f3a>).
+
+Odchylenie standardowe to pierwiastek z wariancji. Analogicznie, mamy wzór dla populacji i dla próby:
+
+\begin{equation}  
+\sigma_R = \sqrt{\sigma^2_R} = \sqrt{\frac{\sum_{i=1}^N \left(R_i-\bar{R}\right)^2}{N}}
+(\#eq:sdR-intext)
+\end{equation}
+
+\begin{equation}  
+s_R = \sqrt{s^2_R} = \sqrt{\frac{\sum_{i=1}^n \left(R_i-\bar{R}\right)^2}{n-1}}
+(\#eq:sdRs-intext)
+\end{equation}
+
+W arkuszach kalkulacyjnych odchylenie standardowe dla próby wyznaczamy za pomocą funkcji ODCH.STANDARDOWE (STDEV) -- [arkusze Google](<https://support.google.com/docs/answer/3094054?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/odch-standardowe-funkcja-51fecaaa-231e-4bbb-9230-33650a72c9b0>) lub (równoznacznie) ODCH.STANDARD.PRÓBKI (STDEV.S) -- [arkusze Google](<https://support.google.com/docs/answer/9387538?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/odch-standard-pr%C3%B3bki-funkcja-7d69cf97-0c1f-4acf-be27-f3e83904cc23>). 
+
+Odchylenie standardowe dla populacji można obliczyć za pomocą funkcji ODCH.STANDARD.POPUL (STDEVP) -- [arkusze Google](<https://support.google.com/docs/answer/3094105?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/odch-standard-popul-funkcja-1f7c1c88-1bec-4422-8242-e9f7dc8bb195>) albo ODCH.STAND.POPUL (STDEV.P)-- [arkusze Google](<https://support.google.com/docs/answer/9387532?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/odch-stand-popul-funkcja-6e917c05-31a0-496f-ade7-4f4e7462f285>). 
+ 
+### Skośność/asymetria
+
+Współczynnik asymetrii oparty na momentach oblicza się w następujący sposób:
+
+\begin{equation}  
+g_{1(R)} = \frac{1}{n}\sum_{i=1}^n\left(\frac{R_i-\bar{R}}{\sigma_R}\right)^3
+(\#eq:skewRg1-intext)
+\end{equation}
+
+Powyższą formułę można uznać za analogiczną do formuł na wariancję i odchylenie standardowe populacji. 
+
+Zmodyfikowany współczynnik asymetrii ma następującą formułę:
+
+\begin{equation}  
+G_{1(R)} = \frac{\sqrt{n(n-1)}}{n-2}g_{1(R)}
+(\#eq:skewRG1-intext)
+\end{equation}
+
+Współczynnik asymetrii mierzy, które ramię rozkładu: lewe -- poniżej średniej (ujemne wartości współczynnika) czy prawe -- powyżej średniej (wartości dodatnie) jest bardziej wyciągnięte. Można stwierdzić, że przypadku stóp zwrotu ujemny współczynnik wskazuje na większe prawdopodobieństwo skrajnych strat, zaś dodatni na większe prawdopodobieństwo skrajnych zysków. 
+
+W arkuszach kalkulacyjnych zmodyfikowany współczynnik asymetrii ($G_1$) można obliczyć za pomocą funkcji SKOŚNOŚĆ (SKEW) -- [arkusze Google](<https://support.google.com/docs/answer/3094101?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/sko%C5%9Bno%C5%9B%C4%87-funkcja-bdf49d86-b1ef-4804-a046-28eaea69c9fa>), zaś współczynnik $g_1$ uzyskamy stosując funkcję SKOŚNOŚĆ.P (SKEW.P) -- [arkusze Google](<https://support.google.com/docs/answer/9368569?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/sko%C5%9Bno%C5%9B%C4%87-p-funkcja-76530a5c-99b9-48a1-8392-26632d542fcb>).
+
 
 ### Kurtoza
 
-## Współzależność wielu cech
+Współczynnik ekscesu nazywany też kurtozą nadwyżkową/względną wyznacza się za pomocą następującej formuły: 
+
+\begin{equation}  
+g_{2(R)} = \frac{1}{n}\sum_{i=1}^n\left(\frac{R_i-\bar{R}}{\sigma_R}\right)^4-3
+(\#eq:kurtRg2-intext)
+\end{equation}
+
+Powyższą formułę można traktować jako formułę dla populacji. Formuła dla próby ma najczęściej następującą postać: 
+
+\begin{equation}  
+G_{2(R)} = \frac{n-1}{(n-2)(n-3)}\left[(n+1)g_{2(R)}+6\right]
+(\#eq:kurtRsg2-intext)
+\end{equation}
+
+W niektórych pakietach statystycznych spotyka się również formułę: 
+
+\begin{equation}  
+b_{2(R)} = \frac{1}{n}\sum_{i=1}^n\left(\frac{R_i-\bar{R}}{s_R}\right)^4-3
+(\#eq:kurtRb2-intext)
+\end{equation}
+
+W arkuszach kalkulacyjnych funkcja KURTOZA (KURT) oblicza współczynnik $G_2$ zgodnie ze wzorem \@ref(eq:kurtRsg2-intext) -- [arkusze Google](<https://support.google.com/docs/answer/3093634?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/kurtoza-funkcja-bc3a265c-5da4-4dcb-b7fd-c237789095ab>). Współczynniki $g_2$ i $b_2$ można obliczyć stosując funkcję na średnią i odchylenie standardowe oraz [formuły tablicowe](<https://support.microsoft.com/pl-pl/office/tworzenie-formu%C5%82y-tablicowej-e43e12e0-afc6-4a12-bc7f-48361075954d>). 
+
+Kurtoza mierzy 
+
+### Mediana
+
+### Kwantyle
+
+## Współzależność cech
 
 ### Kowariancja
 
