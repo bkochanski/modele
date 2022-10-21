@@ -1,0 +1,23 @@
+# Projekt
+
+<!--
+
+Dla trzech wybranych spółek z rynku amerykańskiego oraz indeksu SP500, oblicz za okres 2014-2021 oraz podokresy (A) 2014-2017 i (B) 2018-2021 średnie miesięczne stopy zwrotu, odchylenie standardowe miesięcznych stóp zwrotu, korelacje, kowariancje oraz współczynniki beta. 
+Skomentuj otrzymane wyniki. Stabilność? 
+
+Zakładając, że spółki to random walk. 
+
+
+Wyznacz skład portfela minimalnej wariancji przy założeniu, że odpowiednie parametry wynoszą tyle, ile w tabeli 1, w tabeli 2 i w tabeli 3. 
+
+Dla parametrów z tabeli 1 stwórz wykres pokazujący skład spółek. 
+
+spółka A, spółka B, spółka C, Index
+okres - stopy
+
+
+Wyznacz portfel 
+
+(...ciąg dalszy nastąpi)-->
+
+

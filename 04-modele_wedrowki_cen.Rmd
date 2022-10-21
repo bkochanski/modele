@@ -73,4 +73,84 @@ u = e^{-\sigma\sqrt{\Delta t}}
 
 ## Model addytywny
 
+Model addytywny to model z czasem dyskretnym, to znaczy model pokazujący cenę dla równo oddalonych od siebie punktów w czasie (momentów). 
+
+Załóżmy, że mamy $N+1$ momentów, oznaczamy je przez $k$ ($k = 0, 1, 2, ..., N$). Cena aktywów w momencie $k+1$ ($S(k+1)$ zależy od $S(k)$ (ceny w poprzednim momencie) i wynosi, zgodnie z tym modelem: 
+
+\begin{equation}
+S(k+1) = a S(k) + u(k), 
+(\#eq:additive-intext)
+\end{equation}
+
+gdzie $a$ to pewna stała, a u(k) to zakłócenia losowe. 
+
+Załóżmy, że zakłócenia u(k) mają taki sam rozkład rozkład normalny, wartość oczekiwaną równą zero, wariancję $\sigma^2$ i są niezależne. Można pokazać, że przy takich założeniach wartość oczekiwana ceny po $k$ okresach wynosi:
+
+\begin{equation}
+E(S(k)) = a^k S(0), 
+(\#eq:additive-E)
+\end{equation}
+
+Wariancja zaś wynosi:
+
+\begin{equation}
+$$V(S(k)) = \sigma^2\sum_{i=0}^k a^{2i} . $$
+(\#eq:additive-V)
+\end{equation}
+
+Parametry rozkładu prostych $k$-okresowych stóp zwrotu netto są następujące. Wartość oczekiwana:
+
+$$ E\left[R(k)\right] = E\left[\frac{S(k)}{S(0)}-1\right] =  a^k - 1 $$
+Wariancja:
+$$ V\left[R(k)\right] = V\left[\frac{S(k)}{S(0)}\right] = \frac{\sigma^2\sum_{i=0}^k a^{2i}}{[S(0)]^2}  $$
+
+Model addytywny jest prosty, jednak nie przystaje do rzeczywistości w dwóch podstawowych aspektach:
+
+1. Według modelu ceny mogą spaść poniżej zera (w rzeczywistości zwykle nie mogą). 
+
+2. Odchylenie standardowe jest stałe niezależnie od rzędu wielkości ceny (jeżeli cena wzrośnie 100-krotnie, odchylenie standardowe względem ceny będzie 100 razy mniejsze). 
+
+## Model multiplikatywny
+
+Model multiplikatywny ma postać:
+
+$$S(k+1) = S(k) \cdot u(k), $$
+
+
+gdzie u(k) to zmienna zakłócająca inna niż w przypadku modelu addytywnego. 
+
+W postaci logarytmicznej:
+
+$$\ln S(k+1) = \ln S(k) + \ln u(k)$$
+Zakładamy, że zmienne losowe 
+
+$$ w(k) = \ln u(k) $$
+
+mają rozkłąd normalny, są wzajemnie niezależne, a wartość oczekiwana każdej z nich wynosi $E(w(k)) = \nu$ przy wariancji równej $\sigma^2$. 
+
+Czynnik zakłócający $u(k)$ można zapisać jako 
+
+$$ u(k) = e^{w(k)}$$
+
+ma rozkład logarytmiczno-normalny. 
+
+Model multiplikatywny pozwala pozbyć się dwóch poprzednio wspomnianych problemów modelu addytywnego: ceny nie mogą spaść poniżej zera i zmienna u(k) powoduje, że rozproszenie stóp zwrotu rośnie z ceną. 
+
+$$ E(ln S(k)) = \ln S(0) + \nu k $$
+$$ V(\ln(S(k))) = k \sigma^2 $$
+
+
+$$ E[r(k)] = E\left[ln \frac{S(k)}{S(0)}\right] =  k\nu $$
+
+$$ V[r(k)] = V\left[\ln \frac{S(k)}{S(0)}\right] = V\left[ln S(k)-S(0)\right] = k \sigma^2 $$
+
+
+## Ćwiczenia
+:::{.exercise #lintonlattice1}
+[@Linton_2019] Akcja, której cena bieżąca wynosi S(0)=100, ma oczekiwaną logarytmiczną stopę zwrotu $\nu$ równą = 12\%. Zmienność tej stopy wynosi $\sigma$ = 20\%. Wyznacz odpowiednie wartości parametrów niezbędnych do zbudowania siatki dwumianowej pokazującej zmiany cen tej akcji, jeżeli okresem podstawowym miałyby być 3 miesiące. Narysuj tę siatkę dla pierwszego roku, uzupełniając wartości w poszczególnych węzłach. Jakie jest prawdopodobieństwo osiągnięcia poszczególnych węzłów końcowych?
+:::
+
+:::{.exercise #sim1}
+Przygotuj symulację procesu zmieny cen według modelu addytywnego i multiplikatywnego w arkuszu kalkulacyjnym. 
+:::
 

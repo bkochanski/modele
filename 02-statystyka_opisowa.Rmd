@@ -155,18 +155,54 @@ b_{2(R)} = \frac{1}{n}\sum_{i=1}^n\left(\frac{R_i-\bar{R}}{s_R}\right)^4-3
 
 W arkuszach kalkulacyjnych funkcja KURTOZA (KURT) oblicza współczynnik $G_2$ zgodnie ze wzorem \@ref(eq:kurtRsg2-intext) -- [arkusze Google](<https://support.google.com/docs/answer/3093634?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/kurtoza-funkcja-bc3a265c-5da4-4dcb-b7fd-c237789095ab>). Współczynniki $g_2$ i $b_2$ można obliczyć stosując funkcję na średnią i odchylenie standardowe oraz [formuły tablicowe](<https://support.microsoft.com/pl-pl/office/tworzenie-formu%C5%82y-tablicowej-e43e12e0-afc6-4a12-bc7f-48361075954d>). 
 
-Kurtoza mierzy 
+Kurtoza (współczynnik ekscesu) mierzy intensywność wartości skrajnych w porównaniu z wartościami skrajnymi w rozkładzie normalnym. 
 
-### Mediana
+<!-- ### Mediana -->
 
-### Kwantyle
+<!-- ### Kwantyle -->
 
 ## Współzależność cech
 
 ### Kowariancja
 
+Wzór na kowariancję dla populacji o liczebności $N$, na przykładzie dwóch szeregów danych (np. stóp zwrotu) $R_i$ i $S_i$:
+
+\begin{equation}  
+\sigma_{RS} = \frac{\sum_{i=1}^N \left(R_i-\bar{R}\right)\left(S_i-\bar{S}\right)}{N}
+(\#eq:covarR-intext)
+\end{equation}
+
+Jest to wzór "dla populacji". 
+
+W arkuszach można zastosować funkcję KOWARIANCJA (COVAR) -- [arkusze Google](<https://support.google.com/docs/answer/3093993?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/kowariancja-funkcja-50479552-2c03-4daf-bd71-a5ab88b2db03>) lub KOWARIANCJA.POPUL (COVARIANCE.P) -- -- [arkusze Google](<https://support.google.com/docs/answer/9386301?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/kowariancja-popul-funkcja-6f0e1e6d-956d-4e4b-9943-cfef0bf9edfc>).
+
+Dla próby analogiczny wzór wygląda następująco:
+
+\begin{equation}  
+s_{RS} = \frac{\sum_{i=1}^n \left(R_i-\bar{R}\right)\left(S_i-\bar{S}\right)}{n-1}
+(\#eq:covarsR-intext)
+\end{equation}
+
+W arkuszach używamy funkcji KOWARIANCJA.PRÓBKI (COVARIANCE.S) -- [arkusze Google](<https://support.google.com/docs/answer/9365675?hl=pll>), [Excel](<https://support.microsoft.com/pl-pl/office/kowariancja-pr%C3%B3bki-funkcja-0a539b74-7371-42aa-a18f-1f5320314977>).
+
+
 ### Korelacja
 
+Korelacja to zestandaryzowana wariancja. Można ją policzyć zarówno na podstawie wzorów na kowariancję i wariancję z populacji:
+
+\begin{equation}  
+\rho_{RS} = \frac{\sigma_{RS}}{\sigma_R \sigma_S}
+(\#eq:corrho-intext)
+\end{equation}
+
+jak i na kowariancję/wariancję z próbki:
+
+\begin{equation}  
+r_{RS} = \frac{s_{RS}}{s_R s_S}
+(\#eq:corr-intext)
+\end{equation}
+
+Otrzymane wyniki są takie same. W arkuszach kalkulacyjnych stosujemy funkcję WSP.KORELACJI (CORREL) -- [arkusze Google](<https://support.google.com/docs/answer/3093990?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/wsp-korelacji-funkcja-995dcef7-0c0a-4bed-a3fb-239d7b68ca92>) lub identyczną w działaniu funkcję PEARSON -- [arkusze Google](<https://support.google.com/docs/answer/3094092?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/pearson-funkcja-0c3e30fc-e5af-49c4-808a-3ef66e034c18>).
 
 ## Ćwiczenia
 
@@ -183,7 +219,7 @@ W 2017 roku Warren Buffett [przewidział, że indeks Dow Jones przekroczy milion
 :::
 
 :::{.exercise #sbbi}
-SBBI to raport przygotowywany przez CFA Institute, który pokazuje stopy zwrotu rynku amerykańskiego dla dużych spółek (__Large-Cap Stocks__), mniejszych spółek (__Small-Cap Stocks__), obligacji korporacyjnych (__Long-term Corp Bonds__), długoterminowych obligacji rządowych (__Long-term Gov't Bonds__), średnioterminowych obligacji rządowych (__Inter-term Gov't Bonds__), krótkoterminowych bonów skarbowych (__U.S. Treasury Bills__) oraz wskaźnik (__Inflation__). 
+SBBI to raport przygotowywany przez CFA Institute, który pokazuje stopy zwrotu rynku amerykańskiego dla dużych spółek (__Large-Cap Stocks__), mniejszych spółek (__Small-Cap Stocks__), obligacji korporacyjnych (__Long-term Corp Bonds__), długoterminowych obligacji rządowych (__Long-term Gov't Bonds__), średnioterminowych obligacji rządowych (__Inter-term Gov't Bonds__), krótkoterminowych bonów skarbowych (__U.S. Treasury Bills__) oraz wskaźnik inflacji (__Inflation__). 
 
 Roczne stopy zwrotu dla lat 1926-2015 są dostępne pod poniższym linkiem: <https://docs.google.com/spreadsheets/d/1rfE78O1POHpQl15AQU2gtp15cV7h9JLNeAkRN66TNqE/edit?usp=sharing>
 
@@ -209,7 +245,10 @@ Dla wybranej spółki ściągnij dane z bazy yahoo i wyznacz statystyki określo
 :::
 
 :::{.exercise #ticker-of-choice2}
-Dla wybranej spółki sprawdź, czy dzienne stopy zwrotu obejmujące weekend są wyższe niż dzienne stopy zwrotu w inne dni tygodnia.   
+Dla wybranej spółki sprawdź, czy dzienne stopy zwrotu obejmujące weekend są średnio wyższe niż dzienne stopy zwrotu w inne dni tygodnia? Czy odchylenie standardowe dziennych stóp zwrotu obejmujących weekend jest wyższe?   
 :::
 
+:::{.exercise #ticker-of-choice3}
+Dla wybranych dwóch spółek i wybranego okresu sprawdź korelację pomiędzy miesięcznymi dziennymi stopami zwrotu netto. 
+:::
 

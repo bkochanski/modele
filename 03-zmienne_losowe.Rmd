@@ -1,5 +1,21 @@
 # Zmienne losowe
 
+```{r echo=FALSE}
+templ<-function(o, g="", e=""){
+
+if (g=="") {label=paste0(o, " -- szablon w Excelu: ", xfun::embed_file(paste0('files/',e), text=e))}
+
+else if (e=="") {label=paste0(o, " -- [arkusz Google](<", g, ">)")}
+
+else {
+label=paste0(o, " -- [arkusz Google](<", g, ">)\n\n", o, " -- szablon w Excelu: ", xfun::embed_file(paste0('files/',e), text=e))
+}
+
+
+return (label)
+  }
+```
+
 Zmienna losowa to matematyczna formalizacja wielkości, której wartość zależy od przypadku. 
 
 Często wyróżnia się zmienne [losowe dyskretne (skokowe)](<https://pl.wikipedia.org/wiki/Dyskretny_rozk%C5%82ad_prawdopodobie%C5%84stwa>) i [ciągłe](<https://pl.wikipedia.org/wiki/Ci%C4%85g%C5%82y_rozk%C5%82ad_prawdopodobie%C5%84stwa>). __Zmienne ciągłe__ mogą przyjmować _dowolną_ wartość w określonym _przedziale_ (na przykład od zera do nieskończoności), zaś __zmienne skokowe__ mogą przyjmować wartości oddalone od siebie na osi liczbowej (na przykład tylko nieujemne liczby całkowite) i _nic pomiędzy_.
@@ -58,10 +74,10 @@ W uproszczonym zapisie będziemy pomijać granice całkowania:
 
 ## Wariancja i odchylenie standardowe
 
-Wariancję zmiennej losowej oznaczamy przez $V(X)$ albo $\sigma^2_X$ (lub po prostu $\sigma^2$) i wyznaczamy za pomocą wzoru:
+Wariancję zmiennej losowej oznaczamy przez $V(X)$ albo $\sigma^2_X$ (lub po prostu $\sigma^2$). Spotyka się również symbol $D^2(X)$. Wyznaczamy ją za pomocą wzoru:
 
 \begin{equation}
-\sigma^2=V(X)=E[(X-\mu)^2]
+\sigma^2=V(X)=E[(X-\mu)^2] = E[X^2]-(E[X])^2
 (\#eq:V-intext)
 \end{equation}
 
@@ -86,6 +102,54 @@ Odchylenie standardowe zmiennej losowej to pierwiastek z wariancji:
 (\#eq:S-intext)
 \end{equation}
 
+Odchylenie standardowe przez $\sigma$, $\sigma_X$, $D(X)$ lub $SD(X)$. 
+
+## Kowariancja i korelacja
+
+Kowariancję między zmiennymi losowymi X i Y możemy wyznaczyć na podstawie następującej formuły:
+
+\begin{equation}
+\sigma_{XY}=E[\left(X-E(X)\right)(Y-E(Y))]
+(\#eq:covar-intext)
+\end{equation}
+
+Dla zmiennych dyskretnych:
+
+\begin{equation}
+\sigma_{XY}=\sum_i\left(x_i-E(X)\right)(y_i-E(Y))P(X=x_i \land Y=y_i)
+(\#eq:covarDiscr-intext)
+\end{equation}
+
+Kowariancja pokazuje współzmienność dwóch zmiennych losowych. 
+
+Korelację można uznać za wystandaryzowaną kowariancję:
+
+\begin{equation}
+\rho_{XY}=\frac{\sigma_{XY}}{\sigma_X \sigma_Y}
+(\#eq:covar-intext)
+\end{equation}
+
+Korelacja przyjmuje wartości od -1 do 1, może więc służyć do porównywania siły współzależności pomiędzy różnymi zmiennymi. 
+
+## Dyskretna zmienna losowa - szablon
+
+`r templ("Dyskretna zmienna losowa - kalkulator", "https://docs.google.com/spreadsheets/d/1vmWX2EcUdBm09-JrAjK8ACWWnfvGdHjmbM0s689gmno/edit?usp=sharing", "Dyskretna_zmienna_losowa.xlsx")`
+
+## Rozkład normalny
+
+Popularnym przykładem ciągłej zmiennej losowej jest rozkład normalny. Wzór na gęstość prawdopodobieństwa (którego nie zamierzamy używać wprost) to: 
+
+$$ tu będzie wzór $$
+Rozkład normalny ma dwa parametry: parametr położenia - średnią (wartość oczekiwaną) $\mu$ i parametr skali - odchylenie standardowe $\sigma$. Jeżeli zmienna losowa X ma rozkład normalny o tych parametrach zapisujemy to najczęściej w następujący sposób:
+
+$$ X \sim N(\mu, \sigma^2 ) $$
+
+
+
+## Rozkład normalny - szablon
+
+`r templ("Kalkulator dla rozkładu normalnego", "https://docs.google.com/spreadsheets/d/13oQ79mCIhjqn9t405hFV5vJj5V-uEYcxVCYFwGaGkko/edit?usp=sharing", "Kalkulator_rozkladu_normalnego.xlsx")`
+
 
 ## Ćwiczenia
 
@@ -97,6 +161,129 @@ Two dice are rolled and the two resulting values are multiplied together to form
 Rzucamy dwiema kośćmi do gry i mnożymy otrzymane wyniki: w ten sposób powstaje zmienna $z$. Jaka jest wartość oczekiwana i wariancja zmiennej losowej $z$? (Wskazówka: rzuty koścmi należy traktować jako zdarzenia niezależne.)
 :::
 
+:::{.exercise #kolofortuny}
+[@Luenberger_2003] __Koło fortuny__
+Gracz płaci 1 USD za uczestnictwo w grze "koło fortuny", w której uzyskana wypłata zależy od tego, na którą część koła wskaże po jego zatrzymaniu czarny trójkąt.
+
+(a) Jaka jest wartość oczekiwana, wariancja i odchylenie standardowe wypłaty w tej grze?
+
+(b) Jaka jest wartość oczekiwana, wariancja i odchylenie standardowe zysku w tej grze? 
+
+(c) Jaka jest wartość oczekiwana, wariancja i odchylenie standardowe prostej stopy zwrotu netto w tej grze?
+
+```{r echo=FALSE, warnings=FALSE}
+library(ggplot2)
+library(ggforce)
+sz<-8
+
+x1<-seq(-.5, .5, 1/100)
+polygon1<-data.frame(x=c(0, x1, 0), 
+                     y=c(0, sqrt(1-x1^2), 0))
+
+x2<-seq(.5, 1, 1/100)
+polygon2<-data.frame(x=c(0, x2, 0), 
+                     y=c(0, sqrt(1-x2^2), 0))
+
+x3<-seq(1, .5, -1/100)
+polygon3<-data.frame(x=c(0, x3, 0), 
+                     y=c(0, -sqrt(1-x3^2), 0))
+
+x4<-seq(.5, -.5, -1/100)
+polygon4<-data.frame(x=c(0, x4, 0), 
+                     y=c(0, -sqrt(1-x4^2), 0))
+
+
+x5<-seq(-.5, -1, -1/100)
+polygon5<-data.frame(x=c(0, x5, 0), 
+                     y=c(0, -sqrt(1-x5^2), 0))
+
+x6<-seq(-1, -.5, 1/100)
+polygon6<-data.frame(x=c(0, x6, 0), 
+                     y=c(0, sqrt(1-x6^2), 0))
+
+
+ggplot()+ theme_void() + 
+  geom_polygon(data = polygon1, aes(x = x, y = y), fill = "light blue") +
+  geom_polygon(data = polygon2, aes(x = x, y = y), fill = "pink") +
+  geom_polygon(data = polygon3, aes(x = x, y = y), fill = "light green") +
+  geom_polygon(data = polygon4, aes(x = x, y = y), fill = "lemonchiffon") +
+  geom_polygon(data = polygon5, aes(x = x, y = y), fill = "plum1") +
+  geom_polygon(data = polygon6, aes(x = x, y = y), fill = "goldenrod1") +
+  geom_polygon(aes(x = c(0,-.1/2,.1/2,0), y = c(1.1, 1.2, 1.2, 1.1)), fill = "black") +
+  geom_circle(aes(x0 = 0, y0 = 0, r = 1)) +
+  geom_line(aes(c(-1,1), c(0,0))) +
+  geom_line(aes(c(-.5,.5), c(-sqrt(3)/2,sqrt(3)/2))) +
+  geom_line(aes(c(-.5,.5), c(sqrt(3)/2,-sqrt(3)/2))) +
+  annotate("text", x = 0, y = .75, size=sz, label="4") +
+  annotate("text", x = cos(pi/6)*.75, y = sin(pi/6)*.75, size=sz, label="-1") +
+  annotate("text", x = cos(pi/6)*.75, y = sin(-pi/6)*.75, size=sz, label="2") +
+  annotate("text", x = 0, y = sin(-pi/2)*.75, size=sz, label="-1") +
+  annotate("text", x = -cos(pi/6)*.75, y = sin(-pi/6)*.75, size=sz, label="3") +
+  annotate("text", x = -cos(pi/6)*.75, y = sin(pi/6)*.75, size=sz, label="0") +
+  coord_fixed()
+```
+:::
+
+
+:::{.exercise #ruletka}
+[@Luenberger_2003] __Ruletka__
+W grze przypominającej ruletkę uczestnik może postawić pewną kwotę na wybrany wycinek koła. Jeżeli po zatrzymaniu koła czarny trójkąt wskaże obstawiony wycinek, gracz otrzymuje wypłatę w wysokości wielokrotności obstawionej kwoty zgodnie z liczbami zapisanymi na planszy. 
+
+Jaka jest wartość oczekiwana, wariancja i odchylenie standardowe wypłaty w tej grze, jeżeli gracz dysponuję stawką 1 USD i 
+
+(a) gracz obstawi trójkę?
+
+(b) gracz obstawi szóstkę?
+
+(c) gracz obstawi dwójkę?
+
+(d) gracz postawi 0,5 USD na trójkę i 0,5 USD na szóstkę?
+
+(e) gracz postawi 0,7 USD na trójkę, 0,2 USD na szóstkę i 0,1 USD na dwójkę?
+
+Ile wynoszą kowariancja i korelacja pomiędzy 
+
+(f) wypłatami dla trójki (1 USD na trójkę) i dla szóstki (1 USD na szóstkę)?
+
+(g) wypłatami dla dwójki i dla szóstki?
+
+(h) wypłatami dla dwójki i dla trójki?
+
+```{r echo=FALSE, warnings=FALSE}
+library(ggplot2)
+library(ggforce)
+
+
+x1<-seq(-1, 1, 1/200)
+polygon1<-data.frame(x=c(0, x1, 0), 
+                     y=c(0, sqrt(1-x1^2), 0))
+
+x2<-seq(1, .5, -1/100)
+polygon2<-data.frame(x=c(0, x2, 0), 
+                     y=c(0, -sqrt(1-x2^2), 0))
+
+x3<-seq(.5, -1, -1/200)
+polygon3<-data.frame(x=c(0, x3, 0), 
+                     y=c(0, -sqrt(1-x3^2), 0))
+
+
+
+ggplot()+ theme_void() + 
+  geom_polygon(data = polygon1, aes(x = x, y = y), fill = "light blue") +
+  geom_polygon(data = polygon2, aes(x = x, y = y), fill = "pink") +
+  geom_polygon(data = polygon3, aes(x = x, y = y), fill = "light green") +
+  geom_polygon(aes(x = c(0,-.1/2,.1/2,0), y = c(1.1, 1.2, 1.2, 1.1)), fill = "black") +
+  geom_circle(aes(x0 = 0, y0 = 0, r = 1)) +
+  geom_line(aes(c(-1,1), c(0,0))) +
+  geom_line(aes(c(0,.5), c(0,-sqrt(3)/2))) +
+  annotate("text", x = 0, y = .75, size=sz, label="3") +
+  annotate("text", x = cos(pi/6)*.75, y = sin(-pi/6)*.75, size=sz, label="6") +
+  annotate("text", x = -cos(pi/3)*.75, y = sin(-pi/3)*.75, size=sz, label="2") +
+  coord_fixed()
+```
+:::
+
+
 
 <!-- Ruppert 2.6.1
 The daily log returns on a stock are independent and normally distributed with mean 0.001 and standard deviation 0.015. Suppose you buy $1000 worth of this stock.
@@ -106,10 +293,9 @@ The daily log returns on a stock are independent and normally distributed with m
 -->
 
 :::{.exercise #rup261}
-[@Ruppert_Matteson_2015]
+Na podstawie @Ruppert_Matteson_2015. 
 Dzienne zwroty z akcji ZZZ są niezależne i mają rozkład normalny ze średnią 0,001 i odchyleniem standardowym 0,015. Załóżmy, że kupujemy te akcje za 1000 USD.
-(a) Jakie jest prawdopodobieństwo, że po jednym dniu handlowym inwestycja będzie warta mniej niż 990 USD? 
-(b) Jakie jest prawdopodobieństwo, że po pięciu dniach handlowych inwestycja będzie warta mniej niż 990 USD?
+Jakie jest prawdopodobieństwo, że po jednym dniu handlowym inwestycja będzie warta mniej niż 990 USD? 
 :::
 
 <!-- Ruppert 2.6.2
@@ -121,4 +307,10 @@ the probability that one year from now it is selling at $110 or more?
 :::{.exercise #rup262}
 [@Ruppert_Matteson_2015]
 Roczne logarytmiczne zwroty akcji spółki PRS mają rozkład normalny ze średnią równą 0,1 i odchyleniem standardowym równym 0,2. Dzisiejszy kurs akcji spółki PRS to 100 USD. Jakie jest prawdopodobieństwo, że za rok kurs będzie wynosił 110 USD lub więcej?
+:::
+
+:::{.exercise #rup261b}
+Na podstawie @Ruppert_Matteson_2015. 
+Dzienne _logarytmiczne_ zwroty z akcji ZZZ są niezależne i mają rozkład normalny ze średnią 0,001 i odchyleniem standardowym 0,015. Załóżmy, że kupujemy te akcje za 1000 USD.
+Jakie jest prawdopodobieństwo, że po pięciu dniach handlowych inwestycja będzie warta mniej niż 980 USD? 
 :::
