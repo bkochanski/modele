@@ -1,6 +1,35 @@
 # Modele wędrówki cen {#zmianycen}
 
-## Model siatki dwumianowej
+## Model siatki dwumianowej {#lattice}
+
+
+``` {r bintree0, echo=FALSE, fig.cap='Początek siatki dwumianowej -- cena rośnie o mnożnik u>1 z prawdopodobieństwem p lub spada (mnożnik 0<d<1) z prawdopodobieństwem 1-p'}
+library(ggplot2)
+ar<-data.frame(x0=c(0,0)+0.05,
+                   y0=c(0,0),
+                   xend=c(1,1)-0.05,
+                   yend=c(1,-1))
+
+ar$xp<-(ar$x0+ar$xend)/2
+ar$yp<-(ar$y0+ar$yend)/2
+ar$labelp<-rep(c('p', '1-p'),1)
+
+po<-data.frame(x0=c(0,1,1)
+                   , y0=c(0,1,-1)
+              , label0=c('S[0]', 'S[0]*u', 'S[0]*d'))
+
+
+ggplot(aes(x=x0, y=y0+.4), data=po) + 
+  theme_void() +
+  geom_segment(aes(x = x0, y = y0, xend = xend, yend = yend),
+               data=ar, 
+               arrow = arrow(type='closed', angle=7, length=unit(.15,'inch'))) +
+  geom_point(aes(x=x0, y=y0), data=po) +
+  geom_text(aes(label=label0), parse=TRUE) +
+  geom_text(aes(x=xp, y=yp+.1, label=labelp), data=ar, col='grey')
+
+```
+
 
 ``` {r bintree, echo=FALSE, fig.cap='Model siatki dwumianowej'}
 library(ggplot2)
@@ -46,7 +75,7 @@ gdzie $S_T$ to cena akcji po roku, a $S_0$ to bieżąca cena;
 - $\sigma$ to roczne odchylenie standardowe stopy wzrostu (jako miara jej niepewności):
 
 \begin{equation}
-\sigma = \sqrt{Var[ln(S_T/S_0)]}
+\sigma = \sqrt{V[ln(S_T/S_0)]}
 (\#eq:lattice-sigma)
 \end{equation}
 
@@ -65,92 +94,286 @@ u = e^{\sigma\sqrt{\Delta t}}
 \end{equation}
 
 \begin{equation}
-u = e^{-\sigma\sqrt{\Delta t}}
+d = e^{-\sigma\sqrt{\Delta t}}
 (\#eq:lattice-d)
 \end{equation}
 
 [Model siatki dwumianowej w arkuszu kalkulacyjnym](<https://www.youtube.com/watch?v=nGLaMDRTWuY>). 
 
-## Model addytywny
+## Model addytywny {#addytywny}
 
 Model addytywny to model z czasem dyskretnym, to znaczy model pokazujący cenę dla równo oddalonych od siebie punktów w czasie (momentów). 
 
-Załóżmy, że mamy $N+1$ momentów, oznaczamy je przez $k$ ($k = 0, 1, 2, ..., N$). Cena aktywów w momencie $k+1$ ($S(k+1)$ zależy od $S(k)$ (ceny w poprzednim momencie) i wynosi, zgodnie z tym modelem: 
+Załóżmy, że mamy $N+1$ momentów, oznaczamy je przez $k$ ($k = 0, 1, 2, ..., N$). Cena aktywów w momencie $k+1$ zależy od $S_k$ (ceny w poprzednim momencie) i wynosi, zgodnie z tym modelem: 
 
 \begin{equation}
-S(k+1) = a S(k) + u(k), 
+S_{k+1} = a S_k + u_k, 
 (\#eq:additive-intext)
 \end{equation}
 
-gdzie $a$ to pewna stała, a u(k) to zakłócenia losowe. 
+gdzie $a$ to pewna stała, a $u_k$ to zakłócenia losowe. 
 
-Załóżmy, że zakłócenia u(k) mają taki sam rozkład rozkład normalny, wartość oczekiwaną równą zero, wariancję $\sigma^2$ i są niezależne. Można pokazać, że przy takich założeniach wartość oczekiwana ceny po $k$ okresach wynosi:
+Załóżmy, że zakłócenia $u_k$ mają taki sam rozkład rozkład normalny, wartość oczekiwaną równą zero, wariancję $\sigma^2$ i są niezależne. Można pokazać, że przy takich założeniach wartość oczekiwana ceny po $k$ okresach wynosi:
 
 \begin{equation}
-E(S(k)) = a^k S(0), 
-(\#eq:additive-E)
+E(S_k) = a^k S_0, 
+(\#eq:additive-SE)
 \end{equation}
 
 Wariancja zaś wynosi:
 
 \begin{equation}
-$$V(S(k)) = \sigma^2\sum_{i=0}^k a^{2i} . $$
-(\#eq:additive-V)
+V(S_k) = \sigma^2\sum_{i=0}^k a^{2i} .
+(\#eq:additive-SV)
 \end{equation}
 
 Parametry rozkładu prostych $k$-okresowych stóp zwrotu netto są następujące. Wartość oczekiwana:
 
-$$ E\left[R(k)\right] = E\left[\frac{S(k)}{S(0)}-1\right] =  a^k - 1 $$
-Wariancja:
-$$ V\left[R(k)\right] = V\left[\frac{S(k)}{S(0)}\right] = \frac{\sigma^2\sum_{i=0}^k a^{2i}}{[S(0)]^2}  $$
+\begin{equation}
+E\left[R(k)\right] = E\left[\frac{S_k}{S_0}-1\right] =  a^k - 1
+(\#eq:additive-rE)
+\end{equation}
 
-Model addytywny jest prosty, jednak nie przystaje do rzeczywistości w dwóch podstawowych aspektach:
+Wariancja:
+
+\begin{equation}
+V\left[R(k)\right] = V\left[\frac{S_k}{S_0}\right] = \frac{\sigma^2\sum_{i=0}^k a^{2i}}{S_0^2}
+(\#eq:additive-rV)
+\end{equation}
+
+Model addytywny jest prosty w założeniach, jednak nie przystaje do rzeczywistości w dwóch podstawowych aspektach:
 
 1. Według modelu ceny mogą spaść poniżej zera (w rzeczywistości zwykle nie mogą). 
 
 2. Odchylenie standardowe jest stałe niezależnie od rzędu wielkości ceny (jeżeli cena wzrośnie 100-krotnie, odchylenie standardowe względem ceny będzie 100 razy mniejsze). 
 
-## Model multiplikatywny
+## Model multiplikatywny {#multiplikatywny}
 
 Model multiplikatywny ma postać:
 
-$$S(k+1) = S(k) \cdot u(k), $$
+\begin{equation}
+S_{k+1} = S_k \cdot u_k, 
+(\#eq:multiplicative-intext)
+\end{equation}
 
-
-gdzie u(k) to zmienna zakłócająca inna niż w przypadku modelu addytywnego. 
+gdzie $u_k$ to zmienna zakłócająca inna niż w przypadku modelu addytywnego. 
 
 W postaci logarytmicznej:
 
-$$\ln S(k+1) = \ln S(k) + \ln u(k)$$
-Zakładamy, że zmienne losowe 
+\begin{equation}
+\ln S_{k+1} = \ln S_k + \ln u_k.
+(\#eq:multiplicativelog-intext)
+\end{equation}
 
-$$ w(k) = \ln u(k) $$
+Zakładamy, że zmienne losowe $w_k$ 
 
-mają rozkłąd normalny, są wzajemnie niezależne, a wartość oczekiwana każdej z nich wynosi $E(w(k)) = \nu$ przy wariancji równej $\sigma^2$. 
+\begin{equation}
+w_k = \ln u_k
+(\#eq:multiplicativelog-wk)
+\end{equation}
 
-Czynnik zakłócający $u(k)$ można zapisać jako 
+mają rozkład normalny, są wzajemnie niezależne, a wartość oczekiwana każdej z nich wynosi $E(w_k) = \nu$ przy wariancji równej $\sigma^2$. 
 
-$$ u(k) = e^{w(k)}$$
+Czynnik zakłócający $u_k$ można zapisać jako 
 
-ma rozkład logarytmiczno-normalny. 
+\begin{equation}
+u_k = e^{w_k}
+(\#eq:multiplicativelog-uk)
+\end{equation}
 
-Model multiplikatywny pozwala pozbyć się dwóch poprzednio wspomnianych problemów modelu addytywnego: ceny nie mogą spaść poniżej zera i zmienna u(k) powoduje, że rozproszenie stóp zwrotu rośnie z ceną. 
+Ma on rozkład logarytmiczno-normalny. 
 
-$$ E(ln S(k)) = \ln S(0) + \nu k $$
-$$ V(\ln(S(k))) = k \sigma^2 $$
+Model multiplikatywny pozwala pozbyć się dwóch poprzednio wspomnianych problemów modelu addytywnego: ceny nie mogą spaść poniżej zera i zmienna $u_k$ powoduje, że rozproszenie stóp zwrotu rośnie z ceną. 
+
+Cena instrumentu po k okresach, $S_k$, ma rozkład log-normalny. Oznacza to, że logarytm ceny ma rozkład normalny z następującą wartością oczekiwaną:
+
+\begin{equation}
+E(\ln S_k) = \ln S_0 + \nu k
+(\#eq:multiplicativelog-SE)
+\end{equation}
+
+i wariancją:
+
+\begin{equation}
+V(\ln S_k) = k \sigma^2
+(\#eq:multiplicativelog-SV)
+\end{equation}
+
+Logarytmiczna $k$-okresowa stopa zwrotu $r(k)$ ma również rozkład normalny o wartości oczekiwanej:
+
+\begin{equation}
+E[r(k)] = E\left[ln \frac{S_k}{S_0}\right] =  k\nu
+(\#eq:multiplicativelog-rE)
+\end{equation}
+
+i wariancji:
 
 
-$$ E[r(k)] = E\left[ln \frac{S(k)}{S(0)}\right] =  k\nu $$
+\begin{equation}
+V[r(k)] = V\left[\ln \frac{S_k}{S_0}\right] = V\left[\ln S_k-S_0\right] = k \sigma^2 
+(\#eq:multiplicativelog-rV)
+\end{equation}
 
-$$ V[r(k)] = V\left[\ln \frac{S(k)}{S(0)}\right] = V\left[ln S(k)-S(0)\right] = k \sigma^2 $$
+Warto zauważyć, że wartość oczekiwana i wariancja $k$-okresowej logarytmicznej stopy zwrotu rosną proporcjonalnie do $k$, zaś odchylenie standardowe rośnie jak $\sqrt{k}$. 
+
+Jeżeli chcemy wyliczyć wartość oczekiwaną i odchylenie standardowe dla okresu ułamkowego oznaczonego przez $p$ (np. chcielibyśmy przejść z rozkładu rocznych stóp o parametrach $\nu$ i $\sigma$ do rozkładu stóp miesięcznych $p=1/12$), postępujemy analogicznie:
+
+\begin{equation}
+E(r_p) = \nu_p = p \nu
+(\#eq:multiplicativelog-rpE)
+\end{equation}
+
+\begin{equation}
+V(r_p) = \sigma^2_p = p \sigma^2
+(\#eq:multiplicativelog-rpV)
+\end{equation}
+
+
+\begin{equation}
+\sigma_p = \sqrt{p} \sigma
+(\#eq:multiplicativelog-rpS)
+\end{equation}
+
+## Geometryczne ruchy Browna {#Brown}
+
+W powyższych modelach ceny były dyskretne lub ciągłe, ale czas pozostawał dyskretny (zbiór oddzielonych od siebie momentów). Model przedstawiony w tym podrozdziale to model, w którym czas jest również ciągły. 
+
+Jeżeli będziemy skracać okres podstawowy tak, aby dążył do zera, model multiplikatywny przechodzi w tzw. proces Ito nazwany geometrycznymi ruchami Browna ($S(t)$ albo $S_t$ to cena w momencie $t$, gdzie $t$ przyjmuje dowolną wartość z określonego przedziału, $z_t$ to znormalizowany [proces Wienera](<https://pl.wikipedia.org/wiki/Proces_Wienera>)):
+
+\begin{equation}
+d \ln S_t = \nu d t + \sigma dz_t
+(\#eq:brown1-intext)
+\end{equation}
+
+
+Alternatywna równoważna postać modelu (w którym $\mu = \nu+{\sigma^2}/{2}$):
+
+\begin{equation}
+d S_t = \mu S_t dt + \sigma S_t dz_t
+(\#eq:brown2-intext)
+\end{equation}
+
+Alternatywna postać modelu może być zapisana również w ten sposób:
+
+\begin{equation}
+\frac{d S_t}{S_t} = \mu dt + \sigma dz_t
+(\#eq:brown2b-intext)
+\end{equation}
+
+W przypadku geometrycznych ruchów Browna opisanych równaniem \@ref(eq:brown2b-intext) oczekiwana logarytmiczna stopa za cały czas $t$ wynosi:
+
+\begin{equation}
+E\left(r(t)\right) = E\left(\ln\frac{S_t}{S_0}\right) = \nu t,
+(\#eq:brown-rE)
+\end{equation}
+
+zaś jej odchylenie standardowe wynosi
+
+\begin{equation}
+SD(r(t)) = SD\left(\ln\frac{S_t}{S_0}\right) = \sigma \sqrt{t}, 
+(\#eq:brown-rS)
+\end{equation}
+
+Oczekiwana prosta stopa netto za cały czas $t$ wynosi
+
+\begin{equation}
+E\left(R(t)\right) = E\left(\frac{S_t}{S_0}-1\right) = e^{\mu t}-1,
+(\#eq:brown-RE)
+\end{equation}
+
+zaś jej odchylenie standardowe wynosi
+
+\begin{equation}
+SD(R(t)) = SD\left(\frac{S_t}{S_0}-1\right) = e^{\mu t}\left(e^{\sigma^2 t}-1\right)^{1/2},
+(\#eq:brown-rS)
+\end{equation}
+
+Symulując ten proces, który w teorii jest w czasie ciągłym, musimy się jednak siłą rzeczy odwołać do obliczeń w czasie dyskretnym. Symulacje będą więc oparte na krótkich okresach $\Delta t$ (w poniższym wzorze $\epsilon(t_k)$ to realizacje niezależnych zmiennych losowowych o standaryzowanym rozkładzie normalnym):
+
+\begin{equation}
+S(t_{k+1}) = S(t_{k})e^{\nu \Delta t + \sigma \epsilon(t_k)\sqrt{\Delta t}}
+(\#eq:brown-sim)
+\end{equation}
+
+## Szacowanie parametrów modeli multiplikatywnych
+
+Jednookresową stopę zwrotu brutto w okresie $k+1$ (od momentu $k$ do momentu $k+1$) oznaczamy przez $\mathcal{R}_{k+1}=\frac{S_{k+1}}{S_k}$. W modelu multiplikatywnym jednookresowa stopa zwrotu brutto z inwestycji równa jest zmiennej $u_k$. Wartość $w_k = \ln(u_k)$ to logarytm stopy brutto, czyli logarytmiczna stopa zwrotu $r_k$. Wartość oczekiwana zmiennej $w_k$ to $\nu$, a wariancja to $\sigma^2$. 
+
+Jak oszacować te parametry na podstawie danych z $n$ okresów z przeszłości? Można obliczyć średnią logarytmiczną stopę zwrotu -- to będzie estymator parametru $\nu$:
+
+$$ \bar{\nu} = \frac{1}{n}\sum_{i=1}^{n} r_i = \frac{1}{n}\sum_{i=1}^{n} \ln \frac{S_i}{S_{i-1}} = \frac{1}{n}\ln\frac{S_n}{S_0}$$
+
+Błąd oszacowania $V(\bar{\nu})$ wynosi
+
+$$ V(\bar{\nu}) = \frac{\sigma^2}{n}. $$
+
+Standardowy błąd oszacowania, czyli pierwiastek z wariancji estymatora wyniesie:
+
+$$ SE(\bar{\nu}) = \frac{\sigma}{\sqrt{n}}  $$ 
+
+Możemy również oszacować parametr $\sigma^2$. Estymator będzie wyglądał następująco:
+
+$$ \hat{\sigma}^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left[r_i - \bar{\nu}\right]^2  = \frac{1}{n-1}\sum_{i=1}^{n}\left[ \ln \frac{S_i}{S_{i-1}} - \bar{\nu}\right]^2 $$
+
+Jego wariancja natomiast będzie wynosić:
+
+$$ V(\hat{\sigma}^2) = \frac{2 \sigma^4}{n-1} $$
+
+Błąd standardowy, czyli pierwiastek z wariancji estymatora wyniesie:
+
+$$ SE(\hat{\sigma}^2) = \frac{\sqrt{2} \sigma^2}{\sqrt{n-1}}  $$ 
+
+Estymatorem parametru $\sigma$ jest, jak się można domyślić pierwiastek z $\hat{\sigma}^2$:
+
+$$ \hat{\sigma} = \sqrt{\hat{\sigma}^2} $$
+
+Jego błąd standardowy to w przybliżeniu, które można uznać za wystarczająco dobre dla $n>10$ [@ahn2003standard]:
+
+$$ SE(\hat{\sigma}) = \frac{\sigma}{\sqrt{2(n-1)}} $$
+
 
 
 ## Ćwiczenia
+
 :::{.exercise #lintonlattice1}
-[@Linton_2019] Akcja, której cena bieżąca wynosi S(0)=100, ma oczekiwaną logarytmiczną stopę zwrotu $\nu$ równą = 12\%. Zmienność tej stopy wynosi $\sigma$ = 20\%. Wyznacz odpowiednie wartości parametrów niezbędnych do zbudowania siatki dwumianowej pokazującej zmiany cen tej akcji, jeżeli okresem podstawowym miałyby być 3 miesiące. Narysuj tę siatkę dla pierwszego roku, uzupełniając wartości w poszczególnych węzłach. Jakie jest prawdopodobieństwo osiągnięcia poszczególnych węzłów końcowych?
+[@Luenberger_2003] Akcja, której cena bieżąca wynosi $S_0$=100, ma oczekiwaną logarytmiczną stopę zwrotu $\nu$ równą = 12\%. Zmienność tej stopy wynosi $\sigma$ = 20\%. Wyznacz odpowiednie wartości parametrów niezbędnych do zbudowania siatki dwumianowej pokazującej zmiany cen tej akcji, jeżeli okresem podstawowym miałyby być 3 miesiące. Narysuj tę siatkę dla pierwszego roku, uzupełniając wartości w poszczególnych węzłach. Jakie jest prawdopodobieństwo osiągnięcia poszczególnych węzłów końcowych?
+:::
+
+:::{.exercise #rup261b}
+Na podstawie @Ruppert_Matteson_2015. 
+Dzienne _logarytmiczne_ zwroty z akcji ZZZ są niezależne i mają rozkład normalny ze średnią 0,001 i odchyleniem standardowym 0,015. Załóżmy, że kupujemy te akcje za 1000 USD.
+Jakie jest prawdopodobieństwo, że po pięciu dniach handlowych inwestycja będzie warta mniej niż 980 USD? 
 :::
 
 :::{.exercise #sim1}
 Przygotuj symulację procesu zmieny cen według modelu addytywnego i multiplikatywnego w arkuszu kalkulacyjnym. 
 :::
 
+:::{.exercise #estimators}
+[Na podstawie @Luenberger_2003] Załóżmy, że proces kształtowania się cen jest zgodny z modelem multiplikatywnym z parametrami $\nu=0{,}1$ i $\sigma=0{,}18$. 
+Do celów oszacowania parametrów zbieramy dane z 10 lat. 
+
+a. Ile wynosi błąd standardowy oszacowania parametru $\nu$?
+
+b. Ile wynosi przybliżony błąd standardowy oszacowania parametru $\sigma$, jeżeli weźmiemy dane za 10 lat?
+
+c. Ile wynosi błąd standardowy oszacowania parametru $\sigma$, jeżeli skorzystamy ze 120 stóp miesięcznych: $SE(\hat{\sigma}) = \sqrt{12} SE(\hat{\sigma}_{m})$?
+
+d. Ile wynosi błąd standardowy oszacowania parametru $\sigma^2$, jeżeli skorzystamy ze $52\cdot 10=520$ stóp tygodniowych: $SE(\hat{\sigma}) = \sqrt{52} SE(\hat{\sigma}_{w})$?
+
+e. Ile wynosi błąd standardowy oszacowania parametru $\sigma^2$, jeżeli skorzystamy z $252\cdot 10=2520$ stóp dziennych: $SE(\hat{\sigma}) = \sqrt{252} SE(\hat{\sigma}_{d})$?
+
+:::
+
+
+:::{.exercise #geometricl}
+[@Luenberger_2003] __Symulacja komputerowa geometrycznych ruchów Browna__ Rozważ akcję, której cena $S$ podlega geometrycznym ruchom Browna:
+$$ \frac{d S}{S(t)} = 0,10 dt + 0,30 dz$$
+a. Podstawiając $\Delta t = 1/12$ i $S(0)=1$ przeprowadź symulację kilku (a raczej wielu) lat przebiegu procesu. Zbadaj funkcję $\frac{1}{t}\ln S(t)$ w zależności od $t$. Zauważ, że funkcja ta dąży do $p$. Jaka jest teoretyczna wartość tej granicy?
+
+b. Jak duże musi być $t$, aby możliwe było uzyskanie wyniku z dokładnością do dwóch miejsc po przecinku?
+
+c. Zbadaj funkcję zmiennej $t$:
+$$ \frac{1}{t} \left[\ln S(t) - pt \right]^2 $$
+Czy funkcja ta ma granicę skończoną? Jeśli tak, to jaka jest jej wartość?
+:::

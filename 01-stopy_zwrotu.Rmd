@@ -92,17 +92,26 @@ r_t = \ln\left(\frac{P_t}{P_{t-1}}\right)=\ln P_t-\ln P_{t-1}
 (\#eq:log-return-stocks2)
 \end{equation}
 
-Jeżeli stopy zwrotu są względnie niskie, na przykład w przedziale $(-0,2; 0,2)$, to wartości stopy logarytmicznej i prostej stopy zwrotu netto są zbliżone. 
+Jeżeli stopy zwrotu są względnie niskie, na przykład w przedziale $(-0{,}2; 0{,}2)$, to wartości stopy logarytmicznej i prostej stopy zwrotu netto są zbliżone. 
 
 Zaletą stóp logarytmicznych jest prosta zależność pomiędzy jednookresowymi i wielookresowymi stopami zwrotu:
 
 \begin{equation}
 \begin{split}
-r_t(k) = \ln\left(\mathcal{R_t(k)}\right) = \ln(\mathcal{R_t}\cdot\mathcal{R_{t-1}\cdot\cdot\cdot\mathcal{R_{t-k+1}}})=\\= \ln(\mathcal{R_t}) + ln(\mathcal{R_{t-1}}) + \cdot\cdot\cdot + \ln(\mathcal{R_{t-k+1}})=\\
-=r_t + r_{t-1} + \cdot\cdot\cdot + r_{t-k+1}
+r_t(k) & = \ln\left(\mathcal{R_t(k)}\right) = \ln(\mathcal{R_t}\cdot\mathcal{R_{t-1}\cdot\cdot\cdot\mathcal{R_{t-k+1}}})=\\ &= \ln(\mathcal{R_t}) + ln(\mathcal{R_{t-1}}) + \cdot\cdot\cdot + \ln(\mathcal{R_{t-k+1}})=\\
+& =r_t + r_{t-1} + \cdot\cdot\cdot + r_{t-k+1}
 \end{split}
 (\#eq:multi-log-sum)
 \end{equation}
+
+Jeżeli mamy dane logarytmiczne stopy zwrotu, możemy uzyskać stopy proste:
+
+\begin{equation}
+\mathcal{R} = e^r \\
+R = e^r-1
+(\#eq:r-from-log)
+\end{equation}
+
 
 ### Indeksy
 

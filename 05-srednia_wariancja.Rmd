@@ -1,3 +1,526 @@
 # Analiza średniej-wariancji {#sredniawariancja}
 
+Na wykresie \@ref(fig:sbbi-cpi-adj) pokazano statystyki rocznych stóp zwrotu na rynku amerykańskim w latach 1920-2015 skorygowanych o wskaźnik cen -- na osi $x$ jest odchylenie standardowe, a na osi $y$ średnia stopa zwrotu. Dane historyczne pokazują, że wyższym stopom zwrotu towarzyszy -- co do zasady -- większa ich zmienność. 
 
+``` {r sbbi-cpi-adj, echo=FALSE, fig.cap='Historyczne, skorygowane o inflację, stopy zwrotu i odchylenie standardowe grup aktywów amerykańskich w latach 1920-2015 na podstawie danych z raportu SBBI'}
+
+df<-data.frame(asset=c("Akcje większych spółek",	
+                       "Akcje mniejszych spółek",
+                       "Obligacje korporacyjne",	
+                       "Długoterminowe obligacje rządowe",
+                       "Średnioterminowe obligacje rządowe",
+                       "Bony skarbowe"),
+               mu=c(8.85,	13.18,	3.42,	3.15,	2.41,	0.56),
+               sigma=c(20.01,	31.40,	9.51,	10.95,	6.71,	3.83))
+#mu=c(11.95,	16.47,	6.30,	6.02,	5.32,	3.46),
+#sigma=c(19.99,	32.02,	8.42,	9.96,	5.65,	3.12))
+
+library(ggplot2)
+library(ggrepel)
+
+ggplot(aes(x=sigma, y=mu), data=df) + 
+  geom_point() +
+  theme_bw() +
+  xlim(c(0,35)) +
+  ylim(c(0,14)) +
+  xlab("odchylenie standardowe") +
+  ylab("oczekiwany zwrot") +
+  geom_text_repel(aes(label=asset))
+
+```
+
+W tym rozdziale przyjmiemy, że inwestorzy kierują się rozkładami prawdopodobieństwa przyszłych stóp zwrotu dla danego okresu utrzymywania aktywów (_holding period_). Zakładamy również, że inwestorom do podejmowania decyzji wystarcza znajomość dwóch parametrów tych rozkładów: wartości oczekiwanej i wariancji. 
+
+Znajomość wariancji oznacza oczywiście jednocześnie znajomość odchylenia standardowego, stąd na wykresach takich jak \@ref(fig:sbbi-cpi-adj) zwykle przedstawia się odchylenie standardowe na osi $x$ i wartość oczekiwaną na osi $y$. 
+
+## Dominacja w znaczeniu średniej-wariancji
+
+Każde aktywo lub portfel, dla którego znana jest wariancja (prostych) stóp zwrotu i ich wartość oczekiwana, może zostać przedstawione jako punkt na wykresie. 
+
+Zgodnie z teorią portfelową (opartą na analizie średniej-wariancji) inwestor chce:
+
+- ograniczać ryzyko i zwiększać oczekiwany zwrot,
+
+- przy tym samym oczekiwanym zwrocie ponosić jak najniższe ryzyko,
+
+- przy tym samym ryzyku osiągać jak najwyższy zwrot.
+
+Jeżeli aktywo X ma w porównaniu z aktywem Y wyższy zwrot przy tym samym ryzyku lub niższe ryzyko przy tym samym lub wyższym zwrocie, mówimy, że _aktywo X dominuje na aktywem Y_. 
+
+Na rysunku \@ref(fig:abcdefg) aktywa D, E, F i G dominują nad aktywem B. Jeżeli rozważamy tylko portfele A, B, C, to stwierdzamy, że żaden z nich nad żadnym innym nie dominuje, ani nie jest zdominowany. Jeżeli inwestorzy wybierają pomiędzy tymi trzema portfelami, to czy wybiorą A, B czy C zależy tylko i wyłącznie od preferencji dotyczących "apetytu na ryzyko" (czyli na ile są w stanie przyjąć większe ryzyko w zamian za wyższą oczekiwaną stopę zwrotu).  
+
+``` {r abcdefg, echo=FALSE, fig.cap='Portfele D, E, F i G dominują nad portfelem B'}
+library(ggplot2)
+library(ggrepel)
+
+ggplot(aes(x=sigma, y=mu), data=data.frame(sigma=c(.05, .10, .22, .07, .10, .05, .04),
+                                           mu=c(.06, .10, .15, .20, .15, .12, .10), 
+                                           asset=c("A", "B", "C", "D", "E", "F", "G"))) +
+  xlim(c(0,.22)) +
+  ylim(c(0,.22)) +
+  geom_rect(aes(xmin = -Inf, xmax = .1, ymin = .1, ymax = Inf),
+            alpha = 1/5,
+            fill = " lightblue") +  
+  geom_point() +
+  theme_bw() +
+  xlab("odchylenie standardowe") +
+  ylab("oczekiwany zwrot") +
+  geom_text_repel(aes(label=asset))
+```
+
+## Portfel składający się z dwóch aktywów
+
+Jeżeli mamy dwa aktywa o oczekiwanym zwrocie $E(R_1)$ i $E(R_2)$ i odchyleniach standardowych odpowiednio $\sigma_1$ i $\sigma_2$, zaś korelacja pomiędzy nimi wynosi $\rho_{12}$, to portfel zbudowany z tych aktywów będzie miał następującą oczekiwaną stopę zwrotu $E(R_p)$:
+
+\begin{equation}
+E(R_p) = w_1 E(R_1) + w_2 E(R_2),
+(\#eq:ERp-intext)
+\end{equation}
+
+gdzie $w_1$ to udział aktywa $1$ w portfelu, a $w_2=1-w_1$ to udział aktywa $2$. 
+
+Wariancja portfela będzie wynosić:
+
+\begin{equation}
+\begin{split}
+\sigma^2_p & = w_1^2 \sigma_1^2 + w_2^2 \sigma_2^2 + 2 w_1 w_2  \rho_{12} \sigma_1 \sigma_2
+               \\ & = w_1^2 \sigma_{11} + w_2^2 \sigma_{22} + 2 w_1 w_2 \sigma_{12}, 
+\end{split}
+(\#eq:sigma2p-intext)
+\end{equation}
+
+
+gdzie $\sigma_{12}$ to kowariancja pomiędzy stopami zwrotu aktywa $1$ i aktywa $2$
+
+\begin{equation}
+\sigma_{12}= \rho_{12} \sigma_1 \sigma_2,
+(\#eq:covxy-intext)
+\end{equation}
+
+a $\sigma_{ii}$ to inny sposób zapisu wariancji ($\sigma^2_i$).
+
+Odchylenie standardowe stopy zwrotu portfela to będzie oczywiście pierwiastek z wariancji.
+
+\begin{equation}
+\sigma_p = \sqrt{\sigma_p^2}
+(\#eq:sigmap-intext)
+\end{equation}
+
+Szczególnym przypadkiem portfela składającego się z dwóch aktywów jest sytuacja, kiedy jedno z aktywów jest aktywem wolnym od ryzyka. Oczekiwany zwrot aktywa wolnego od ryzyka wynosi $R_f$ -- jest to stopa wolna od ryzyka, a wariancja i odchylenie standardowe wynoszą zero ($\sigma_f = 0$).
+
+W takiej sytuacji wartość oczekiwana to:
+
+\begin{equation}
+E(R_p) = w_1 E(R_1) + (1-w_1) R_f = R_f + w_1\left(E(R_1) - R_f\right). 
+(\#eq:ERpRf-intext)
+\end{equation}
+
+Wariancja to:
+
+
+\begin{equation}
+\sigma^2_p = w_1^2 \sigma_1^2,
+(\#eq:sigma2pRf-intext)
+\end{equation}
+
+a odchylenie standardowe to:
+
+\begin{equation}
+\sigma_p = w_1 \sigma_1.
+(\#eq:sigmapRf-intext)
+\end{equation}
+
+
+## Portfel składający się z większej liczby komponentów
+
+Dla trzech aktywów wartość oczekiwana wygląda następująco:
+
+\begin{equation}
+E(R_p) = w_1 E(R_1) + w_2 E(R_2) + w_3 E(R_3) = \sum_{i=1}^3 w_i E(R_i),
+(\#eq:ERp3-intext)
+\end{equation}
+
+zaś wariancję możemy wyznaczyć za pomocą formuły:
+
+\begin{equation}
+\begin{split}\sigma^2_p & = w_1^2 \sigma_1^2 + w_2^2 \sigma_2^2 + w_3^2 \sigma_3^2 + \\
+ & \:\:\:\: + 2 w_1 w_2  \rho_{12} \sigma_1 \sigma_2 + 2 w_1 w_2  \rho_{23} \sigma_3 \sigma_3 + 2 w_1 w_2  \rho_{13} \sigma_1 \sigma_3 = \\ 
+               & = w_1^2 \sigma_1^2 + w_2^2 \sigma_2^2 + w_3^2 \sigma_3^2 +\\
+               &  \:\:\:\:  + 2 w_1 w_2 \sigma_{12} + 2 w_2 w_3 \sigma_{23} + 2 w_1 w_3 \sigma_{13} =\\ 
+               & = \sum_{i, j = 1}^{3}w_i w_j \sigma_{ij}.
+\end{split}
+(\#eq:sigma2p3-intext)
+\end{equation}
+
+               
+Dla większej liczby aktywów ($n$ komponentów portfela) wzory są analogiczne:
+
+\begin{equation}
+E(R_p) = \sum_{i=1}^3 w_i E(R_i)
+(\#eq:ERpn-intext)
+\end{equation}
+
+\begin{equation}
+\sigma^2_p = \sum_{i, j = 1}^{n}w_i w_j \sigma_{ij}.
+(\#eq:sigma2pn-intext)
+\end{equation}
+
+
+
+## Dywersyfikacja
+
+Załóżmy, że tworzymy portfel składający się tylko z aktywów ryzykownych. Wariancja stopy zwrotu każdego aktywa jest taka sama i wynosi $\sigma^2$, a korelacja dla każdej pary aktywów wynosi $\rho\ge 0$. Jaką wariancję i odchylenie standardowe będzie miał portfel składający się $n$ aktywów, z których każde będzie miało taką samą wagę $w=1/n$?
+
+Skorzystamy z wzoru \@ref(eq:sigma2pn-intext). W tym przypadku będzie miał on postać. 
+
+\begin{equation}
+\sigma^2_p = \sum_{i, j = 1}^{n}\frac{1}{n^2} \sigma_{ij}.
+(\#eq:sigma2pn-div-1)
+\end{equation}
+
+W $n$ przypadkach $i=j$, i wtedy $\sigma_{ij}$ to wariancja. Dla pozostałych $n^2-n$ składników sumy mamy do czynienia z kowariancją i wynosi ona (\@ref(eq:covxy-intext)) $\sigma_{ij} = \sigma^2 \rho$. 
+
+Stąd:
+
+\begin{equation}
+\begin{split}
+\sigma^2_p &  = \frac{n \sigma^2 + (n^2-n)\sigma^2\rho}{n^2} = \\
+& = \frac{\sigma^2}{n} + \left(1-\frac{1}{n}\right) \sigma^2 \rho
+\end{split}
+(\#eq:sigma2pn-div-2)
+\end{equation}
+
+Gdy $n$ dąży do nieskończoności, granicą $\sigma^2_p$ jest $\sigma^2\rho$:
+
+\begin{equation}
+\lim_{n \to \infty} \sigma_p = \sqrt{\sigma^2 \rho} = \sigma \sqrt{\rho}
+(\#eq:sigmapn-div-lim)
+\end{equation}
+
+
+## Portfele dwuskładnikowe
+
+Załóżmy, że mamy dwa aktywa i łączymy je w portfele. W takiej sytuacji wszystkie możliwe kombinacje tych aktywów znajdą się na wykresie ma jednej krzywej. 
+
+Jeżeli nie będziemy dopuszczać krótkiej sprzedaży, wszystkie krzywe będą leżały na wycinku krzywej łączącej punkty A i B. Punkty A i B oznaczają portfele składające się w 100\% z jednego z aktywów. 
+
+"Wybrzuszenie" krzywej będzie zależeć od wartości korelacji. 
+
+```{r wybrzuszenie, fig.cap="Krzywe pokazują parametry portfeli złożonych z aktywów A i B. W zależności od poziomu korelacji krzywa jest bardziej lub mniej \'wybrzuszona\'. ", echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+library(IntroCompFinR)
+options(OutDec=",")
+mu <- c(0.02, 0.10)
+sigma <- c(.10, .15)
+rho<-0
+ers<-seq(min(mu), max(mu), (max(mu)-min(mu))/100)
+eps1<-Vectorize(function(x, rho, shorts=FALSE) {
+  Rho <- matrix(c(1,rho, rho, 1), nrow=2)
+  Sigma<-sigma %*% t(sigma) * Rho
+  efficient.portfolio(mu, Sigma, target.return=x, shorts=shorts)$sd})
+
+
+library(ggplot2)
+library(ggrepel)
+
+ggplot() +
+  geom_point(aes(x=sigma, y=mu), colour='dark blue') +
+#  geom_path(aes(x=eps1(ers, 1), y=ers), colour='blue') +
+  geom_path(aes(x=eps1(ers, 0.5), y=ers), colour='blue') +
+  geom_path(aes(x=eps1(ers, 0), y=ers), colour='blue') +
+  geom_path(aes(x=eps1(ers, -0.5), y=ers), colour='blue') +
+  geom_path(aes(x=eps1(ers, -0.75), y=ers), colour='blue') + 
+  geom_path(aes(x=sigma, y=mu)) +
+  geom_path(aes(x=c(sigma[1], 0, sigma[2]), y=c(mu[1], (sigma[1]*mu[2]+sigma[2]*mu[1])/sum(sigma), mu[2]))) +
+  
+#  geom_path(aes(x=eps1(ers, -1), y=ers), colour='blue') +
+  xlab("odchylenie standardowe") +
+  ylab("oczekiwany zwrot") +
+  xlim(c(0,max(sigma)))+
+  ylim(c(0, max(mu))) +
+  annotate("text", x=eps1(ers[39], 0)+.005, y=ers[39], label="rho == 0", parse=TRUE, colour='blue') +
+  annotate("text", x=eps1(ers[39], 0.5)+.008, y=ers[39], label="rho == 0.5", parse=TRUE, colour='blue') +
+  annotate("text", x=eps1(ers[39], -0.5)+.008, y=ers[39], label="rho == -0.5", parse=TRUE, colour='blue') +
+  annotate("text", x=eps1(ers[39], -0.75)+.008, y=ers[39], label="rho == -0.75", parse=TRUE, colour='blue')+
+  annotate("text", x=eps1(ers[39], -0.97), y=ers[39], label="rho == -1", parse=TRUE, colour='black') +
+  annotate("text", x=eps1(ers[39], 0.97)+.008, y=ers[39], label="rho == 1", parse=TRUE, colour='black') +
+  geom_point(aes(x=0, y=(sigma[1]*mu[2]+sigma[2]*mu[1])/sum(sigma))) +
+  geom_text_repel(aes(x=0, y=(sigma[1]*mu[2]+sigma[2]*mu[1])/sum(sigma), label=c("Z"))) +
+  geom_text_repel(aes(x=sigma, y=mu, label=c("A", "B")))
+
+
+```
+
+Wszystkie "wybrzuszone" wycinki krzywej będą znajdować się wewnątrz trójkąta wyznaczonego przez punkty A, B i Z. Punkt Z  to portfel o zerowej wariancji możliwy do osiągnięcia, jeżeli korelacja $\rho_{AB}$ wynosi -1. Oczekiwany zwrot w tym punkcie to:
+
+$E(R_Z) = \left(\sigma_AE(R_B)+\sigma_BE(R_A)\right)/(\sigma_A+\sigma_B)$
+
+Jeżeli dopuścimy krótką sprzedaż krzywe przedstawiające kombinacje portfeli wydłużą się. 
+
+```{r shorts2, fig.cap="Kombinacje dwóch portfeli w przypadku braku krótkiej sprzedaży (krzywe niebieskie) i dopuszczalności krótkiej sprzedaży (krzywe czerwone).", echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+library(IntroCompFinR)
+options(OutDec=",")
+ers<-seq(min(mu), max(mu), (max(mu)-min(mu))/100)
+ers2<-seq(min(c(mu,0)), max(mu)+0.05, (max(mu)+0.05-min(c(mu,0)))/100)
+
+
+library(ggplot2)
+library(ggrepel)
+
+ggplot() +
+  geom_point(aes(x=sigma, y=mu), colour='dark blue') +
+#  geom_path(aes(x=eps1(ers, 1), y=ers), colour='blue') +
+  geom_path(aes(x=eps1(ers2, 0.5, shorts=TRUE), y=ers2), colour='red') +
+  geom_path(aes(x=eps1(ers, 0.5), y=ers), colour='blue') +
+
+  geom_path(aes(x=eps1(ers2, -0.5, shorts=TRUE), y=ers2), colour='red') +
+  geom_path(aes(x=eps1(ers, -0.5), y=ers), colour='blue') +
+
+#  geom_path(aes(x=eps1(ers, -1), y=ers), colour='blue') +
+  xlab("odchylenie standardowe") +
+  ylab("oczekiwany zwrot") +
+  xlim(c(0,max(sigma)+0.1))+
+  ylim(c(0, max(mu)+0.05)) +
+  annotate("text", x=eps1(ers[39], 0.5)+.008, y=ers[39], label="rho == 0.5", parse=TRUE, colour='blue') +
+  annotate("text", x=eps1(ers[39], -0.5)+.008, y=ers[39], label="rho == -0.5", parse=TRUE, colour='blue') +
+  geom_text_repel(aes(x=sigma, y=mu, label=c("A", "B")))
+
+#eps1(ers)
+
+```
+
+Skład portfela minimalnej wariancji można (przy ewentualnym założeniu dopuszczalności krótkiej sprzedaży) wyznaczyć za pomocą prostych metod analizy matematycznej (vide ćwiczenie \@ref(exr:lue-porfel2)).    
+
+
+## Portfele o trzech lub większej liczbie składników
+
+W przypadku większej liczby portfeli powstaje zbiór możliwości inwestycyjnych - portfele nie leżą już zwykle na jednej krzywej. 
+
+Przykład na poniższym wykresie. 
+
+```{r portfele3, fig.cap="Losowe portfele złożone z aktywów opisanych na wykresie",  echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+load("a.rda")
+library(IntroCompFinR)
+plus<-0
+includeBills<-0
+end<-7+includeBills
+endr<-24+includeBills
+Rho<-as.matrix(a[20:endr+plus,3:end])
+sigma<-as.numeric(a[18+plus,3:end])
+mu<-as.numeric(a[17+plus,3:end])
+Sigma<-sigma %*% t(sigma) * Rho
+
+nsim<-1000
+w<-matrix(rep(0, nsim*6), ncol=6)
+
+w[,1]<-(1-(runif(nsim))^(1/5))*includeBills
+w[,2]<-(1-(runif(nsim))^(1/4))*(1-w[,1])
+w[,3]<-(1-(runif(nsim))^(1/3))*(1-w[,1]-w[,2])
+w[,4]<-(1-(runif(nsim))^(1/2))*(1-w[,1]-w[,2]-w[,3])
+w[,5]<-(1-(runif(nsim)))*(1-w[,1]-w[,2]-w[,3]-w[,4])
+w[,6]<-(1-w[,1]-w[,2]-w[,3]-w[,4]-w[,5])
+
+w<-w[,(1+(1-includeBills)):6]
+
+port<-data.frame(sigma=rep(0,nsim), er = rep(0, nsim))
+
+for (i in 1:nsim){
+  port$sigma[i]<-sqrt(t(w[i,]) %*% Sigma %*% w[i,])
+  port$er[i]<-sum(w[i,]*mu)
+  # port$sigmal[i]<-sqrt(t(wl[i,]) %*% Sigma %*% wl[i,])
+  # port$erl[i]<-sum(wl[i,]*mu)
+}
+ef<-efficient.frontier(mu, Sigma, nport=1000, shorts=FALSE)
+efs<-efficient.frontier(mu, Sigma, nport=1000)
+ers<-seq(min(mu), max(mu), (max(mu)-min(mu))/1000)
+
+eps1<-Vectorize(function(x, shorts=FALSE)
+{efficient.portfolio(mu, Sigma, target.return=x, shorts=shorts)$sd})
+
+eps1part<-Vectorize(function(x, a1, a2, shorts=FALSE)
+{efficient.portfolio(mu[c(a1, a2)], Sigma[c(a1, a2),c(a1, a2)], target.return=x, shorts=shorts)$sd})
+
+
+ef2<-eps1(ers)
+
+r12<-ers[ers<=mu[1]&ers>=mu[2]|ers>=mu[1]&ers<=mu[2]]
+f12<-eps1part(r12,1,2)
+d12<-data.frame(f12, r=r12)
+
+r13<-ers[ers<=mu[1]&ers>=mu[3]|ers>=mu[1]&ers<=mu[3]]
+f13<-eps1part(r13,1,3)
+d13<-data.frame(f13, r=r13)
+
+r14<-ers[ers<=mu[1]&ers>=mu[4]|ers>=mu[1]&ers<=mu[4]]
+f14<-eps1part(r14,1,4)
+d14<-data.frame(f14, r=r14)
+
+r15<-ers[ers<=mu[1]&ers>=mu[5]|ers>=mu[1]&ers<=mu[5]]
+f15<-eps1part(r15,1,5)
+d15<-data.frame(f15, r=r15)
+
+r23<-ers[ers<=mu[2]&ers>=mu[3]|ers>=mu[2]&ers<=mu[3]]
+f23<-eps1part(r23,2,3)
+d23<-data.frame(f23, r=r23)
+
+r24<-ers[ers<=mu[2]&ers>=mu[4]|ers>=mu[2]&ers<=mu[4]]
+f24<-eps1part(r24,2,4)
+d24<-data.frame(f24, r=r24)
+
+r25<-ers[ers<=mu[2]&ers>=mu[5]|ers>=mu[2]&ers<=mu[5]]
+f25<-eps1part(r25,2,5)
+d25<-data.frame(f25, r=r25)
+
+r34<-ers[ers<=mu[3]&ers>=mu[4]|ers>=mu[3]&ers<=mu[4]]
+f34<-eps1part(r34,3,4)
+d34<-data.frame(f34, r=r34)
+
+r35<-ers[ers<=mu[3]&ers>=mu[5]|ers>=mu[3]&ers<=mu[5]]
+f35<-eps1part(r35,3,5)
+d35<-data.frame(f35, r=r35)
+
+r45<-ers[ers<=mu[4]&ers>=mu[5]|ers>=mu[4]&ers<=mu[5]]
+f45<-eps1part(r45,4,5)
+d45<-data.frame(f45, r=r45)
+
+df<-Reduce(function(x, y) merge(x, y, all=TRUE), list(d12, d13, d14, d15, d23, d24, d25, d34, d35, d45))
+#View(df)
+df2<-data.frame(r=df[,1], s=apply(df[,2:11],1,function(x){max(x, na.rm=TRUE)}))
+
+library(ggplot2)
+library(ggrepel)
+labels=c("Losowe portfele\nbez krótkiej\nsprzedaży",
+         'Granica minimalnej\nwariancji\nbez krótkiej sprzedaży',
+         'Granica minimalnej\nwariancji\nz krótką sprzedażą',
+         'Grupy\naktywów',
+         'Granica zbioru\nmożliwości \ninwestycyjnych\nbez krótkiej sprzedaży')
+
+ggplot() + geom_point(aes(x=sigma, y=er, colour=labels[1]), data=port) +
+#  geom_line(aes(x=eps1(1:13/100), y=1:13/100), colour='blue') +
+#  geom_line(aes(x=eps2(1:13/100), y=1:13/100), colour='red') +
+  # geom_path(aes(x=ef$sd, y=ef$er), colour='blue') +
+  geom_path(aes(x=ef2, y=ers, colour=labels[2])) +
+  geom_path(aes(x=efs$sd, y=efs$er, colour=labels[3])) +
+  geom_point(aes(x=sigma, y=mu, colour=labels[4]), size=2) +
+  geom_path(aes(x=df2$s, y=df2$r, colour=labels[5]), size=0.1) +
+  # geom_path(aes(x=ef13$sd, y=ef13$er), colour='light grey', size=0.01) +
+  # geom_path(aes(x=ef14$sd, y=ef14$er), colour='green', size=0.01) +
+  # geom_path(aes(x=ef15$sd, y=ef15$er), colour='green', size=0.01) +
+  # geom_path(aes(x=ef23$sd, y=ef23$er), colour='green', size=0.01) +
+  # geom_path(aes(x=ef24$sd, y=ef24$er), colour='green', size=0.01) +
+  # geom_path(aes(x=ef25$sd, y=ef25$er), colour='green', size=0.01) +
+  # geom_path(aes(x=ef34$sd, y=ef34$er), colour='green', size=0.01) +
+  # geom_path(aes(x=ef35$sd, y=ef35$er), colour='green', size=0.01) +
+  # geom_path(aes(x=ef45$sd, y=ef45$er), colour='green', size=0.01) +
+  ylim(c(0,.15)) + 
+  # xlim(c(0.02, .35)) +
+  xlab("odchylenie standardowe") +
+  ylab("oczekiwany zwrot") +
+  geom_text_repel(aes(x=sigma, y=mu, label=c("Akcje większych spółek",	
+                                             "Akcje mniejszych spółek",
+                                             "Obligacje korporacyjne",
+                                             "Długoterminowe obligacje rządowe",
+                                             "Średnioterminowe obligacje rządowe"))) +   scale_colour_manual(name='', 
+                      breaks=labels,
+                      values=c("grey", "blue", "red", "dark green", "dark green"),
+                      guide=guide_legend(override.aes = list(
+                        linetype=c("blank", "solid", "solid", "blank", "solid"),
+                        shape=c(16, NA, NA, 16, NA)
+                      ))) + theme(legend.position="bottom", 
+                                  legend.box="vertical")
+
+
+
+```
+
+__Granica minimalnej wariancji__ to taki zestaw portfeli, które dla zadanego oczekiwanego zwrotu mają najniższą wariancję. Na wykresie zaznaczono dwie granice minimalnej wariancji - jedną w sytuacji, kiedy krótka sprzedaż jest niedopuszczalna, drugą w sytuacji możliwości krótkiej sprzedaży (wagi ujemne).
+
+__Globalny portfel minimalnej wariancji__ to portfel zawierający aktywa ryzykowne skonstruowany w ten sposób, żeby jego wariancja była najmniejsza. 
+
+__Portfele efektywne__ to takie portfele, nad którymi nie dominuje żaden inny portfel. __Granica efektywna__ to ta część granicy minimalnej wariancji, która zawiera portfele efektywne. 
+
+## Współczynnik Sharpe'a i portfel styczny
+
+Jeżeli jedno z aktywów jest aktywem wolnym od ryzyka granica efektywna staje się linią prostą.  
+
+Portfel styczny to portfel ryzykowny, który. 
+
+Portfel styczny to ten z portfeli efektywnych, którego współczynnik Sharpe'a jest najwyższy. 
+
+Współczynnik Sharpe'a danego portfela/aktywa $A$ określamy wzorem:
+
+gdzie...
+
+Geometrycznie jest to współczynnik nachylenia linii łączącej punkt reprezentujący aktywo wolne od ryzyka z danym portfelem/aktywem. 
+
+
+## Ćwiczenia
+
+<!--
+Suppose that there are two risky assets, A and B, with expected returns equal to 2.3% and 4.5%, respectively. Suppose that the standard deviations of the returns are sqrt(6%) and
+sqrt11% and that the returns on the assets have a correlation of 0.17.
+(a) What portfolio of A and B achieves a 3% rate of expected return?
+(b) What portfolios of A and B achieve a sqrt5.5% standard deviation of
+return? Among these, which has the largest expected return?
+-->
+
+
+<!-- :::{.exercise #dywersyfikacja} -->
+<!-- __Dywersyfikacja__ Załóżmy, że tworzymy portfel składający się tylko z aktywów ryzykownych. Wariancja stopy zwrotu każdego aktywa jest taka sama i wynosi $\sigma^2$, a korelacja dla każdej pary aktywów wynosi $\rho$. Jaką wariancję i odchylenie standardowe będzie miał portfel składający się $n$ aktywów, z których każde będzie miało taką samą wagę $w=1/n$]? -->
+<!-- ::: -->
+
+:::{.exercise #rup111}
+[@Ruppert_Matteson_2015] Załóżmy, że mamy dwa ryzykowne aktywa, $A$ i $B$ z oczekiwanym zwrotem równym odpowiednio $2{,}3\%$ i $4{,}5\%$. Załóżmy również, że odchylenia standardowe stóp zwrotu wynoszą odpowiednio $\sqrt{6}\%$ i $\sqrt{11}\%$, a korelacja pomiędzy stopami zwrotu wynosi 0,17. 
+
+(a) Jaki portfel składający się z A i B osiąga oczekiwany zwrot w wysokości 3\%?
+
+(b) Jakie portfele składające się z A i B mają ryzyko (odchylenie standardowe) równe $\sqrt{5{,}5}\%$? Który z nich ma najwyższą oczekiwaną stopę zwrotu?
+:::
+
+
+:::{.exercise #lue-porfel1}
+[@Luenberger_2003] Współczynnik korelacji $\rho$ dwóch aktywów A i B wynosi 0,1. Inne dane na ich temat pokazano w tabeli. Uwaga: $\rho=\sigma_{AB}/(\sigma_A \sigma_B)$. 
+
+```{r echo=FALSE} 
+options(OutDec=",")
+df<-data.frame(Aktywa=c("A", "B"), er=c("10,0%", "18,0%"), sigma=c("15%", "30%"))
+colnames(df)<-c("Aktywa", "$E(R)$", "$\\sigma$")
+knitr::kable(df, align = "ccc")
+```
+
+(a) Wyznacz udziały $w_A$ dla A oraz $w_B=(1-w_A)$ dla B, które definiują portfel złożony z A i B o najmniejszym możliwym odchyleniu standardowym. 
+
+(b) Ile wynosi wartość najmniejszego możliwego do osiągnięcia odchylenia standardowego portfela złożonego z A i B?
+
+(c) Jaka jest oczekiwana stopa zwrotu z tego portfela?
+:::
+
+
+:::{.exercise #lue-porfel2}
+[@Luenberger_2003] Dostępne są dwie akcje. Ich oczekiwane stopy zwrotu wynoszą odpowiednio $R_1$ i $R_2$. Wariancje i kowariancje tych stóp zwrotu są równe $\sigma_1^2$, $\sigma_2^2$ oraz $\sigma_{12}$. Jaką część kapitału powinno się zainwestować w poszczególne akcje, aby całkowita wariancja stopy zwrotu z portfela była najmniejsza? Jaka jest oczekiwana stopa zwrotu z tego portfela?
+Podpowiedź: potrzebna jest minimalizacja funkcji $f(w)$, gdzie $w$ to waga jednego z aktywów (np. aktywa 1). 
+:::
+
+:::{.exercise #lue-porfel3}
+[@Luenberger_2003] Załóżmy, że istnieją dokładnie trzy rodzaje aktywów ryzykownych. Macierz kowariancji oraz oczekiwane stopy zwrotu są następujące:
+
+
+$$\mathbf{\Sigma} =   \left[ {\begin{array}{ccc}
+    2 & 1 & 0\\
+    1 & 2 & 1\\
+    0 & 1 & 2\\
+  \end{array} } \right],\:\:\:\:E(\mathbf{R}) =  \left[ {\begin{array}{c}
+    0{,}4\\
+    0{,}8\\
+    0{,}8\\
+  \end{array} } \right]$$
+
+(a) Znajdź portfel o minimalnej wariancji przy założeniu dopuszczalności krótkiej sprzedaży. 
+
+(b) Znajdź portfel o minimalnej wariancji przy założeniu braku krótkiej sprzedaży. 
+
+(c) Znajdź portfel efektywny składający się aktywów ryzykownych, jeżeli istnieje aktywo wolne od ryzyka o stopie $r_f$ równej $0{,}2$. 
+:::
+
+:::{.exercise #portfeln}
+Na rynku istnieją aktywa ryzykowne. Ich zwroty mają równe odchylenia standardowe $\sigma=0{,}15$. Korelacje pomiędzy każdą parą wynoszą $\rho=0{,}3$. Ile wynosi ryzyko portfela złożonego z dwóch aktywów z równymi wagami? Z trzech? Z czterech? Ile wynosi ryzyko (odchylenie standardowe) w przypadku portfela z nieskończoną liczbą aktywóW (granica)? Ile aktywów należy minimalnie wziąć do portfela, żeby odchylenie standardowe stanowiło nie więcej niż 110\% granicy? 105\%? 101\%?  
+:::

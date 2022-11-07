@@ -19,3 +19,38 @@ Zaczątek skryptu dla przedmiotu Modele rynku kapitałowego. Skrypt będzie w na
 Model - uproszczenie rzeczywistości, często w formie matematycznej.  
 
 Rynek kapitałowy (<https://pl.wikipedia.org/wiki/Rynek_kapita%C5%82owy>) - kupno i sprzedaż akcji i obligacji, głównie poprzez giełdy. 
+
+## Oznaczenia {-}
+
+$\mathcal{R}_t$ -- stopa zwrotu brutto w okresie rozpoczynającym się w momencie $t-1$, a kończącym w momencie $t$ (w skrócie: w okresie $t$)
+
+$R_t$ -- prosta jednookresowa stopa zwrotu netto w okresie $t$
+
+$r_t$ -- jednookresowa logarytmiczna stopa zwrotu w okresie $t$
+
+$\mathcal{R}_t(k)$ -- $k$-okresowa prosta stopa zwrotu brutto za okres od momentu $t-k$ do momentu $t$
+analogicznie: $R_t(k)$, $r_t(k)$. 
+
+$R(t) = R_t(t)$ -- stopa zwrotu netto za okres rozpoczynający się w momencie $0$, a kończący się w momencie $t$. Analogicznie $r(t) = r_t(t)$, $\mathcal{R}(t) = \mathcal{R}_t(t)$.
+
+$P_t$ lub $S_t$ -- cena akcji lub innego instrumentu finansowego w momencie $t$
+
+$P_{jt}$, $P_{j,t}$ -- cena $j$-tego instrumentu finansowego w momencie $t$.
+
+$\bar{x}$ -- średnia z szeregu realizacji zmiennej $X$ (średnia z "próbki")
+
+$R_G$ -- średnie tempo zmian, nazywane w przypadku prostych stóp netto "średnią geometryczną stopą zwrotu". Dla okresu rocznego nazywane CAGR. 
+
+$\sigma_X, SD(X)$ -- odchylenie standardowej zmiennej X -- parametr populacji/procesu.
+
+$\sigma^2_X, V(X)$ -- odchylenie standardowej zmiennej X -- parametr populacji/procesu. 
+
+$s_X$ -- odchylenie standardowe realizacji zmiennej X ("z próbki")
+
+$G_{1(X)}$ -- skorygowany współczynnik asymetrii ("z próbki")
+
+...
+
+
+
+

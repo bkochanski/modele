@@ -22,7 +22,7 @@ Często wyróżnia się zmienne [losowe dyskretne (skokowe)](<https://pl.wikiped
 
 ## Rozkład prawdopodobieństwa
 
-Rozkład prawdopodobieństwa to miara umożliwiająca określenie prawdopodobieństw poszczególnych wartości tej zmiennej. Rozkłady prawdopodobieństwa można przedstawić w formie tabeli albo w formie funkcji. Forma tabelaryczna przydaje się, jeżeli zmienna losowa jest dyskretna i ma niewiele możliwych wartości. 
+Rozkład prawdopodobieństwa to miara zmiennej losowej umożliwiająca określenie prawdopodobieństw poszczególnych wartości tej zmiennej. Rozkłady prawdopodobieństwa można przedstawić w formie tabeli albo w formie funkcji. Forma tabelaryczna przydaje się, jeżeli zmienna losowa jest dyskretna i ma niewiele możliwych wartości. 
 
 Przykład rozkładu prawdopodobieństwa zmiennej X, oznaczającej np. liczbę orłów w dwóch rzutach symetryczną monetą: 
 
@@ -35,7 +35,7 @@ knitr::kable(df, align = "cc")
 
 ## Wartość oczekiwana
 
-Wartość oczekiwana (ang. _expected value_) to średnia zmiennej losowej o danym rozkładzie prawdopodobieństwa. Zamiast terminu "wartość oczekiwana" używa się także pojęcia "nadzieja matematyczna".
+Wartość oczekiwana (ang. _expected value_) to średnia zmiennej losowej o danym rozkładzie prawdopodobieństwa. Zamiast terminu "wartość oczekiwana" używa się podobno^[Szczerze mówiąc, nigdy nie słyszałem, żeby ktokolwiek nazywał wartość oczekiwaną "nadzieją matematyczną". Z jednym wyjątkiem: kiedy jakiś podręcznik po raz pierwszy mówi o wartości oczekiwanej, wspomina, tak jak ten skrypt, że synonimem tego terminu jest "nadzieja matematyczna.] także pojęcia "nadzieja matematyczna".
 
 Dla zmiennej losowej dyskretnej o skończonej liczbie wartości $m$ (indeksowanych od $x_1$ do $x_m$) wartość oczekiwaną można wyznaczyć następującym wzorem:
 
@@ -95,7 +95,7 @@ Dla zmiennych ciągłych:
 (\#eq:ciagl-V-intext)
 \end{equation}
 
-Odchylenie standardowe zmiennej losowej to pierwiastek z wariancji:
+Odchylenie standardowe zmiennej losowej (oznaczane przez $\sigma$, $\sigma_X$, $D(X)$ lub $SD(X)$) to pierwiastek z wariancji:
 
 \begin{equation}
 \sigma=\sqrt{\sigma^2}
@@ -129,7 +129,7 @@ Korelację można uznać za wystandaryzowaną kowariancję:
 (\#eq:covar-intext)
 \end{equation}
 
-Korelacja przyjmuje wartości od -1 do 1, może więc służyć do porównywania siły współzależności pomiędzy różnymi zmiennymi. 
+Korelacja przyjmuje wartości od -1 do 1, może więc służyć do porównywania siły współzależności pomiędzy różnymi parami zmiennych losowych. 
 
 ## Dyskretna zmienna losowa - szablon
 
@@ -139,14 +139,26 @@ Korelacja przyjmuje wartości od -1 do 1, może więc służyć do porównywania
 
 Popularnym przykładem ciągłej zmiennej losowej jest rozkład normalny. Wzór na gęstość prawdopodobieństwa (którego nie zamierzamy używać wprost) to: 
 
-$$ tu będzie wzór $$
+$$ f(x)=\frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}\:\:\:\:\:\:\:  x \in \left(-\infty, \infty \right) $$
 Rozkład normalny ma dwa parametry: parametr położenia - średnią (wartość oczekiwaną) $\mu$ i parametr skali - odchylenie standardowe $\sigma$. Jeżeli zmienna losowa X ma rozkład normalny o tych parametrach zapisujemy to najczęściej w następujący sposób:
 
 $$ X \sim N(\mu, \sigma^2 ) $$
 
+W praktyce wykorzystuje się przede wszystkim całkę, czyli pole pod krzywą gęstości rozkładu normalnego. Do tego celu najwygodniej wykorzystać tablice lub szablon (\@ref(gauss-szablon)) 
+
+## Rozkład logarytmiczno-normalny
+
+Jeżeli zmienna $X$ ma rozkład normalny z wartością oczekiwaną $\nu$ i wariancją $\sigma^2$, to zmienna $Y=e^{X}$ ma rozkład logarytmiczno-normalny (inaczej logarytmicznie normalny, log-normalny), z wartością oczekiwaną 
+
+$$ E(Y) = e^{\nu + {\sigma^2}/{2}} $$
+i wariancją:
+
+$$ V(Y) = (e^{\sigma^2} - 1)e^{2\nu+\sigma^2}$$
+
+Rozkład log-normalny jest wykorzystywany w modelach, w których zakłada się multiplikatywne zmiany cen (zob. \@ref(lattice), \@ref(multiplikatywny), \@ref(Brown)). 
 
 
-## Rozkład normalny - szablon
+## Rozkład normalny - szablon {#gauss-szablon}
 
 `r templ("Kalkulator dla rozkładu normalnego", "https://docs.google.com/spreadsheets/d/13oQ79mCIhjqn9t405hFV5vJj5V-uEYcxVCYFwGaGkko/edit?usp=sharing", "Kalkulator_rozkladu_normalnego.xlsx")`
 
@@ -229,7 +241,7 @@ ggplot()+ theme_void() +
 [@Luenberger_2003] __Ruletka__
 W grze przypominającej ruletkę uczestnik może postawić pewną kwotę na wybrany wycinek koła. Jeżeli po zatrzymaniu koła czarny trójkąt wskaże obstawiony wycinek, gracz otrzymuje wypłatę w wysokości wielokrotności obstawionej kwoty zgodnie z liczbami zapisanymi na planszy. 
 
-Jaka jest wartość oczekiwana, wariancja i odchylenie standardowe wypłaty w tej grze, jeżeli gracz dysponuję stawką 1 USD i 
+Jaka jest wartość oczekiwana, wariancja i odchylenie standardowe wypłaty w tej grze, jeżeli gracz dysponuje stawką 1 USD i:
 
 (a) gracz obstawi trójkę?
 
@@ -241,7 +253,7 @@ Jaka jest wartość oczekiwana, wariancja i odchylenie standardowe wypłaty w te
 
 (e) gracz postawi 0,7 USD na trójkę, 0,2 USD na szóstkę i 0,1 USD na dwójkę?
 
-Ile wynoszą kowariancja i korelacja pomiędzy 
+Ile wynoszą kowariancja i korelacja pomiędzy: 
 
 (f) wypłatami dla trójki (1 USD na trójkę) i dla szóstki (1 USD na szóstkę)?
 
@@ -309,8 +321,3 @@ the probability that one year from now it is selling at $110 or more?
 Roczne logarytmiczne zwroty akcji spółki PRS mają rozkład normalny ze średnią równą 0,1 i odchyleniem standardowym równym 0,2. Dzisiejszy kurs akcji spółki PRS to 100 USD. Jakie jest prawdopodobieństwo, że za rok kurs będzie wynosił 110 USD lub więcej?
 :::
 
-:::{.exercise #rup261b}
-Na podstawie @Ruppert_Matteson_2015. 
-Dzienne _logarytmiczne_ zwroty z akcji ZZZ są niezależne i mają rozkład normalny ze średnią 0,001 i odchyleniem standardowym 0,015. Załóżmy, że kupujemy te akcje za 1000 USD.
-Jakie jest prawdopodobieństwo, że po pięciu dniach handlowych inwestycja będzie warta mniej niż 980 USD? 
-:::
