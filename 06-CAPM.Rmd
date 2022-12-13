@@ -4,7 +4,7 @@
 
 Model CAPM zakłada, że wszyscy inwestorzy mają ten sam okres utrzymywania aktywów oraz jednakowo przewidują rozkład stóp zwrotu (oczekiwane stopy zwrotu, wariancje, kowariancje). 
 
-Zgodnie z modelem CAPM, który jest wynikiem analizy średniej-wariancji, racjonalni inwestorzy będą chcieli zbudować portfel oparty na portfelu stycznym T (który staje się portfelem rynkowym M). Aby zbudować portfele o różnym poziomie ryzyka będą łączyć go portfel rynkowy z aktywami wolnymi od ryzyka. Takie portfele efektywne przedstawia linia rynku kapitałowego (CML). 
+Zgodnie z modelem CAPM, który jest wynikiem analizy średniej-wariancji, racjonalni inwestorzy będą chcieli zbudować portfel oparty na portfelu stycznym T. Portfel styczny staje się portfelem rynkowym M, ponieważ jest on wspólny dla wszystkich inwestorów. Aby zbudować portfele o różnym poziomie ryzyka będą łączyć go portfel rynkowy z aktywami wolnymi od ryzyka. Takie portfele efektywne przedstawia linia rynku kapitałowego (CML). 
 
 Na wykresie, na którym na osi $x$ jest odchylenie standardowe, a na osi $y$ oczekiwana stopa zwrotu, można narysować linię rynku kapitałowego (_capital market line_, CML). Jest to linia prosta przechodząca przez punkt oznaczający aktywo wolne od ryzyka i portfel rynkowy M. 
 
@@ -30,27 +30,35 @@ Formuła linii rynku kapitałowego:
 
 $$E(R) = R_f + \frac{E(R_M)-R_f}{\sigma_M}\sigma$$
 
-Współczynnik kierunkowy linii rynku kapitałowego $(E(R_M)-R_f)/\sigma_M$ to cena ryzyka (_price of risk_). Pokazuje ile dodatkowego zwrotu inwestorzy powinni oczekiwać od dodatkowej jednostki ryzyka mierzonego odchyleniem standardowym. 
+Współczynnik kierunkowy linii rynku kapitałowego ($E(R_M)-R_f)/\sigma_M$) to cena ryzyka (_price of risk_). Pokazuje ile dodatkowego zwrotu inwestorzy powinni oczekiwać od dodatkowej jednostki ryzyka mierzonego odchyleniem standardowym. 
 
 Nie wszystkie aktywa znajdują się na linii CML, nawet w stanie równowagi rynkowej. Znajdują się na niej tylko portfele efektywne. 
 
 ## Wycena aktywów kapitałowych CAPM
 
-Model wyceny aktywów kapitałowych (_Capital Asset Pricing Model_, CAPM) może zostać wyprowadzony z analizy średniej-wariancji, w tym założenia o efektywności portfela rynkowego, oraz z założenia o istnieniu aktywa wolnego od ryzyka. 
+Model wyceny aktywów kapitałowych (_Capital Asset Pricing Model_, CAPM) może zostać wyprowadzony z analizy średniej-wariancji, założenia o efektywności portfela rynkowego oraz z założenia o istnieniu aktywa wolnego od ryzyka. 
+
+### Równanie CAPM
 
 Równanie modelu wyceny aktywów kapitałowych wygląda następująco:
 
 $$ E(R_i) = R_f + \beta_i \left(E(R_M) - R_f\right), $$
 
-gdzie $E(R_i)$ to oczekiwana stopa zwrotu z aktywa (portfela) $i$, $R_f$ to stopa wolna od ryzyka, $E(R_M)$ oczekiwana stopa zwrotu rynkowa. 
+gdzie $E(R_i)$ to oczekiwana stopa zwrotu z aktywa (portfela) $i$, $R_f$ to stopa wolna od ryzyka, $E(R_M)$ oczekiwana rynkowa stopa zwrotu. 
 
 Różnica $E(R_M) - R_f$ nazywana jest premią za ryzyko rynkowe, a różnica $E(R_i)-R_f$ nazywana jest premią za ryzyko aktywa $i$. 
 
 Ze wzoru widzimy, że premia za ryzyko aktywa $i$ zależy od współczynnika $\beta_i$. 
 
+### Współczynnik beta
+
 Współczynnik $\beta_i$ znany jest jako __beta__. Jest to znormalizowana kowariancja stóp zwrotu aktywa $i$ oraz portfela rynkowego. Normalizacja polega na podzieleniu kowariancji stóp zwrotu aktywa $i$ oraz rynkowej przez wariancję rynkowej stopy zwrotu:
 
 $$\beta_i = \frac{\sigma_{iM}}{\sigma_M^2} = \frac{\rho_{iM} \sigma_i}{\sigma_M}$$
+
+Dla przypomnienia, w powyższym wzorze $\sigma_{iM}$ to kowariancja pomiędzy stopą zwrotu aktywa $i$ a rynkową stopą zwrotu, $\sigma^2_{M}$ to wariancja rynkowej stopy zwrotu, $\sigma_i$ to odchylenie standardowe stopy zwrotu aktywa $i$, zaś $\rho_{iM}$ to korelacja pomiędzy rynkową stopą zwrotu a stopą zwrotu aktywa $i$. 
+
+### Beta portfela
 
 Można pokazać, że współczynnik beta portfela jest średnią ważoną bet poszczególnych aktywów:
 
@@ -81,7 +89,7 @@ ggplot()+ theme_void() +
   
 ```
 
-## Ryzyko systematyczne
+## Ryzyko systematyczne i specyficzne
 
 Według modelu CAPM rzeczywiste stopy zwrotu z poszczególnych aktywów kształtują się według następującego wzoru:
 
@@ -93,9 +101,9 @@ Można wyprowadzić następujący wzór na wariancję stopy zwrotu $V(R_i)=\sigm
 
 $$ \sigma_i^2=\beta_i^2 \sigma^2_M + \sigma^2_{\epsilon_i} $$
 
-Ten wzór można interpretować w ten sposób, że wariancja stopy zwrotu każdego aktywa składa się z części $\beta_i^2 \sigma^2_M$ związanej z ryzykiem rynku jako całości (__ryzyko systematyczne__, niedywersyfikowalne) oraz z części dywersyfikowalnej $\sigma^2_{\epsilon_i}$ (__ryzyko niesystematyczne__, __idiosynkratyczne__). 
+Ten wzór można interpretować w ten sposób, że wariancja stopy zwrotu każdego aktywa składa się z części $\beta_i^2 \sigma^2_M$ związanej z ryzykiem rynku jako całości (__ryzyko systematyczne__, niedywersyfikowalne) oraz z części dywersyfikowalnej $\sigma^2_{\epsilon_i}$ (__ryzyko niesystematyczne__, __idiosynkratyczne__, __specyficzne__). 
 
-Część specyficzna nie jest istotna dla inwestora -- jeżeli aktywo stanowi składnik dobrze zdywersyfikowanego portfela, dla wyceny według modelu CAPM istotne jest ryzyko systematyczne. 
+Część specyficzna nie jest istotna dla inwestora -- jeżeli dane aktywo stanowi składnik dobrze zdywersyfikowanego portfela, w jego wycenie według modelu CAPM brane pod uwagę jest wyłącznie ryzyko systematyczne. 
 
 ## Model CAPM a decyzje inwestorów
 
@@ -145,7 +153,7 @@ Pomijamy tutaj dywidendy (albo wliczamy je odpowiednio do ceny, tworząc _adjust
 :::{.exercise #ruppert1710-2}
 [@Ruppert_Matteson_2015] Załóżmy, że stopa wolna od ryzyka to 0,03, a oczekiwana stopa zwrotu portfela rynkowego wynosi 0,14. Odchylenie standardowe portfela rynkowego to 0,12. 
 
-(a) Zgodnie z CAPM, jaka jest efektywny sposób zainwestowania z oczekiwaną stopą zwrotu równą 0,11?
+(a) Zgodnie z CAPM, jaki jest efektywny sposób zainwestowania z oczekiwaną stopą zwrotu równą 0,11?
 
 (b) Ile wynosi ryzyko (odchylenie standardowe) takiego portfela?
 :::
@@ -158,18 +166,18 @@ Pomijamy tutaj dywidendy (albo wliczamy je odpowiednio do ceny, tworząc _adjust
 
 (b) Stopy zwrotu z akcji A mają kowariancję ze zwrotami rynkowymi na poziomie $\sigma_{AM} = 0{,}004$. Ile wynosi beta akcji A?
 
-(c) Akcje B mają betę równą 1,5, a $\sigma_{\epsilon_B}=0,08$. Akcje C mają betę równą 1,8, zaś $\sigma_{\epsilon_B}=0,08$. Ile wynosi oczekiwana stopa zwrotu z portfela składającego się z w połowie z akcji B i w połowie z akcji C? Ile wynosi ryzyko tego portfela przy założeniu, że stopy zwrotu z akcji B i C są niezależne. 
+(c) Akcje B mają betę równą 1,5, a $\sigma_{\epsilon_B}=0,18$. Akcje C mają betę równą 1,8, zaś $\sigma_{\epsilon_B}=0,28$. Ile wynosi oczekiwana stopa zwrotu z portfela składającego się z w połowie z akcji B i w połowie z akcji C? Ile wynosi ryzyko tego portfela przy założeniu, że stopy zwrotu z akcji B i C są niezależne. 
 :::
 
 :::{.exercise #ruppert1710-6}
 [@Ruppert_Matteson_2015] Załóżmy, że stopa wolna od ryzyka wynosi 4\%, a rynkowa oczekiwana stopa zwrotu wynosi 12\%. Odchylenie standardowe rynkowych stóp zwrotu to 11\%.
-Załóżmy również, że kowariancja stóp zwrotu akcji A z rynkiem wynosi 165\%^2^ (=`r (165/100)^2`).
+Załóżmy również, że kowariancja stóp zwrotu akcji A z rynkiem wynosi 165[\%^2^] (=$165 \cdot (1/100)^2$ = `r format(165*(1/100)^2, decimal.mark=",")`).
 
 (a) Ile wynosi beta akcji A?
 
 (b) Ile wynosi oczekiwana stopa zwrotu akcji A?
 
-(c) Jeżeli wariancja stóp zwrotu akcji A wynosi 220\%^2^, jaki jest procentowy udział składnika systematycznego w tej wariancji?
+(c) Jeżeli wariancja stóp zwrotu akcji A wynosi 440[\%^2^], jaki jest procentowy udział składnika systematycznego w tej wariancji?
 :::
 
 :::{.exercise #ruppert1710-7}

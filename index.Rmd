@@ -26,6 +26,8 @@ $\mathcal{R}_t$ -- stopa zwrotu brutto w okresie rozpoczynającym się w momenci
 
 $R_t$ -- prosta jednookresowa stopa zwrotu netto w okresie $t$
 
+$R_i$ -- stopa zwrotu aktywa $i$ w danym okresie (Uwaga: to, czy indeks oznacza okres czy aktywo musi wynikać z kontekstu, w zależności od kontekstu $R_1$ oznacza stopę zwrotu danego aktywa w okresie t=1 lub stopę zwrotu aktywa 1 w danym okresie).
+
 $r_t$ -- jednookresowa logarytmiczna stopa zwrotu w okresie $t$
 
 $\mathcal{R}_t(k)$ -- $k$-okresowa prosta stopa zwrotu brutto za okres od momentu $t-k$ do momentu $t$
@@ -51,6 +53,6 @@ $G_{1(X)}$ -- skorygowany współczynnik asymetrii ("z próbki")
 
 ...
 
+$R_M$ -- rynkowa jednookresowa stopa zwrotu
 
-
-
+$R_f$ -- stopa zwrotu wolna od ryzyka

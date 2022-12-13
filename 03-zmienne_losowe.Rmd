@@ -109,14 +109,14 @@ Odchylenie standardowe przez $\sigma$, $\sigma_X$, $D(X)$ lub $SD(X)$.
 Kowariancję między zmiennymi losowymi X i Y możemy wyznaczyć na podstawie następującej formuły:
 
 \begin{equation}
-\sigma_{XY}=E[\left(X-E(X)\right)(Y-E(Y))]
+cov(X,Y) = \sigma_{XY}=E[\left(X-E(X)\right)(Y-E(Y))]
 (\#eq:covar-intext)
 \end{equation}
 
 Dla zmiennych dyskretnych:
 
 \begin{equation}
-\sigma_{XY}=\sum_i\left(x_i-E(X)\right)(y_i-E(Y))P(X=x_i \land Y=y_i)
+cov(X,Y) = \sigma_{XY}=\sum_i\left(x_i-E(X)\right)(y_i-E(Y))P(X=x_i \land Y=y_i)
 (\#eq:covarDiscr-intext)
 \end{equation}
 
@@ -125,7 +125,7 @@ Kowariancja pokazuje współzmienność dwóch zmiennych losowych.
 Korelację można uznać za wystandaryzowaną kowariancję:
 
 \begin{equation}
-\rho_{XY}=\frac{\sigma_{XY}}{\sigma_X \sigma_Y}
+cor(X, Y) = \rho_{XY}=\frac{\sigma_{XY}}{\sigma_X \sigma_Y}
 (\#eq:covar-intext)
 \end{equation}
 

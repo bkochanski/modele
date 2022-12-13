@@ -1,2 +1,177 @@
-# Teoria wyceny arbitrażowej {#APT}
+# Modele czynnikowe i teoria wyceny arbitrażowej {#APT}
+
+W modelu CAPM zakłada się, że ryzyko systematyczne wynika z jednego czynnika, którym jest rynkowa stopa zwrotu. 
+
+Modele czynnikowe zakładają, że stopy zwrotu liniowo zależą od jednego lub większego zestawu czynników. 
+
+Dzięki modelom czynnikowym możliwe jest:
+
+- lepsze odzwierciedlenie rzeczywistości (założenie, że jeden czynnik odpowiada za ryzyko systematyczne jest niestety zbytnim uproszczeniem),
+
+- praktyczne zastosowanie modelu (rynkowa stopa zwrotu obejmująca cały rynek finansowy -- różne instrumenty i państwa -- nie jest w prosty sposób dostępna),
+
+- porównywanie i konstruowanie portfeli, 
+
+- prostsze szacowanie oczekiwanych stóp zwrotu oraz przewidywanych wariancji i korelacji. 
+
+## Szacowanie parametrów analizy średniej-wariancji na podstawie modelu jednoczynnikowego
+
+Na przykładzie modelu jednoczynnikowego można pokazać, w jaki sposób dzięki modelom czynnikowym upraszcza się szacowanie oczekiwanych zwrotów i przewidywanych macierzy kowariancji. 
+
+Załóżmy, że 
+
+- istnieje jeden czynnik $F$ będący wielkością losową, 
+
+- istnieje $n$ aktywów oznaczonych indeksem $i = 1, 2, ..., n$,  
+
+- dla każdego z aktywów spełniona jest następujące równanie:
+
+$$ R_i = a_i + b_i F + \epsilon_i, $$
+
+Gdzie $a_i$ - __"przecięcie"__ (_intercept_) i $b_i$ __współczynnik wrażliwości__ (_factor loading_) to stałe, $\epsilon_i$ to składnik losowy, którego wartość oczekiwana to $E(\epsilon_i)=0$. 
+
+- składniki losowe są nieskorelowane z F oraz między sobą: 
+
+$$ E[(F-E(F))\cdot \epsilon_i]=0 \:\:\: E(\epsilon_i \epsilon_j)=0 \text{ dla każdego } i\ne j$$
+- znana jest wartość wariancji $\sigma^2_{\epsilon_i}$ składnika losowego $\epsilon_i$. 
+
+Na podstawie tak skonstruowanego modelu jednoczynnikowego można wyznaczyć zmienne wejściowe potrzebne do analizy średniej-wariancji:
+
+$$ E(R_i) = a_i + b_i E(F) $$
+
+$$ \sigma_i^2 = b_i^2 \sigma_F^2 + \sigma^2_{\epsilon_i}$$
+
+$$ \sigma_{ij}=b_i b_j \sigma_F^2 \text{ dla } i\ne j$$
+$$ b_i = \frac{cov(r_i, F)}{\sigma_F^2} $$
+
+## Szacowanie parametrów modelu jednoczynnikowego
+
+Parametry modelu można oszacować na podstawie danych historycznych. 
+
+- Estymatorem wartości oczekiwanej rozkładu stopy zwrotu aktywa $i$ jest średnia historyczna stopy zwrotu tego aktywa $\bar{R}_i$. Estymatorem wartości oczekiwanej czynnika $F$ jest średnia wartość tego czynnika  $\bar{F}$. 
+
+- Estymatorem wariancji jest wariancja (z próby) historycznych stóp zwrotu $s^2_{R_i}$ i historycznych wartości czynnika $s^2_F$
+
+- Estymatorem kowariancji jest kowariancja stopy zwrotu z czynnikiem:
+
+$$ s^2_{iF}= \frac{1}{n-1}\sum_{k=1}^{n}(R_{i,k}-\bar{R}_i)(F_k-\bar{F}) $$
+
+Następnie możliwe jest oszacowanie współczynników $b_i$ i $a_i$:
+
+$$ \hat{b}_i = \frac{s^2_{iF}}{s^2_F} $$
+
+$$ \hat{a}_i = \bar{R}_i - \hat{b}_i \bar{F}$$
+
+Szacowanie wariancji składników losowych, jeżeli założymy, że składniki losowe poszczególnych akcji i indeksu nie są skorelowane:
+
+$$ s^2_{\epsilon_i} = s^2_{R_i} - \hat{b}_i^2 s^2_F$$
+
+## Portfel w modelu jednoczynnikowym
+
+Jeżeli obowiązuje model jednoczynnikowy, parametry portfela są odpowiednimi wypadkowymi parametrów składowych:
+
+$$ R_p = a_p + b_p F + \epsilon_p $$
+$$ a_p = \sum_{i=1}^n w_i a_i $$
+$$ b_p = \sum_{i=1}^n w_i b_i $$
+
+$$ \epsilon_p = \sum_{i=1}^n w_i \epsilon_i $$
+
+Zakłada się, że składnik $\epsilon$ jest losowy i dla każdego $i \ne j$ składniki $\epsilon_i$ i $\epsilon_j$ są nieskorelowane. Dlatego:
+
+$$ \sigma_{\epsilon_p}^2 = \sum_{i=1}^{n}w_i^2 \sigma_{\epsilon_i}^2$$
+
+Jeżeli $n \to \infty$, to $\sigma_{\epsilon_p}^2 \to 0$, co pokazuje korzyści z dywersyfikacji. 
+
+## CAPM jako model jednoczynnikowy 
+
+CAPM można potraktować jako model jednoczynnikowy, w którym:
+
+- czynnikiem determinującym stopy zwrotu z akcji jest stopa zwrotu z portfela rynkowego $R_M$
+
+- zamiast zwykłych stóp zwrotu netto stosujemy premie za ryzyko, czyli nadwyżkę prostych stóp zwrotu netto nad stopą wolną od ryzyka. 
+
+Równanie modelu CAPM jako modelu jednoczynnikowego:
+
+$$ R_i - R_f = \alpha_i + \beta_i (R_M - R_f) + \epsilon_i $$
+Równanie powyższe jest nazywane równaniem linii charakterystycznej. 
+
+Współczynnik $\alpha_i$ według modelu CAPM powinien przyjąć wartość 0. Można więc potraktować go jako współczynnik pokazujący, czy model CAPM działa dla danego aktywa zgodnie z oczekiwaniami. 
+
+## Modele wieloczynnikowe 
+
+Analogicznie, można zbudować modele, które składają się z większej liczby czynników. Dla modelu z dwoma czynnikami równanie mogłoby wyglądać w następujący sposób:
+
+$$ R_i = a_i + b_{1i} F_1 + b_{2i} F_2 + \epsilon_i $$
+gdzie $a_i$ to wyraz wolny (_intercept_, przecięcie), $b_{1i}$ i $b_{2i}$ to współczynniki wrażliwości, $F_1$, $F_2$ - czynniki ryzyka systematycznego uznawane za zmienne losowe, $\epsilon_i$ to losowy składnik zakłócający.  
+
+Zakłada się, że:
+
+- wartość oczekiwana składnika losowego wynosi zero: $E(\epsilon_i)=0$, 
+
+- składniki losowe dla poszczególnych akcji są nieskorelowane między sobą i nie są skorelowane z czynnikiami ryzyka systematycznego. 
+
+Czynniki ryzyka mogą być skorelowane wzajemnie.
+
+Model wyceny oparty na dwuczynnikowym modelu wyglądałby następująco:
+
+$$  E(R_i) = a_i + b_{1i} E(F_1) + b_{2i} E(F_2) $$
+
+Analogicznie można skonstruować modele oparte o większą liczbą czynników. 
+
+
+## Rodzaje czynników 
+
+### Czynniki zewnętrzne
+
+Czynniki zewnętrzne (_external factors_) to czynniki niezwiązane wprost ze stopami zwrotu. Typowym przykładem są tutaj czynniki makroekonomiczne, na przykład zmiana produktu krajowego brutto, wskaźnik inflacji czy bezrobocie. Najczęściej czynniki zewnętrzne przedstawia się w formie "niespodzianek" w stosunku do wartości przewidywanych (np. wzrost PKB był o 0.7 pp niższy niż przewidywał konsensus). 
+
+<!-- The Wall Street Journal for instance, regularly reports on surprises in interest rates, surprises in GNP, surprises in inflation and changes in the stock market indices. All of these are candidates for APT factors. Indeed, we may not actually need to identify the economy's risk factors. We only need to find a collection of things that together are good proxies for them. After the theoretical development of the APT, Chen, Roll and Ross set out on a quest for the factors. They found that a collection of four or five macro-economic series' that explained security returns fairly well. These factors turned out to be surprises in inflation, Surprises in GNP, surprises in investor confidence (measured by the corporate bond premium) and shifts in the yield curve. In general these do as good a job at explaining returns as the S&P; index. Of course, no one really knows if these are the "true" factors. 
+
+https://web.archive.org/web/20160303190739/http://viking.som.yale.edu/will/finman540/classnotes/class6.html
+
+-->
+
+### Czynniki wyliczalne
+
+Czynniki wyliczalne (_extracted factors_) to czynniki, których wartość uzyskuje się z informacji na temat stóp zwrotu aktywów lub ich grup. Typowy przykład: indeksy giełdowe -- ogólne lub branżowe czy regionalne. Inny typowy przykład to czynniki uzyskane na podstawie stóp zwrotu wielu aktywów za pomocą metod statystycznych, przede wszystkim metody głównych składowych. 
+
+### Wielkości charakteryzujące firmę
+
+Wielkości charakteryzujące poszczególne spółki (np. wskaźnik cena/zysk, stopa dywidendy) nie są czynnikami w ścisłym sensie. Czynniki zewnętrzne i wyliczalne są wspólne dla wszystkich spółek, wielkości charakteryzujące firmę są właściwe dla każdej spółki z osobna. Bywają one jednak przydatne przy budowie modeli ekonometrycznych wyjaśniających stopy zwrotu -- można więc je potraktować jako składniki wyjaśniające składnik losowy w modelach czynnikowych.  
+
+## Teoria arbitrażu cenowego (APT)
+
+Teoria arbitrażu cenowego (_arbitrage pricing theory_, APT) stanowi próbę teoretycznego umocowania modeli czynnikowych. APT jest bardziej pojemna i mniej wymagająca niż model CAPM. 
+
+W ramach APT zakłada się zwykle, że: 
+
+-- stopy zwrotu zależą w sposób liniowy od wspólnego dla wielu aktywów zestawu czynników, które są zmiennymi losowymi i w związku z którymi oczekuje się dodatkowej premii za ryzyko,  
+
+-- inwestorzy mają takie same przewidywania dotyczące rynku,
+
+-- inwestorzy unikają niepotrzebnego ryzyka, choć niektórzy są gotowi podjąć ryzyko, 
+
+-- kiedy nie ma ryzyka, inwestorzy preferują jak najwyższe stopy zwrotu, 
+
+-- rynek jest efektywny z ograniczoną możliwością arbitrażu, 
+
+-- istnieje nieskończenie wiele aktywów, ryzyko idiosynkratyczne może zostać wyeliminowane przez dywersyfikację. 
+
+### Koncepcja APT na podstawie modelu jednoczynnikowego
+<!--
+Załóżmy, że jest tylko jeden czynnik ryzyka $F$. Załóżmy również, że jesteśmy w stanie wyeliminować ryzyko idiosynkratyczne tworząc dobrze zdywersyfikowane portfele z wielu aktywów. 
+
+Utworzono dwa dobrze zdywersyfikowane portfele U i V, których stopy zwrotu zależą tylko od wartości czynnika F:
+
+$$ R_U = a_U + b_U F$$
+
+$$ R_V = a_V + b_V F$$
+
+Jeżeli nie istnieją możliwości arbitrażu, $a_U$, $b_U$, $a_V$ i $b_V$ są ze sobą powiązane poprzez stopę wolną od ryzyka $\lambda_0 = R_f$:
+
+$$ $$
+
+-->
+
+<!--## Model Famy-Frencha-->
 

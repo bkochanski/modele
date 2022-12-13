@@ -634,5 +634,5 @@ $$\mathbf{\Sigma} =   \left[ {\begin{array}{ccc}
 :::
 
 :::{.exercise #portfeln}
-Na rynku istnieją aktywa ryzykowne. Ich zwroty mają równe odchylenia standardowe $\sigma=0{,}15$. Korelacje pomiędzy każdą parą wynoszą $\rho=0{,}3$. Ile wynosi ryzyko portfela złożonego z dwóch aktywów z równymi wagami? Z trzech? Z czterech? Ile wynosi ryzyko (odchylenie standardowe) w przypadku portfela z nieskończoną liczbą aktywóW (granica)? Ile aktywów należy minimalnie wziąć do portfela, żeby odchylenie standardowe stanowiło nie więcej niż 110\% granicy? 105\%? 101\%?  
+Na rynku istnieją aktywa ryzykowne. Ich zwroty mają równe odchylenia standardowe $\sigma=0{,}15$. Korelacje pomiędzy każdą parą wynoszą $\rho=0{,}3$. Ile wynosi ryzyko portfela złożonego z dwóch aktywów z równymi wagami? Z trzech? Z czterech? Ile wynosi ryzyko (odchylenie standardowe) w przypadku portfela z nieskończoną liczbą aktywów (granica)? Ile aktywów należy minimalnie wziąć do portfela, żeby odchylenie standardowe stanowiło nie więcej niż 110\% granicy? 105\%? 101\%?  
 :::

@@ -1,8 +1,10 @@
 library("googlesheets4")
-a<-read_sheet("1uTRluUKvTt3weNZX5vBXq9Sf8_MUh3CoDg-sVjYdDkg", sheet="Sheet1")
+a<-read_sheet("1uTRluUKvTt3weNZX5vBXq9Sf8_MUh3CoDg-sVjYdDkg", sheet="Lista")
 #View(a)
 
-tickersc<-as.character(na.omit(unique(c(a$Ticker1, a$Ticker2, a$Ticker3))))
+tickersc<-as.character(na.omit(unique(c(a$Ticker1, a$Ticker2, a$Ticker3, "^GSPC"))))
+
+# "ADDYY" %in% tickersc
 
 # getresults<-quantmod::getSymbols(tickersc, src = "yahoo", from = "2013-12-31", to = "2022-01-01", 
 #                       periodicity="daily")
@@ -12,6 +14,8 @@ yfres<-yfR::yf_get(tickersc, first_date = "2013-12-31", last_date = "2022-01-01"
 yfresm<-yfR::yf_get(tickersc, first_date = "2013-12-01", last_date = "2022-01-01", 
                    freq_data="monthly")
 
+#table(yfres$ticker)
+tickersc[!tickersc %in% unique(yfres$ticker)]
 
 mean(table(yfres$ticker)==2016)*100
 
@@ -19,4 +23,5 @@ mean(table(yfres$ticker)==2016)*100
 #   print(tickersc[i])
 #   try(print(dim(eval(as.name(tickersc[i])))))
 # }
+
 
