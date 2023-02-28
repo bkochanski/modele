@@ -1,3 +1,24 @@
+#con <- file("test.log")
+#sink(con, append=TRUE)
+#sink(con, append=TRUE, type="message")
+
+
+library("googlesheets4")
+a<-read_sheet("1uTRluUKvTt3weNZX5vBXq9Sf8_MUh3CoDg-sVjYdDkg", sheet="Lista")
+#View(a)
+
+tickersc<-as.character(na.omit(unique(c(a$Ticker1, a$Ticker2, a$Ticker3, "^GSPC"))))
+tickersc<-c('AAPL')
+# "ADDYY" %in% tickersc
+
+# getresults<-quantmod::getSymbols(tickersc, src = "yahoo", from = "2013-12-31", to = "2022-01-01", 
+#                       periodicity="daily")
+
+yfres<-yfR::yf_get(tickersc, first_date = "2013-12-31", last_date = "2022-01-01", 
+                   freq_data="daily", do_cache=FALSE)
+yfresm<-yfR::yf_get(tickersc, first_date = "2013-12-01", last_date = "2022-01-01", 
+                    freq_data="monthly", do_cache=FALSE)
+#?yf_get
 
 #projekt 1 - sprawdzenie
 
@@ -10,12 +31,21 @@ options(scipen=999)
 # gid<-"1e75J350DM8pheVacoe1F0k-R_LJmYkOj9MuY9-kEUVU"
 #gid<-"1yD4hpgHMC-2U-FXNPsuznWPuIE8kVyLzfz5uFaeZUuA"
 # gid<-"1MDqm2SCPXmWK1amjJPYyRH-MVZCWsyfFkwGHgBY0sc4"
- # gid<-"1uTRluUKvTt3weNZX5vBXq9Sf8_MUh3CoDg-sVjYdDkg" #real mrk
+gid<-"1uTRluUKvTt3weNZX5vBXq9Sf8_MUh3CoDg-sVjYdDkg" #real mrk
 #gid<-"1XqspLsj9e4wLxJMaKg-E3H9LrI8F2xp6jaSHwsL_mZo" #copy1 mrk
- gid<-'1ZmbQTCJAZgtbqeICIvTM_DzSaAJRIWkiZAP3ZPfaAOA' #copy2 mrk
-
- # gs<-'s172535' #ns Maria Adamiak
+ # gid<-'1kIgIUrhiCfJGRnlqdFH3Ho1HybFwmFwKbJAmlR-EHag' #copy2 mrk
+ # gid<-"1ZmbQTCJAZgtbqeICIvTM_DzSaAJRIWkiZAP3ZPfaAOA" #copy3 mrk
+# gid<-"1fhjOalU-r_Iu_eO6u277v0rOzPc6Y5ea8IhvojV4L1Y" #copy4 mrk
+  # gid<-"1W24iSK_8cKMISM-ot92JAH6TbMGL4Gsef94FhayZiQY" #copy5 mrk
+  
+ # gid<-"1SLyhA3FtjER1uO95k5i4nwizeT2gAv1IaO0Qq1PTA_E" #copy6 mrk
+# gid<-"1zxjI6ef99_ec-umf2rwAxpVrV5nr4b3j3bG0vLGXIC0" #copy6 mrk
+ # gid<-"1Lw62t_CVN1RCPFjwXegbtui5JpHTt01Yw9m_ACpyChs"
+ sp<- sheet_properties(gid)
+ spn<-sp$name[c(-1,-2)]
+ sp$name[7]=="173860"
  
+ #spn<-sp$name[c(-1:-36)]
  # gs<-"178464"
 # gs<-"173003"
 # gs<-"175125"
@@ -23,21 +53,53 @@ options(scipen=999)
  # gs<-'160907'
  # gs<-"Dane2"
 # gs<-'s191302'
-gs<-'174444'#ns Karolina Sołtys
+# gs<-'174444'
 # gs<-'s170833'
 # gs<-'178724'
-
+ # gs<-'s172535'
 # gs<-'172020'
 # gs<-'171965'
 # gs<-'171718'
 # gs<-'171732'
 # gs<-'173894'
 # gs<-'174445'
-# gs<-'175197'
+
+dfres<-data.frame(spn, res=rep(NA, length(spn)))
+#dfres$res[which(spn==gs)]<-999
+
+#"175125", "s191221",
+
+#stac<-spn%in%c("178470")
+# stac<-spn%in%c("175159")
+
+# stac<-spn%in%c("174302", "175151", "s175151", "178464",  "s178605", "169907", "160907", "172727", 
+#         "173003", "s173003", "175159", "s175159", "s191216", "191216", "s181081", "181081")
+
+stac<-spn%in%c("175159",  "s175159", "173472", "s173472", "s191221", "191221", "s181081", "181081")
+
+
+stac<-spn%in%c("175125") #Hinc
+stac<-spn%in%c("181081") #WPiłat
+stac<-spn%in%c("172727") #Kinga
+stac<-spn%in%c("178470") #ns Kowalczyk
+stac<-spn%in%c("150124") #ns Kuczkowska
+stac<-spn%in%c("191304") #ns Kobierzyńska
+stac<-spn%in%c("173860") #ns Błażkiewicz
+stac<-spn%in%c("173914") #s Luboszczyk
+stac<-spn%in%c("122920") #ns Aniszewska
+stac<-spn%in%c("191303-2") #ns Czarnota
+#stac<-spn%in%c("174444") #ns Sołtys
+
+nstac<-spn%in%c("170802", "s172020", "174445", "s170802", "173062", "s174445", "170833", "s173062", "174444", "s170833", "171965", "s174444", "169742", "s171965", "191306", "s169742", "171732", "s191306", "175197", "s171732", "173894", "s175197", "171718", "s173894", "178499", "s171718", "150124", "s178499", "173893", "s150124", "178470", "s173893", "191304", "s178470", "191919", "s191304", "165738", "s191919", "178724", "s165738", "191302", "s178724", "191303", "s191302", "173860", "s191303", "122920", "s173860", "172535", "s122920", "172535", "s172535"
+)
+spn_nstac<-spn[nstac]
+
+spn_stac<-spn[stac]
+
+for(gs in spn_stac){
+ k = 0  
  a<-read_sheet(gid, sheet=gs)
  
- #gs4_get(gid)
-#sp<- sheet_properties(gid)
 #View(sp)
 write_res_google=TRUE
 tickers<-unname(unlist(a[1,2:4]))
@@ -83,8 +145,11 @@ quantmod::getSymbols(c("^GSPC"), src = "yahoo", from = "2013-12-01", to = "2022-
                      periodicity="monthly")
 
 
-{
+
+HLTtemp<-c(43.5689, 42.393959, 43.784245, 43.549271, 42.746429, 44.293369, 45.624905, 47.406834, 49.580372, 48.229248, 49.423725, 51.342709, 51.088161, 50.853172, 55.356915, 58.00042, 56.708046, 56.708046, 53.947044, 52.576344, 48.620892, 45.041607, 49.0667, 45.591389, 42.142689, 35.072945, 40.921726, 44.348289, 43.567123, 41.057808, 44.659248, 45.967514, 47.315418, 45.583073, 44.927059, 49.837219, 54.237225, 55.95293, 55.583672, 56.808056, 57.455811, 64.763237, 60.407227, 61.071369, 62.829384, 67.993896, 70.764557, 75.933853, 78.345779, 84.026001, 79.258148, 77.26664, 77.488983, 79.326942, 77.944641, 77.452309, 76.428291, 79.695229, 70.214272, 74.525597, 70.981735, 73.631203, 82.152946, 82.310722, 86.153412, 88.579849, 96.955322, 95.774872, 91.628426, 92.511055, 96.336288, 104.324577, 110.362823, 107.268166, 96.720459, 68.00753, 75.452087, 79.039818, 73.199783, 74.794342, 90.052185, 85.02935, 87.510872, 103.27697, 110.880989, 101.044609, 123.258675, 120.508072, 128.261566, 124.843254, 120.209091, 131.002197, 124.434654, 131.659943, 143.459625, 134.609879, 155.458603)
+  
 sp1m<-as.vector(eval(parse(text=paste("`",tickers2[1],"`","$","`", tickers2[1],".Adjusted","`", sep=""))))
+if(tickers[1]=='HLT'){sp1m<-HLTtemp}
 sp2m<-as.vector(eval(parse(text=paste(tickers2[2],"$", tickers2[2],".Adjusted", sep=""))))
 sp3m<-as.vector(eval(parse(text=paste(tickers2[3],"$", tickers2[3],".Adjusted", sep=""))))
 spim<-as.vector(eval(parse(text=paste("GSPC$GSPC.Adjusted", sep=""))))
@@ -242,14 +307,25 @@ epw3<-Vectorize(function(x, shorts=FALSE)
 if(max(ers)<=max(mu) & min(ers)>=min(mu)){
   check13=TRUE
   
+  t3_6<-matrix(nrow=4, data=c(
+    epw1(ers),
+    epw2(ers),
+    epw3(ers),
+    ers,
+    eps(ers)
+  ))
+}else{
+check13=FALSE
+
 t3_6<-matrix(nrow=4, data=c(
-  epw1(ers),
-  epw2(ers),
-  epw3(ers),
-  ers,
-  eps(ers)
+  rep(0,4),
+  rep(0,4),
+  rep(0,4),
+  rep(0,4),
+  rep(0,4)
 ))
-}else{check13=FALSE}
+}
+
 
 
 
@@ -272,8 +348,7 @@ tabfbr<-c("I8", "I15", "I22", "I29", "I36", "I43", "I50", "I57", "I64", "I71",
           "I90",
           "I96", "I104")
 tabprec<-c(4,3, 3,4,3,3,3,4,4,3,2,3,
-           2,
-           4,4)
+           2,4,4)
 tabprec2<-tabprec-1
 
 
@@ -287,23 +362,33 @@ for (i in 1:length(tabele)){
   if(min(dim(as.matrix(tabele[[i]])))>0 && (check13 || i!=13)){
   check<-tabele[[i]]-depp(unname(unlist(tabsource[[i]])))
   print(check)
+  empty<-length(depp(unname(unlist(tabsource[[i]]))))==0 | length(tabele[[i]])!=length(depp(unname(unlist(tabsource[[i]]))))
   ok<-sum(abs(round(check, tabprec[i])))==0
   okz<-sum(abs(check))<0.7*10^-tabprec2[i]
-  if(ok){
+  if (empty) {
+    print (paste(tabnames[i], "EMPTY!!"))
+    if(write_res_google){
+      range_write(gid, sheet=gs, range=tabfbr[i], data=data.frame(Sprawdzone="__:(__"))}
+  } else if(ok){
     print (paste(tabnames[i], "ok"))
+    k=k+1
     if(write_res_google){
       range_write(gid, sheet=gs, range=tabfbr[i], data=data.frame(Sprawdzone="ok"))}
   } else if (okz){
     print (paste(tabnames[i], "zaokrąglenia?"))
+    k = k+0.99
     if(write_res_google){
       range_write(gid, sheet=gs, range=tabfbr[i], data=data.frame(Sprawdzone="zaokrąglenia?"))}
   } else {
     print (paste(tabnames[i], "?????"))
     if(write_res_google){
     range_write(gid, sheet=gs, range=tabfbr[i], data=data.frame(Do_sprawdzenia="????"))}
-  }}
+  }
 }
-
+}
+if(check13==FALSE) {    if(write_res_google){
+  range_write(gid, sheet=gs, range=tabfbr[13], data=data.frame(Do_sprawdzenia="!???"))}
+}
 
 
 # library("googlesheets4")
@@ -315,4 +400,13 @@ for (i in 1:length(tabele)){
 }
 
 #t4_2
+dfres$res[which(spn==gs)]<-k
 
+
+dfres
+range_write('1JfY9GMafjubEVNtvGC7gqCFK3SGaPileQy_eU42HRXY', sheet="INPUT", range="A1", data=dfres)
+
+#sink() 
+#sink(type="message")
+
+dfres

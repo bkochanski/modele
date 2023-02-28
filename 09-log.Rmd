@@ -1,2 +1,49 @@
 # Strategia log-optymalna
 
+Wiele wskazuje na to, że w przypadku inwestycji powtarzalnych kryterium, którym powinniśmy się kierować nie jest oczekiwana stopa zwrotu, ale oczekiwana logarytmiczna stopa zwrotu. 
+
+
+<!--
+
+fn<-function(w){0.6*log(1+w)+0.4*log(1-w)}
+
+wyniki<-optim(0.5,fn ,control=list(fnscale=-1))
+
+wyniki$par
+wyniki$value
+
+-->
+
+## Ćwiczenia
+
+:::{.exercise #kelly1}
+Przypuśćmy, że mamy okazję regularnie (powtarzalnie) inwestować w pewną strukturę na rynku finansowym. Zainwestowany kapitał może w krótkim okresie albo zostać podwojony, albo też w całości go stracimy. Prawdopodobieństwo zaistnienia pierwszego zdarzenia jest za każdym razem równe 0,6. Jesteśmy w posiadaniu kapitału początkowego o wartości 100 USD. Jaką strategię należy obrać? Jakie średnie tempo wzrostu kapitału można osiągnąć? 
+:::
+
+:::{.exercise #kelly2}
+Przypuśćmy, że mamy okazję regularnie (powtarzalnie) inwestować w pewną strukturę na rynku finansowym. Zainwestowany kapitał może w krótkim okresie albo zostać podwojony, albo też w całości go stracimy. Prawdopodobieństwo zaistnienia pierwszego zdarzenia jest za każdym razem równe p. Jesteśmy w posiadaniu kapitału początkowego o wartości 100 USD. Jaką strategię należy obrać?
+:::
+
+:::{.exercise #kelly3}
+Przypuśćmy, że dzięki liczeniu kart w każdej grze w blackjacka mamy 50,75-procentowe prawdopodobieństwo uzyskania podwojenia zaangażowanego kapitału (w pozostałych przypadkach tracimy całą zaangażowaną kwotę). Jaką część całej puli powinniśmy inwestować w każdej grze? Jeżeli jedna gra trwa 2 minuty i gramy 8 godzin dziennie, po jakim czasie (w przypadku optymalizacji ryzyka) należy się spodziewać podwojenia kapitału? 
+:::
+
+:::{.exercise #kelly4}
+Przypuśćmy, że mamy okazję regularnie inwestować w przedsięwzięcie, którego kapitał może albo zostać potrojony, albo też poniesiemy pełną stratę. Prawdopodobieństwo potrojenia to 0,5. Jaką strategię należy obrać? Jakie średnie tempo wzrostu kapitału można osiągnąć? 
+:::
+
+:::{.exercise #kelly5}
+Przypuśćmy, że mamy okazję regularnie inwestować w przedsięwzięcie, którego kapitał może albo zostać potrojony, albo też poniesiemy pełną stratę. Prawdopodobieństwo potrojenia to p. Jaką strategię należy obrać?
+:::
+
+:::{.exercise #kelly6}
+Przypuśćmy, że możliwa jest powtarzalna inwestycja w dwa rodzaje aktywów: w akcję, której cena z równym prawdopodobieństwem w każdym okresie się podwaja lub zmniejsza o połowę, oraz w aktywo wolne od ryzyka, które nie zmienia swojej wartości (w gotówkę). Jaką strategię należy obrać? Jakie średnie tempo wzrostu kapitału można osiągnąć? Jakie będzie długookresowe średnie tempo wzrostu kapitału, jeżeli całość środków zainwestujemy w akcje? Jakie będzie długookresowe średnie tempo wzrostu kapitału, jeżeli całość środków zatrzymamy w gotówce? 
+:::
+
+:::{.exercise #kelly7}
+Przypuśćmy, że możliwa jest powtarzalna inwestycja w trzy rodzaje aktywów: akcję A, która z prawdopodobieństwem 0,5 pozwoli uzyskać prostą stopę zwrotu równą 100% i z prawdopodobieństwem 0,5 przyniesie prostą stopę zwrotu równą -50%,   nieskorelowaną akcję B o takich samych parametrach, jak akcja A oraz gotówkę. Jaką strategię należy obrać? Jakie średnie tempo wzrostu kapitału można osiągnąć?
+:::
+
+:::{.exercise #kelly8}
+Ruletka - jaka jest optymalna strategia w przypadku ruletki (zadanie \@ref(exr:ruletka))
+:::
