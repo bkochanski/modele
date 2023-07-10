@@ -12,6 +12,9 @@ do <- 6.15
 
 Pole <- psstd(do, srednia, odchylenie_s, tails, sym) - psstd(od,srednia, odchylenie_s, tails, sym)
 
+install.packages("skewt")
+install.packages("GEVStableGarch")
+
 # Rysunek
 library(ggplot2)
 ggplot(data.frame(x=sort(c(od, do, -4:4*odchylenie_s+srednia))), aes(x=x)) +
