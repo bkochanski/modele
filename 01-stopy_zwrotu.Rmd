@@ -1,34 +1,40 @@
 # Stopy zwrotu {#stopyzwrotu}
 
-## Stopy zwrotu - definicje
+## Stopy zwrotu -- definicje
 
 ### Stopa zwrotu brutto
 
-Stopa zwrotu brutto (_total return_) to stosunek __zrealizowanego przychodu__ do poniesionego nakładu. 
+Stopa zwrotu brutto (_total return_) to stosunek __zrealizowanego przychodu__ $X_1$ do poniesionego nakładu $X_0$. W tym skrypcie oznaczamy ją za pomocą wielkiej "pisanej" litery $\boldsymbol{\mathcal{R}}$. 
 
 \begin{equation}
-\mathcal{R} = \frac{X_1}{X_0}
+\boldsymbol{\mathcal{R}} = \frac{X_1}{X_0}
 (\#eq:total-return)
 \end{equation}
 
 W przypadku inwestycji w akcje stopę zwrotu brutto za okres $t$ wyznacza się na podstawie ceny akcji $P_{t-1}$ w na początku okresu i ceny $P_t$ na końcu okresu oraz dywidendy $D_t$ wypłacanej na koniec okresu:
 
 \begin{equation}
-\mathcal{R_t} = \frac{P_t+D_t}{P_{t-1}}
+\boldsymbol{\mathcal{R}}_t = \frac{P_t+D_t}{P_{t-1}}
 (\#eq:total-return-stocks)
 \end{equation}
+
+Warto zauważyć, że jest w pewnym stopniu tak definiowana stopa zwrotu z akcji jest teoretyczna, ponieważ:
+
+- można ją obliczyć nawet wtedy, jeżeli transakcji nie dokonaliśmy (np. nie sprzedaliśmy kupionej akcji),
+- nie uwzględnia ona kosztów transakcyjnych (np. prowizji za zakup i sprzedaż akcji),
+- dywidenda wypłacana jest z datą późniejszą niż data jej przyznania. 
 
 Stopa zwrotu brutto za ostatnich $k$ okresów to iloczyn $k$ jednookresowych stóp brutto (od momentu $t-k$ do momentu $t$):
 
 \begin{equation}
-\mathcal{R_t}(k) = \mathcal{R_t}\cdot\mathcal{R_{t-1}}\cdot\cdot\cdot\mathcal{R_{t-k+1}}
+\boldsymbol{\mathcal{R}}_t(k) = \boldsymbol{\mathcal{R}}_t\cdot\boldsymbol{\mathcal{R}}_{t-1}\cdot\cdot\cdot\boldsymbol{\mathcal{R}}_{t-k+1}
 (\#eq:multiperiod-total-return-stocks)
 \end{equation}
 
 Jeżeli w badanym okresie nie ma dywidend, taka definicja wielookresowej stopy zwrotu ma łatwe uzasadnienie:
 
 \begin{equation}
-\mathcal{R_t}(k) = \mathcal{R_t}\cdot\mathcal{R_{t-1}}\cdot\cdot\cdot\mathcal{R_{t-k+1}} = \left(\frac{P_t}{P_{t-1}}\right)\cdot\left(\frac{P_{t-1}}{P_{t-2}}\right)\cdot\cdot\cdot\left(\frac{P_{t-k+1}}{P_{t-k}}\right)=\frac{P_t}{P_{t-k}},
+\boldsymbol{\mathcal{R}}_t(k) = \boldsymbol{\mathcal{R}}_t\cdot\boldsymbol{\mathcal{R}}_{t-1}\cdot\cdot\cdot\boldsymbol{\mathcal{R}}_{t-k+1} = \left(\frac{P_t}{P_{t-1}}\right)\cdot\left(\frac{P_{t-1}}{P_{t-2}}\right)\cdot\cdot\cdot\left(\frac{P_{t-k+1}}{P_{t-k}}\right)=\frac{P_t}{P_{t-k}},
 (\#eq:multiperiod-total-return-stocks-nodiv)
 \end{equation}
 
@@ -36,7 +42,7 @@ jeśli natomiast w trakcie okresu pojawiają się dywidendy, taka formuła zakł
 
 \begin{equation}
 \begin{split}
-\mathcal{R_t}(k) = \mathcal{R_t}\cdot\mathcal{R_{t-1}}\cdot\cdot\cdot\mathcal{R_{t-k+1}} = 
+\boldsymbol{\mathcal{R}}_t(k) = \boldsymbol{\mathcal{R}}_t\cdot\boldsymbol{\mathcal{R}}_{t-1}\cdot\cdot\cdot\boldsymbol{\mathcal{R}}_{t-k+1} = 
 \\
 \left(\frac{P_t+D_t}{P_{t-1}}\right)\cdot\left(\frac{P_{t-1}+D_{t-1}}{P_{t-2}}\right)\cdot\cdot\cdot\left(\frac{P_{t-k+1}+D_{t-k+1}}{P_{t-k}}\right).
 \end{split}
@@ -63,25 +69,25 @@ R_t = \frac{P_t+D_t-P_{t-1}}{P_{t-1}}
 
 Powiązanie pomiędzy obiema stopami zwrotu jest oczywiste:
 \begin{equation}
-\mathcal{R} = 1+R
+\boldsymbol{\mathcal{R}} = 1+R
 (\#eq:totalRvsrateofR)
 \end{equation}
 
 Wielookresowa prosta stopa zwrotu netto zwykle zakłada, że dywidendy są natychmiast reinwestowane w daną akcje:
 
 \begin{equation}
-R_t(k) = \mathcal{R}_t(k) - 1 = \left(\frac{P_t+D_t}{P_{t-1}}\right)\cdot\left(\frac{P_{t-1}+D_{t-1}}{P_{t-2}}\right)\cdot\cdot\cdot\left(\frac{P_{t-k+1}+D_{t-k+1}}{P_{t-k}}\right) - 1
+R_t(k) = \boldsymbol{\mathcal{R}}_t(k) - 1 = \left(\frac{P_t+D_t}{P_{t-1}}\right)\cdot\left(\frac{P_{t-1}+D_{t-1}}{P_{t-2}}\right)\cdot\cdot\cdot\left(\frac{P_{t-k+1}+D_{t-k+1}}{P_{t-k}}\right) - 1
 (\#eq:rate-of-return-multi)
 \end{equation}
 
-W języku codziennym, jak i w profesjonalnym języku finansistów, fakt, że mówimy o stopie zwrotu brutto lub netto, można wywnioskować na podstawie  kontekstu. Na przykład "_inwestycja przyniosła trzykrotny zwrot_" oznacza, że stopa zwrotu brutto $\mathcal{R}$ = 3 (stopa netto $R$ = 2), zaś "_mieliśmy 20-procentowy zwrot z inwestycji_" oznacza, że prosta stopa netto $R$ = 0,2 (stopa brutto $\mathcal{R}$ = 1,2).
+W języku codziennym, jak i w profesjonalnym języku finansistów, fakt, że mówimy o stopie zwrotu brutto lub netto, można wywnioskować na podstawie  kontekstu. Na przykład "_inwestycja przyniosła trzykrotny zwrot_" oznacza, że stopa zwrotu brutto $\boldsymbol{\mathcal{R}}$ = 3 (stopa netto $R$ = 2), zaś "_mieliśmy 20-procentowy zwrot z inwestycji_" oznacza, że prosta stopa netto $R$ = 0,2 (stopa brutto $\boldsymbol{\mathcal{R}}$ = 1,2).
 
 ### Logarytmiczna stopa zwrotu
 
 Logarytmiczna stopa zwrotu (_log return_), inaczej zwana stopą zwrotu przy kapitalizacji ciągłej, oznaczana w tym skrypcie przez $r$ może być zdefiniowana następująco:
 
 \begin{equation}
-r_t = \ln(\mathcal{R_t}) = \ln(1+R_t)
+r_t = \ln(\boldsymbol{\mathcal{R}}_t) = \ln(1+R_t)
 (\#eq:log-return-stocks)
 \end{equation}
 
@@ -98,7 +104,7 @@ Zaletą stóp logarytmicznych jest prosta zależność pomiędzy jednookresowymi
 
 \begin{equation}
 \begin{split}
-r_t(k) & = \ln\left(\mathcal{R_t(k)}\right) = \ln(\mathcal{R_t}\cdot\mathcal{R_{t-1}\cdot\cdot\cdot\mathcal{R_{t-k+1}}})=\\ &= \ln(\mathcal{R_t}) + ln(\mathcal{R_{t-1}}) + \cdot\cdot\cdot + \ln(\mathcal{R_{t-k+1}})=\\
+r_t(k) & = \ln\left(\boldsymbol{\mathcal{R}}_t(k)\right) = \ln(\mathcal{R_t}\cdot\boldsymbol{\mathcal{R}}_{t-1}\cdot\cdot\cdot\boldsymbol{\mathcal{R}}_{t-k+1})=\\ &= \ln(\boldsymbol{\mathcal{R}}_t) + ln(\boldsymbol{\mathcal{R}}_{t-1}) + \cdot\cdot\cdot + \ln(\boldsymbol{\mathcal{R}}_{t-k+1})=\\
 & =r_t + r_{t-1} + \cdot\cdot\cdot + r_{t-k+1}
 \end{split}
 (\#eq:multi-log-sum)
@@ -107,7 +113,7 @@ r_t(k) & = \ln\left(\mathcal{R_t(k)}\right) = \ln(\mathcal{R_t}\cdot\mathcal{R_{
 Jeżeli mamy dane logarytmiczne stopy zwrotu, możemy uzyskać stopy proste:
 
 \begin{equation}
-\mathcal{R} = e^r \\
+\boldsymbol{\mathcal{R}} = e^r \\
 R = e^r-1
 (\#eq:r-from-log)
 \end{equation}
@@ -169,7 +175,7 @@ W przypadku krótkiej sprzedaży również obowiązuje utrzymywanie odpowiednich
 ## Zadania
 
 :::{.exercise #total1}
-W biblijnej [przypowieści o talentach](<https://pl.wikipedia.org/wiki/Przypowie%C5%9B%C4%87_o_talentach>) trzech sług dostało: pierwszy - pięć [talentów](<https://pl.wikipedia.org/wiki/Talent_(miara)>), drugi - dwa talenty, trzeci - jeden talent. Dwóch pierwszych podwoiło stan posiadania, trzeci - ukrył i oddał jeden talent. Jakie stopy zwrotu brutto $\mathcal{R}$ i netto $R$ osiągnęli? Jaka była łączna stopa zwrotu właściciela majątku? Ile wyniosłyby stopy zwrotu brutto i netto trzeciego sługi, gdyby na czas nieobecności właściciela oddał pieniądze na procent (20\% za cały okres) bankierom? 
+W biblijnej [przypowieści o talentach](<https://pl.wikipedia.org/wiki/Przypowie%C5%9B%C4%87_o_talentach>) trzech sług dostało: pierwszy - pięć [talentów](<https://pl.wikipedia.org/wiki/Talent_(miara)>), drugi - dwa talenty, trzeci - jeden talent. Dwóch pierwszych podwoiło stan posiadania, trzeci - ukrył i oddał jeden talent. Jakie stopy zwrotu brutto $\boldsymbol{\mathcal{R}}$ i netto $R$ osiągnęli? Jaka była łączna stopa zwrotu właściciela majątku? Ile wyniosłyby stopy zwrotu brutto i netto trzeciego sługi, gdyby na czas nieobecności właściciela oddał pieniądze na procent (20\% za cały okres) bankierom? 
 :::
 
 :::{.exercise #netvslog}
@@ -225,7 +231,7 @@ knitr::kable(df)
 
 
 :::{.exercise #rtor}
-Wyznacz logarytmiczną stopę zwrotu $r_1$, prostą stopę zwrotu brutto $\mathcal{R_1}$ i prostą stopę zwrotu netto $R_1$, jeżeli:
+Wyznacz logarytmiczną stopę zwrotu $r_1$, prostą stopę zwrotu brutto $\boldsymbol{\mathcal{R}}_1$ i prostą stopę zwrotu netto $R_1$, jeżeli:
 
 a) $R_1$ = 0,1
 
@@ -235,9 +241,9 @@ c) $r_1$ = 0,1
 
 d) $r_1 = 0,9$
 
-e) $\mathcal{R_1}=0,9$
+e) $\boldsymbol{\mathcal{R}}_1=0,9$
 
-f) $\mathcal{R_1}=0,99$
+f) $\boldsymbol{\mathcal{R}}_1=0,99$
 :::
 
 <!--

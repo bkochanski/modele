@@ -18,7 +18,7 @@ W modelowaniu rynku kapitałowego narzędzia statystyki opisowej są potrzebne, 
 Analogicznie, średnia stopa zwrotu brutto:
 
 \begin{equation}  
-\bar{\mathcal{R}} = \frac{\sum_{i=1}^n \mathcal{R}_i}{n} = 1 + \bar{R}
+\bar{\boldsymbol{\mathcal{R}}} = \frac{\sum_{i=1}^n \boldsymbol{\mathcal{R}}_i}{n} = 1 + \bar{R}
 (\#eq:sredniaRp-intext)
 \end{equation}
 
@@ -41,10 +41,10 @@ G = \sqrt[n]{\prod_{i=1}^n x_i} = \sqrt[n]{x_1\cdot x_2\cdot \cdot \cdot x_n} = 
 (\#eq:sredniagx-intext)
 \end{equation}
 
-Stopy netto mogą być ujemne, więc generalna definicja nie ma zastosowania. W matematyce finansowej i w praktyce średnią geometryczną stopą zwrotu (netto) nazywa się niekiedy geometryczną średnią ze stóp zwrotu brutto w następujących po sobie okresach pomniejszoną o 1 [@DeFuscoEtAl_2007]:
+Stopy netto mogą być ujemne, więc generalna definicja nie ma zastosowania. W matematyce finansowej i w praktyce terminu "średnia geometryczna stopa zwrotu (netto)" używa się niekiedy mając na myśli coś nieco innego -- geometryczną średnią ze stóp zwrotu brutto w następujących po sobie okresach pomniejszoną o 1 [@DeFuscoEtAl_2007]:
 
 \begin{equation}  
-R_G = \left(\prod_{i=1}^t \mathcal{R}_i\right)^{\frac{1}{t}} - 1 = \left[\prod_{i=1}^t (1+R_i)\right]^{\frac{1}{t}} - 1
+R_G = \left(\prod_{i=1}^t \boldsymbol{\mathcal{R}}_i\right)^{\frac{1}{t}} - 1 = \left[\prod_{i=1}^t (1+R_i)\right]^{\frac{1}{t}} - 1
 (\#eq:sredniagR-intext)
 \end{equation}
 
