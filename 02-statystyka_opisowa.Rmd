@@ -245,10 +245,10 @@ Dla wybranej spółki ściągnij dane z bazy yahoo i wyznacz statystyki określo
 :::
 
 :::{.exercise #ticker-of-choice2}
-Dla wybranej spółki sprawdź, czy dzienne stopy zwrotu obejmujące weekend są średnio wyższe niż dzienne stopy zwrotu w inne dni tygodnia? Czy odchylenie standardowe dziennych stóp zwrotu obejmujących weekend jest wyższe?   
+Dla wybranej spółki sprawdź, czy dzienne stopy zwrotu obejmujące weekend są średnio wyższe niż dzienne stopy zwrotu w inne dni tygodnia. Czy odchylenie standardowe dziennych stóp zwrotu obejmujących weekend jest wyższe?   
 :::
 
 :::{.exercise #ticker-of-choice3}
-Dla wybranych dwóch spółek i wybranego okresu sprawdź korelację pomiędzy miesięcznymi dziennymi stopami zwrotu netto. 
+Sprawdź korelację pomiędzy stopami zwrotu netto dwóch wybranych spółek na podstawie (a) miesięcznych (b) dziennych stóp zwrotu netto. 
 :::
 
