@@ -22,8 +22,6 @@ gs<-'Lista'
 
 a<-read_sheet(gid, sheet=gs)
 
-students <-c(13, 18)
-
 for (student in students) {print(student)
 
 tickersc<-as.character(a[student+1,5:7])

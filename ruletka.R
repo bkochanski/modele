@@ -28,7 +28,7 @@ sigma1<-as.numeric(sqrt(t(weights[x,]) %*% Sigma %*% weights[x,])),
 mu1<-sum(weights[x,]*mu))}
 Row<-Vectorize(Row)
 simpoints<-t(Row(1:1000))
-plot(simpoints, xlab='sigma', ylab='mu', pch=16, col=rgb(weights[,1],0,0,.4))
+plot(simpoints, xlab='sigma', ylab='mu', pch=16, cex=1.5-weights[,2]+.2, col=rgb(weights[,1],0,0,.4))
 
 row1<-c(.5,0,.5)
 sigmax<-function(x){as.numeric(sqrt(t(x) %*% Sigma %*% x))}

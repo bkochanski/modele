@@ -69,6 +69,10 @@ r3_<-diff(sp3)/sp3[1:(length(sp3)-1)]
 #spi<-unname(unlist(yfres[yfres$ticker=="^GSPC",c("price_adjusted")]))
 #ri<-diff(spi)/spi[1:(length(spi)-1)]
 
+# PZU.WAd<-PZU.WA
+# LPP.WAd<-LPP.WA
+# PKO.WAd<-PKO.WA
+
 quantmod::getSymbols(tickersc, src = "yahoo", from = "2014-12-01", to = "2022-12-31", 
                      periodicity="monthly")
 
@@ -93,12 +97,14 @@ plot(r2m-rm2)
 # PZU.WAm<-PZU.WA
 # LPP.WAm<-LPP.WA
 # PKO.WAm<-PKO.WA
+saveRDS(PZU.WAm, "PZU.WAm.rds")
+saveRDS(PKO.WAm, "PKO.WAm.rds")
+saveRDS(LPP.WAm, "LPP.WAm.rds")
 
-# PZU.WAd<-PZU.WA
-# LPP.WAd<-LPP.WA
-# PKO.WAd<-PKO.WA
 
 zoo::index(PKO.WAm)
 
-quantmod::getSymbols(c('AAPL'), src = "yahoo", from = "2014-12-01", to = "2022-12-31", 
-                     periodicity="monthly")
+PKOmlink<-read.csv("https://query1.finance.yahoo.com/v7/finance/download/PKO.WA?period1=1417392000&period2=1672444800&interval=1mo&events=history&includeAdjustedClose=true")
+
+quantile(PKO.WAm$PKO.WA.Adjusted - PKOmlink$Adj.Close)
+
