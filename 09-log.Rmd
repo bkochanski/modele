@@ -1,15 +1,14 @@
 # Strategia log-optymalna
 
-Gra "krzywą monetą"(http://bankonomia.nazwa.pl/kelly) pokazuje, że w przypadku inwestycji powtarzalnych należy szukać korzystnych zakładów (czyli takich zakładów, których wartość oczekiwana jest dodatnia) i w przypadku ich znalezienia należy podejmować optymalne ryzyko. Zbyt ostrożne podejście sprawia, że zwrot z inwestycji jest niewielki, zbyt "odważne" podejście powoduje, że nie tylko nie zarabiamy, ale również tracimy to, co mamy. 
+Gra "krzywą monetą"(http://bankonomia.nazwa.pl/kelly) pokazuje, że w przypadku inwestycji powtarzalnych należy szukać korzystnych zakładów (czyli takich zakładów, których wartość oczekiwana jest dodatnia). W przypadku znalezienia korzystnych zakładów (tylko takie należy podejmować) należy ryzykować swoim majątkiem w sposób optymalny. Zbyt ostrożne podejście sprawia, że zwrot z inwestycji jest niewielki, zbyt "odważne" podejście powoduje, że nie tylko nie zarabiamy, ale również tracimy to, co mamy. 
 
-Tzw. strategia Kelly'ego pokazuje, że — w przypadku inwestycji powtarzalnych — kryterium, którym powinniśmy się kierować jest __oczekiwana logarytmiczna stopa zwrotu z majątku__. Maksymalizacja oczekiwanej, logarytmicznej (a nie prostej) stopy zwrotu z majątku (a nie tylko z inwestycji) prowadzi w długim okresie do maksymalizacji majątku.
+Tzw. __strategia Kelly'ego__ pokazuje, że — w przypadku inwestycji powtarzalnych — kryterium, którym powinniśmy się kierować jest __oczekiwana logarytmiczna stopa zwrotu z majątku__. Maksymalizacja oczekiwanej logarytmicznej (a nie prostej!) stopy zwrotu z całego majątku (a nie tylko z inwestycji!) prowadzi w długim okresie do maksymalizacji majątku.
 
 W poniższych ćwiczeniach należy znaleźć odpowiedzi maksymalizując oczekiwaną logarytmiczną stopę zwrotu z majątku. 
 
 Należy pamiętać, że 
 
 $$CAGR = e^{\bar{r}}-1$$
-}
 
 [Symulacja gry "krzywą monetą"](https://explore.paulbutler.org/bet/)
 
