@@ -339,7 +339,7 @@ eps1<-Vectorize(function(x, shorts=FALSE)
 eps1part<-Vectorize(function(x, a1, a2, shorts=FALSE)
 {efficient.portfolio(mu[c(a1, a2)], Sigma[c(a1, a2),c(a1, a2)], target.return=x, shorts=shorts)$sd})
 
-
+ers<-ers[1:(length(ers)-1)]
 ef2<-eps1(ers)
 
 r12<-ers[ers<=mu[1]&ers>=mu[2]|ers>=mu[1]&ers<=mu[2]]
