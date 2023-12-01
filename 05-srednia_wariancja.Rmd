@@ -24,7 +24,7 @@ ggplot(aes(x=sigma, y=mu), data=df) +
   xlim(c(0,35)) +
   ylim(c(0,14)) +
   xlab("odchylenie standardowe") +
-  ylab("oczekiwany zwrot") +
+  ylab("średnia stopa zwrotu") +
   geom_text_repel(aes(label=asset))
 
 ```
@@ -156,7 +156,7 @@ zaś wariancję możemy wyznaczyć za pomocą formuły:
 Dla większej liczby aktywów ($n$ komponentów portfela) wzory są analogiczne:
 
 \begin{equation}
-E(R_p) = \sum_{i=1}^3 w_i E(R_i)
+E(R_p) = \sum_{i=1}^n w_i E(R_i)
 (\#eq:ERpn-intext)
 \end{equation}
 

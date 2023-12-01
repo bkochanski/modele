@@ -1,4 +1,4 @@
-tickersc<-sort(c('PKO.WA', 'PZU.WA', 'LPP.WA'))
+tickersc<-c('PGE.WA', 'CDR.WA', 'PKO.WA')
 
 # dates_delete<-unique(yfres[yfres$volume==0,]$ref_date)
 # saveRDS(dates_delete, "dates_delete.Rds")
@@ -45,12 +45,13 @@ rm2<-diff(yfresm$price_adjusted)[1:96+97]/yfresm$price_adjusted[1:96+97]
 rm3<-diff(yfresm$price_adjusted)[1:96+97*2]/yfresm$price_adjusted[1:96+97*2]
 rmi<-diff(wigm$Close)[1:96]/wigm$Close[1:96]
 
+mean(ri)
 
 quantmod::getSymbols(tickersc, src = "yahoo", from = "2014-12-30", to = "2023-01-01", 
                      periodicity="daily")
+PGE.WA <- PGE.WA[!zoo::index(PGE.WA) %in% c(dates_delete, dates_delete2)]
+CDR.WA <- CDR.WA[!zoo::index(CDR.WA) %in% c(dates_delete, dates_delete2)]
 PKO.WA <- PKO.WA[!zoo::index(PKO.WA) %in% c(dates_delete, dates_delete2)]
-LPP.WA <- LPP.WA[!zoo::index(LPP.WA) %in% c(dates_delete, dates_delete2)]
-PZU.WA <- PZU.WA[!zoo::index(PZU.WA) %in% c(dates_delete, dates_delete2)]
 
 sp1<-as.vector(eval(parse(text=paste("`",tickersc[1],"`","$","`", tickersc[1],".Adjusted","`", sep=""))))
 sp2<-as.vector(eval(parse(text=paste(tickersc[2],"$", tickersc[2],".Adjusted", sep=""))))
@@ -72,6 +73,11 @@ r3_<-diff(sp3)/sp3[1:(length(sp3)-1)]
 # PZU.WAd<-PZU.WA
 # LPP.WAd<-LPP.WA
 # PKO.WAd<-PKO.WA
+
+mean(r1)
+mean(r2)
+mean(r3)
+mean(ri)
 
 quantmod::getSymbols(tickersc, src = "yahoo", from = "2014-12-01", to = "2022-12-31", 
                      periodicity="monthly")
