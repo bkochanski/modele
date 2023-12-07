@@ -16,6 +16,8 @@ dates_delete2<-c("2021-06-03",
                  "2022-12-26"
 )
 
+wig<-read.csv2("wig.csv")
+wigm<-read.csv2("wigm.csv")[1:97,]
 
 library("googlesheets4")
 #a<-read_sheet("1iywT16NSDbYN2fvvhfatczXXpRyDfs2CZLhR5UZN-NE", sheet="Lista")
@@ -50,6 +52,7 @@ gid<-"1iywT16NSDbYN2fvvhfatczXXpRyDfs2CZLhR5UZN-NE" #real
 # gs<-c('s122475', 's181152', 's180899', 's148884')
 gs<-c('s122475', 's182101', 's181152')
 gs<-c('s180899')
+gs<-c('s192554')
  
 dfres<-data.frame(spn, res=rep(NA, length(spn)))
 #dfres$res[which(spn==gs)]<-999
