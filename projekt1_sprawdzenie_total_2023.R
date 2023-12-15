@@ -48,16 +48,21 @@ options(scipen=999)
 # gid<-"1l80SeMymlKSSkJXS_QHRa3EKbvVlWnNi4XRxbNOJ3Nk" #copy mrk
 gid<-"1iywT16NSDbYN2fvvhfatczXXpRyDfs2CZLhR5UZN-NE" #real
  sp<- sheet_properties(gid)
- spn<-sp$name[c(-1,-2,-3,-4)]
+ spn<-sp$name[c(-1,-2,-3)]
 # gs<-c('s122475', 's181152', 's180899', 's148884')
-gs<-c('s122475', 's182101', 's181152')
-gs<-c('s180899')
-gs<-c('s192554')
- 
+
+ # gs<-c('s156850')
+ # gs<-c('s182433')
+ # gs<-c('s182447')
+ # gs<-c('s182408')
+#gs<-c('s196310')
+ #gs<-c('s148884')
+  
 dfres<-data.frame(spn, res=rep(NA, length(spn)))
 #dfres$res[which(spn==gs)]<-999
 
 spn2<-spn[spn %in% gs]
+#spn2<-spn[7:26]
 
 for(gs in spn2){
  k = 0  
@@ -236,6 +241,7 @@ t4_2[4,3]<-t4_2[3,4]<-(sd(rim))^2*mod3m$coefficients[2]*1/sd(r3m)/sd(rim)
 
 
 ers<-depp(unname(unlist(a[87:90,5])))
+ers[abs(ers-max(mu))<0.0001]<-max(mu)-0.000000001
 
 shorts=FALSE
 eps<-Vectorize(function(x, shorts=FALSE)
@@ -250,7 +256,7 @@ epw3<-Vectorize(function(x, shorts=FALSE)
 if(max(ers)<=max(mu) & min(ers)>=min(mu)){
   check13=TRUE
   
-  t3_6<-matrix(nrow=3, data=c(
+  t3_6<-matrix(nrow=length(ers), data=c(
     epw1(ers),
     epw2(ers),
     epw3(ers),
@@ -344,9 +350,9 @@ if(check13==FALSE) {    if(write_res_google){
 
 #t4_2
 
-dfres$res[which(spn==gs)]<-k
-
-dfres
+# dfres$res[which(spn==gs)]<-k
+# 
+# dfres
 #range_write('1JfY9GMafjubEVNtvGC7gqCFK3SGaPileQy_eU42HRXY', sheet="INPUT", range="A1", data=dfres)
 
 #sink() 
