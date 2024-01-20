@@ -1,6 +1,6 @@
-#con <- file("test.log")
-#sink(con, append=TRUE)
-#sink(con, append=TRUE, type="message")
+con <- file("test1.log")
+sink(con, append=TRUE)
+sink(con, append=TRUE, type="message")
 dates_delete<-readRDS("dates_delete.Rds")
 dates_delete2<-c("2021-06-03",
                  "2021-11-01",
@@ -47,10 +47,11 @@ options(scipen=999)
 
 # gid<-"1l80SeMymlKSSkJXS_QHRa3EKbvVlWnNi4XRxbNOJ3Nk" #copy mrk
 gid<-"1iywT16NSDbYN2fvvhfatczXXpRyDfs2CZLhR5UZN-NE" #real
+# gid<-"1hBwKsC4CHNUbEuovwyorgT_uR2r1Pjm7kzUqfqTuBvo"
  sp<- sheet_properties(gid)
  spn<-sp$name[c(-1,-2,-3)]
 # gs<-c('s122475', 's181152', 's180899', 's148884')
-
+ gs<-c("s196379", "s182408")
  # gs<-c('s156850')
  # gs<-c('s182433')
  # gs<-c('s182447')
@@ -62,7 +63,8 @@ dfres<-data.frame(spn, res=rep(NA, length(spn)))
 #dfres$res[which(spn==gs)]<-999
 
 spn2<-spn[spn %in% gs]
-#spn2<-spn[7:26]
+#spn2<-spn[5:6]
+#spn2<-spn
 
 for(gs in spn2){
  k = 0  
@@ -355,7 +357,7 @@ if(check13==FALSE) {    if(write_res_google){
 # dfres
 #range_write('1JfY9GMafjubEVNtvGC7gqCFK3SGaPileQy_eU42HRXY', sheet="INPUT", range="A1", data=dfres)
 
-#sink() 
-#sink(type="message")
+sink()
+sink(type="message")
 
 #dfres
