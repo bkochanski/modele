@@ -26,7 +26,7 @@ ggplot()+ theme_void() +
 
 Portfele efektywne leżą na linii rynku kapitałowego. 
 
-Formuła linii rynku kapitałowego:
+Wzór linii rynku kapitałowego jest następujący:
 
 $$E(R) = R_f + \frac{E(R_M)-R_f}{\sigma_M}\sigma$$
 
@@ -137,7 +137,7 @@ $$ \frac{E(P_1)-P_0}{P_0}=R_f + \beta \left(E(R_M)-R_f\right),$$
 
 gdzie $E(P_1)$ to wartość oczekiwana aktywów (oczekiwana cena) na koniec okresu utrzymywania aktywów, $P_0$ to cena bieżąca, $\beta$ to odpowiednia beta danych aktywów.
 
-Stąd jeżeli założymy, że znamy wszystkie wartości, łącznie z $E(P_1)$, uzyskujemy formułę na cenę bieżącą:
+Stąd jeżeli założymy, że znamy wszystkie wartości, łącznie z $E(P_1)$, uzyskujemy wzór na cenę bieżącą:
 
 $$ P_0 = \frac{E(P_1)}{1+R_f+\beta\left(E(R_M)-R_f\right)} $$
 

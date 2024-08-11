@@ -38,7 +38,7 @@ Jeżeli w badanym okresie nie ma dywidend, taka definicja wielookresowej stopy z
 (\#eq:multiperiod-total-return-stocks-nodiv)
 \end{equation}
 
-jeśli natomiast w trakcie okresu pojawiają się dywidendy, taka formuła zakłada, że są one niezwłocznie inwestowane:
+jeśli natomiast w trakcie okresu pojawiają się dywidendy, taki wzór zakłada, że są one niezwłocznie inwestowane:
 
 \begin{equation}
 \begin{split}

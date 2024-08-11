@@ -106,7 +106,7 @@ Odchylenie standardowe przez $\sigma$, $\sigma_X$, $D(X)$ lub $SD(X)$.
 
 ## Kowariancja i korelacja
 
-Kowariancję między zmiennymi losowymi X i Y możemy wyznaczyć na podstawie następującej formuły:
+Kowariancję między zmiennymi losowymi X i Y możemy wyznaczyć na podstawie następującego wzoru:
 
 \begin{equation}
 cov(X,Y) = \sigma_{XY}=E[\left(X-E(X)\right)(Y-E(Y))]

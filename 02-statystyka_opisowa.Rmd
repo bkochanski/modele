@@ -64,7 +64,7 @@ R_G = e^{\bar{r}}-1
 (\#eq:sredniaglog-intext)
 \end{equation}
 
-W arkuszach kalkulacyjnych nie ma gotowej formuły na CAGR, mogą się jednak przydać funkcje ŚREDNIA.GEOMETRYCZNA (GEOMEAN) -- [arkusze Google](<https://support.google.com/docs/answer/3094001?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/%C5%9Brednia-geometryczna-funkcja-db1ac48d-25a5-40a0-ab83-0b38980e40d5>) oraz ILOCZYN (PRODUCT) -- [arkusze Google](<https://support.google.com/docs/answer/3093502?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/product-function-e46128aa-0cd8-4a45-915c-6a6f90c06ec8>).
+W arkuszach kalkulacyjnych nie ma gotowego wzoru na CAGR, mogą się jednak przydać funkcje ŚREDNIA.GEOMETRYCZNA (GEOMEAN) -- [arkusze Google](<https://support.google.com/docs/answer/3094001?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/%C5%9Brednia-geometryczna-funkcja-db1ac48d-25a5-40a0-ab83-0b38980e40d5>) oraz ILOCZYN (PRODUCT) -- [arkusze Google](<https://support.google.com/docs/answer/3093502?hl=pl>), [Excel](<https://support.microsoft.com/pl-pl/office/product-function-e46128aa-0cd8-4a45-915c-6a6f90c06ec8>).
 
 
 ### Wariancja i odchylenie standardowe
@@ -116,9 +116,9 @@ g_{1(R)} = \frac{1}{n}\sum_{i=1}^n\left(\frac{R_i-\bar{R}}{\sigma_R}\right)^3
 (\#eq:skewRg1-intext)
 \end{equation}
 
-Powyższą formułę można uznać za analogiczną do formuł na wariancję i odchylenie standardowe populacji. 
+Powyższy wzór można uznać za analogiczny do wzorów na wariancję i odchylenie standardowe populacji. 
 
-Zmodyfikowany współczynnik asymetrii ma następującą formułę:
+Zmodyfikowany współczynnik asymetrii ma następujący wzór:
 
 \begin{equation}  
 G_{1(R)} = \frac{\sqrt{n(n-1)}}{n-2}g_{1(R)}
@@ -132,21 +132,21 @@ W arkuszach kalkulacyjnych zmodyfikowany współczynnik asymetrii ($G_1$) można
 
 ### Kurtoza
 
-Współczynnik ekscesu nazywany też kurtozą nadwyżkową/względną wyznacza się za pomocą następującej formuły: 
+Współczynnik ekscesu nazywany też kurtozą nadwyżkową/względną wyznacza się za pomocą następującego wzoru: 
 
 \begin{equation}  
 g_{2(R)} = \frac{1}{n}\sum_{i=1}^n\left(\frac{R_i-\bar{R}}{\sigma_R}\right)^4-3
 (\#eq:kurtRg2-intext)
 \end{equation}
 
-Powyższą formułę można traktować jako formułę dla populacji. Formuła dla próby ma najczęściej następującą postać: 
+Powyższy wzór można traktować jako wzór dla populacji. Wzór dla próby ma najczęściej następującą postać: 
 
 \begin{equation}  
 G_{2(R)} = \frac{n-1}{(n-2)(n-3)}\left[(n+1)g_{2(R)}+6\right]
 (\#eq:kurtRsg2-intext)
 \end{equation}
 
-W niektórych pakietach statystycznych spotyka się również formułę: 
+W niektórych pakietach statystycznych spotyka się również wzór: 
 
 \begin{equation}  
 b_{2(R)} = \frac{1}{n}\sum_{i=1}^n\left(\frac{R_i-\bar{R}}{s_R}\right)^4-3
