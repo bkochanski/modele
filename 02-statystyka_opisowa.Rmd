@@ -188,7 +188,7 @@ W arkuszach używamy funkcji KOWARIANCJA.PRÓBKI (COVARIANCE.S) -- [arkusze Goog
 
 ### Korelacja
 
-Korelacja to zestandaryzowana wariancja. Można ją policzyć zarówno na podstawie wzorów na kowariancję i wariancję z populacji:
+Korelacja to zestandaryzowana kowariancja. Można ją policzyć zarówno na podstawie wzorów na kowariancję i wariancję z populacji:
 
 \begin{equation}  
 \rho_{RS} = \frac{\sigma_{RS}}{\sigma_R \sigma_S}
